@@ -1,16 +1,20 @@
 {
-  "name": "flight-controller-mark-1-controlpanel",
-  "version": "0.0.0",
-  "private": true,
+  "name": "controlpanel",
+  "version": "1.0.0",
+  "description": "control panel for rocket",
+  "main": "server.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
+  "keywords": [
+    "server",
+    "p5.js"
+  ],
+  "author": "futte",
+  "license": "ISC",
   "dependencies": {
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "morgan": "~1.9.0",
-    "pug": "2.0.0-beta11"
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
   }
 }
