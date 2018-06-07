@@ -9,10 +9,8 @@ let usersRouter = require('./routes/users');
 
 let app = express();
 
-let test = require('./Client/test');
-
-app.get('/', function(req, res){
-res.send("hey du!");
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/Client/index.html');
 });
 
 app.listen(3000, function(){
@@ -31,8 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-app.use('/',test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
