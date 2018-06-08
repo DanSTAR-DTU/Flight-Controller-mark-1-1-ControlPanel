@@ -9,8 +9,12 @@ console.log("my socket server")
 var socket = require('socket.io');
 var io = socket(server);
 
-io.sockets.on('connection', newConnection);
+io.sockets.on('connection', function(socket){
+    console.log('newConnection ' + socket.id);
 
-function newConnection(socket) {
-    console.log('newConnection' + socket.id);
-}
+    socket.on('mouse', function (data) {
+        console.log("Received: 'mouse' " + data.x + " " + data.y);
+        socket.broadcast.emit('mouse', data);
+    }
+)});
+

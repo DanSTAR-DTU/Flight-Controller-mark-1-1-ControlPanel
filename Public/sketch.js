@@ -4,7 +4,8 @@ function setup(){
     createCanvas(windowWidth, windowHeight);
     background(255);
 
-    socket = io.connect('http://localhost:3000');
+    socket = io.connect('192.168.43.116:3000');
+    socket.on('mouse', newDrawing);
 
     noStroke();
     //DPR
@@ -31,8 +32,35 @@ function setup(){
     fill(textColor);
     text("Engine side",(windowWidth/3*2)+10,15);
 }
-
-
 function draw(){
+
+}
+
+function mouseDragged(){
     noStroke();
+    fill(255);
+    ellipse(mouseX, mouseY, 36 ,36);
+
+    sendmouse(mouseX, mouseY);
+}
+
+function newDrawing(data) {
+    noStroke();
+    fill(255, 0, 2);
+    ellipse(data.x, data.y, 36, 36);
+    socket.emit('mouse', data);
+}
+
+function sendmouse(xpos, ypos) {
+    // We are sending!
+    console.log("sendmouse: " + xpos + " " + ypos);
+
+    // Make a little object with  and y
+    var data = {
+        x: xpos,
+        y: ypos
+    };
+
+    // Send that object to the socket
+    socket.emit('mouse',data);
 }
