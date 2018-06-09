@@ -73,6 +73,77 @@ function draw(){
     }else{
         abortColor = 200;
     }
+
+    //DPR
+    strokeWeight(5);
+    fill(200,36,183);
+    stroke(0);
+    line(windowWidth/3,40,windowWidth/3,windowHeight/4-60);
+    line((windowWidth/3)/2,windowHeight/4-60,(windowWidth/2),windowHeight/4-60);
+    line(windowWidth/3,windowHeight/4-75,windowWidth/6*0.25,windowHeight/4-75);
+    //fill
+    line(windowWidth/3+120,60,windowWidth/3+120,111)
+    line(windowWidth/3-80,115,windowWidth/3+115,115);
+    fill(255);stroke(255);
+    triangle(windowWidth/3+115,105,windowWidth/3+125,105,windowWidth/3+120,115);//fill
+    stroke(0);fill(0);
+    triangle(windowWidth/3-90,115,windowWidth/3-80,110,windowWidth/3-80,120);
+    fill(200,36,183);
+    noStroke();
+    //Tap
+    stroke(0);
+    line(windowWidth/3,130,windowWidth/3-198,130);
+    fill(255);stroke(255);
+    triangle(windowWidth/3-200,130,windowWidth/3-190,135,windowWidth/3-190,125);//Vinkelret vandrat
+    triangle(windowWidth/3-204,126,windowWidth/3-199,116,windowWidth/3-209,116);//Vinkelret lodrat
+    fill(200,36,183);
+    noStroke();
+    beginShape()
+    arc(windowWidth/3,30,100,30,PI,0,PIE);
+    rect(windowWidth/3-50,30,100,50);
+    arc(windowWidth/3,80,100,30,0,PI,PIE);
+    endShape();
+
+
+    //Fuel Side
+    stroke(0);
+    line((windowWidth/3)/2,windowHeight/4-60,(windowWidth/3)/2,windowHeight/2);
+    line((windowWidth/3)/2,windowHeight/2,(windowWidth/3)/2,windowHeight-60);
+    line(windowWidth/6*0.25,windowHeight/4-75,windowWidth/6*0.25,windowHeight-80);
+    line(windowWidth/6*0.25,windowHeight-79,(windowWidth/3)/2,windowHeight-80);
+    line(windowWidth/6*0.25,windowHeight-110,windowWidth/2,windowHeight-110)//nederste tværgående
+    //Fill
+    line(windowWidth/6*0.6,windowHeight/2*0.75,windowWidth/6*0.6,windowHeight/2+190)
+    line(windowWidth/6,windowHeight/2+190,windowWidth/6*0.6,windowHeight/2+190);
+    fill(255);stroke(255);
+    triangle(windowWidth/6*0.6-5,windowHeight/2*0.8,windowWidth/6*0.6+5,windowHeight/2*0.8,windowWidth/6*0.6,windowHeight/2*0.8+10)//fill
+    noFill()
+    triangle((windowWidth/3)/2-5,windowHeight-60,(windowWidth/3)/2+5,windowHeight-60,(windowWidth/3)/2,windowHeight-50,);
+    fill(200,36,183);stroke(0);
+    noStroke();
+    beginShape();
+    arc((windowWidth/3)/2,windowHeight/2,100,30,PI,0,PIE);
+    rect((windowWidth/3)/2-50,windowHeight/2,100,150);
+    arc((windowWidth/3)/2,windowHeight/2+150,100,30,0,PI,PIE);
+    endShape();
+
+    //Oxidizer Side
+    stroke(0);
+    line(windowWidth/2-0.1,windowHeight/4-60,windowWidth/2-0.1,windowHeight/2);
+    line(windowWidth/2+0.1,windowHeight/2,windowWidth/2+0.1,windowHeight-60);
+    //Fill
+    line(windowWidth/6*2.6,windowHeight/2*0.75,windowWidth/6*2.6,windowHeight/2+190)
+    line(windowWidth/6*2.6,windowHeight/2+190,windowWidth/2+0.1,windowHeight/2+190);
+    fill(255);stroke(255);
+    triangle(windowWidth/6*2.6-5,windowHeight/2*0.8,windowWidth/6*2.6+5,windowHeight/2*0.8,windowWidth/6*2.6,windowHeight/2*0.8+10)//fill
+    triangle(windowWidth/2-4,windowHeight-60,windowWidth/2+6,windowHeight-60,windowWidth/2+1,windowHeight-50);
+    fill(200,36,183);stroke(0);
+    noStroke();
+    beginShape();
+    arc((windowWidth/2),windowHeight/2,100,30,PI,0,PIE);
+    rect((windowWidth/2)-50,windowHeight/2,100,150)
+    arc((windowWidth/2),windowHeight/2+150,100,30,0,PI,PIE);
+    endShape();
 }
 
 function mouseClicked() {
