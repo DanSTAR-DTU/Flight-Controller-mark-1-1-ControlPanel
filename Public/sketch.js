@@ -119,13 +119,26 @@ function draw(){
     triangle(windowWidth/6*0.6-5,windowHeight/2*0.8,windowWidth/6*0.6+5,windowHeight/2*0.8,windowWidth/6*0.6,windowHeight/2*0.8+10)//fill
     noFill()
     triangle((windowWidth/3)/2-5,windowHeight-60,(windowWidth/3)/2+5,windowHeight-60,(windowWidth/3)/2,windowHeight-50,);
-    fill(200,36,183);stroke(0);
-    noStroke();
+    fill(200,36,183);
+
+    //Fork
+    stroke(0);
+    line(windowWidth/6*1.3,windowHeight/8*3,windowWidth/6*1.3,windowHeight/8*2.5)//op lodrat 1
+    line(windowWidth/6*1.3,windowHeight/8*2.5,windowWidth/6*1.5,windowHeight/8*2.5)//op vandrat
+    line(windowWidth/6*1.5,windowHeight/8*2.5,windowWidth/6*1.5,windowHeight/8*2.3)//op lodrat 2
+    line(windowWidth/3/2,windowHeight/8*3,windowWidth/6*1.7,windowHeight/8*3);//mellem
+    line(windowWidth/6*1.2,windowHeight/8*3,windowWidth/6*1.2,windowHeight/8*3.2); //ned lodrat
+    line(windowWidth/6*1.2,windowHeight/8*3.2,windowWidth/6*1.55,windowHeight/8*3.2)//ned vandrat
+    noStroke()
+
+
+    //Tank
     beginShape();
     arc((windowWidth/3)/2,windowHeight/2,100,30,PI,0,PIE);
     rect((windowWidth/3)/2-50,windowHeight/2,100,150);
     arc((windowWidth/3)/2,windowHeight/2+150,100,30,0,PI,PIE);
     endShape();
+
 
     //Oxidizer Side
     stroke(0);
