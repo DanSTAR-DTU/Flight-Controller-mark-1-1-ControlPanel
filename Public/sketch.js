@@ -80,7 +80,7 @@ function draw(){
     stroke(0);
     line(windowWidth/3,(windowHeight/4)*0.25,windowWidth/3,(windowHeight/4)*0.95);// main down
     line((windowWidth/3)/2,(windowHeight/4)*0.95,(windowWidth/2),(windowHeight/4)*0.95);// vandrat forbinder Oxidizer og fuel
-    line(windowWidth/3,windowHeight/30+135,windowWidth/6*0.25,windowHeight/30+135);// vandrat go under fuel
+    line(windowWidth/3,windowHeight/30+135,(windowWidth/3)/2-135,windowHeight/30+135);// vandrat go under fuel
     //fill
     line(windowWidth/3+120,windowHeight/4*0.17,windowWidth/3+120,(windowHeight/30+71)-2)// lodrat
     line(windowWidth/3-80,windowHeight/30+71,windowWidth/3+115,windowHeight/30+71);// vandrat
@@ -110,9 +110,9 @@ function draw(){
     stroke(0);
     line((windowWidth/3)/2,(windowHeight/4)*0.95,(windowWidth/3)/2,windowHeight/2);// DPR to fuel tank
     line((windowWidth/3)/2,windowHeight/2,(windowWidth/3)/2,windowHeight-60);
-    line(windowWidth/6*0.25,windowHeight/30+135,windowWidth/6*0.25,windowHeight-80);
-    line(windowWidth/6*0.25,windowHeight-79,(windowWidth/3)/2,windowHeight-80);// vandret under tank fra DRP
-    line(windowWidth/6*0.25,windowHeight-110,windowWidth/2,windowHeight-110)//nederste tværgående
+    line((windowWidth/3)/2-135,windowHeight/30+135,(windowWidth/3)/2-135,windowHeight-80); //lodrat lang, DRP to under tank
+    line((windowWidth/3)/2-135,windowHeight-79,(windowWidth/3)/2,windowHeight-80);// vandret under tank fra DRP
+    line((windowWidth/3)/2-135,windowHeight-110,windowWidth/2,windowHeight-110)//nederste tværgående
     //Fill
     line(windowWidth/6*0.6,windowHeight/2*0.75,windowWidth/6*0.6,windowHeight/2+190)
     line(windowWidth/6,windowHeight/2+190,windowWidth/6*0.6,windowHeight/2+190);
