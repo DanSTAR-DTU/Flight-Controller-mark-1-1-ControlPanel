@@ -1,4 +1,4 @@
-let socket;
+let socket
 let textColor = 210;
 let abortColor = 255;
 
@@ -8,13 +8,17 @@ let x2;
 let y2;
 let xdist;
 let ydist;
+let flower;
 
 function setup(){
+
+
     createCanvas(windowWidth, windowHeight);
     background(255);
 
-    socket = io.connect('192.168.43.116:3000');
-    //socket.on('mouse', newDrawing);
+    socket = io.connect('http://localhost:3000');
+   // socket.on('mouse', newDrawing);
+    socket.on('mouse', selfnewDrawing);
 
     noStroke();
     textSize(13);
@@ -51,6 +55,7 @@ function setup(){
     textSize(50);
     text("ABORT",windowWidth/6*5-80,windowHeight/8*7+15)
 }
+
 function draw(){
     fill(abortColor,0,0);
     ellipse((windowWidth/6)*5,windowHeight/8*7,(windowWidth/3)-50,(windowHeight/4)-50);
@@ -184,41 +189,50 @@ function draw(){
         rect((windowWidth/2)-50,windowHeight/2,100,150)
         arc((windowWidth/2),windowHeight/2+150,100,30,0,PI,PIE);
         endShape();
+
 }
 
-function mouseClicked() {
+function mouseClicked(data) {
     if(xdist < ((windowWidth/3)-50)/2 && ydist < ((windowHeight/4)-50)/2){
         alert("Abort");
+        data = 1;
+        socket.emit('mouse', data);
     }
 }
 
 
 
-/*function mouseDragged(){
+function mouseDragged(){
+    var  data =  {
+        x: mouseX,
+        y: mouseY
+    }
+    socket.emit('mouse', data);
     noStroke();
     fill(255);
     ellipse(mouseX, mouseY, 36 ,36);
-
-    sendmouse(mouseX, mouseY);
+    selfnewDrawing(data)
 }
 
 function newDrawing(data) {
+    console.log(data)
     noStroke();
-    fill(255, 0, 2);
+    fill(255, 0, 100);
     ellipse(data.x, data.y, 36, 36);
-    socket.emit('mouse', data);
 }
 
-function sendmouse(xpos, ypos) {
-    // We are sending!
-    console.log("sendmouse: " + xpos + " " + ypos);
+function selfnewDrawing(data) {
+    console.log(data)
+    noStroke();
+    fill(0, 0, 0);
+    ellipse(data.x, data.y, 36, 36);
+    if(data.x > 500){
+        fill(150,255,150);
+        rect((windowWidth/3)*2,windowHeight/4*3,windowWidth,windowHeight);
+        fill(abortColor,0,0);
+        ellipse((windowWidth/6)*5,windowHeight/8*7,(windowWidth/3)-50,(windowHeight/4)-50);
+        fill(textColor);
+        textSize(50);
+        text("ABORT",windowWidth/6*5-80,windowHeight/8*7+15) }
 
-    // Make a little object with  and y
-    var data = {
-        x: xpos,
-        y: ypos
-    };
-
-    // Send that object to the socket
-    socket.emit('mouse',data);
-}*/
+}

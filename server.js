@@ -1,13 +1,13 @@
-var express = require('express');
+let express = require('express');
 
-var app = express();
-var server = app.listen(3000);
+let app = express();
+let server = app.listen(3000);
 
 app.use(express.static('public'));
 console.log("my socket server")
 
-var socket = require('socket.io');
-var io = socket(server);
+let socket = require('socket.io');
+let io = socket(server);
 
 io.sockets.on('connection', function(socket){
     console.log('newConnection ' + socket.id);
