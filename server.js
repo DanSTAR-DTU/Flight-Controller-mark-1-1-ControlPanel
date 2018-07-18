@@ -1,20 +1,58 @@
-var express = require('express');
+const express = require('express');
+var socket  = require("socket.io");
+var udp = require('dgram');
 
 var app = express();
-var server = app.listen(3000);
+var server = app.listen('3000');
+app.use(express.static('Public'));
 
-app.use(express.static('public'));
-console.log("my socket server")
+var io = socket(server)
+var client = udp.createSocket('udp4');
 
-var socket = require('socket.io');
-var io = socket(server);
+io.sockets.on('connection', function (socket) {
+    console.log("client connected")
+    // socket.emit('dataToClient', {hello: "world"});
+    //buffer msg
+    var data = Buffer.from('Hello world');
+    client.send(data,5000,"192.168.2.2");
+    socket.on('dataFromClient', function (data) {
+        console.log(data);
+    });
+});
 
-io.sockets.on('connection', function(socket){
-    console.log('newConnection ' + socket.id);
 
-    socket.on('mouse', function (data) {
-        console.log("Received: 'mouse' " + data.x + " " + data.y);
-        socket.broadcast.emit('mouse', data);
+
+
+// creating a client socket
+
+
+
+
+client.on('message',function(msg,info){
+    console.log('Data received from server : ' + msg.toString());
+    console.log('Received %d bytes from %s:%d\n',msg.length, info.address, info.port);
+    io.sockets.emit("info", {data:"Win!"})
+});
+
+//sending msg
+/*client.send(data,5000,"192.168.2.2",function(error){
+    if(error){
+        client.close();
+    }else{
+        console.log('Data sent !!!');
     }
-)});
+});
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 
