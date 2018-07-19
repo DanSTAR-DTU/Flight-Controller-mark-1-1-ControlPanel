@@ -9,11 +9,27 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.js"></script>
     <script type="text/javascript" src="client.js"></script>
-    <script src="jquery-3.3.1.min.js"></script>
+
 </head>
 <body>
 <h1> Hello World!</h1>
-<object id="svg60" data="drawing-1.svg" type="image/svg+xml">
+<object id="testSVG" data="drawing-1.svg" type="image/svg+xml">
 </object>
+<script>
+    var a = document.getElementById("testSVG");
+    a.addEventListener("load",function(){
+        var svgDoc = a.contentDocument;
+
+        var delta = svgDoc.getElementById("oxy");
+        delta.addEventListener("mousedown",function(){
+            alert('hello world!')
+        }, false);
+
+    })
+
+
+
+</script>
 </body>
+
 </html>
