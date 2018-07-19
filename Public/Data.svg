@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="600pt"
+   height="600pt"
+   viewBox="0 0 750.00004 750"
+   id="svg4150"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="Data.svg">
+  <defs
+     id="defs4152" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.732"
+     inkscape:cx="420.54587"
+     inkscape:cy="390.05586"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="pt"
+     inkscape:showpageshadow="false"
+     borderlayer="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="751"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4155">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-302.36189)">
+    <rect
+       style="opacity:0.91000001;fill:none;fill-opacity:1;stroke:#000000;stroke-width:3.78990364;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4704"
+       width="371.21011"
+       height="621.21014"
+       x="376.89499"
+       y="429.25681" />
+    <g
+       id="g4792">
+      <rect
+         style="opacity:0.91000001;fill:none;fill-opacity:1;stroke:#000000;stroke-width:3.45608401;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4706"
+         width="146.54393"
+         height="362.25824"
+         x="1.7280415"
+         y="491.58994" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4714"
+         y="886.31439"
+         x="42.132919"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.08804035px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="886.31439"
+           x="42.132919"
+           id="tspan4716"
+           sodipodi:role="line">Pressure</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.08804035px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="28.169361"
+         y="474.88583"
+         id="text4722"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4724"
+           x="28.169361"
+           y="474.88583">Temperature</tspan></text>
+    </g>
+    <rect
+       style="opacity:0.91000001;fill:none;fill-opacity:1;stroke:#000000;stroke-width:4.33242369;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4698"
+       width="345.6676"
+       height="120.66758"
+       x="2.1662118"
+       y="-1050.1957"
+       transform="scale(1,-1)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:32.16151428px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="9.0052624"
+       y="961.64758"
+       id="text4708"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4710"
+         x="9.0052624"
+         y="961.64758"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'">DPR</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4730"
+       y="1034.5798"
+       x="23.932348"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.08804035px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="1034.5798"
+         x="23.932348"
+         id="tspan4732"
+         sodipodi:role="line">Pressure</tspan></text>
+    <path
+       style="opacity:0.91000001;fill:none;fill-opacity:1;stroke:#000000;stroke-width:6.25000037;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 427.36403,592.07613 270.27203,0 c 0,0 -53.03181,223.25123 -51.97539,301.75433 1.05643,78.50312 51.97539,156.81714 51.97539,156.81714 l -270.27203,0 c 0,0 50.23726,-86.47033 51.97539,-156.81714 1.73812,-70.34683 -51.97539,-301.75433 -51.97539,-301.75433 z"
+       id="rect4734"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cczcczc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.08804035px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="435.89108"
+       y="369.17154"
+       id="text4741"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4743"
+         x="435.89108"
+         y="369.17154">Flow</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4745"
+       y="369.17154"
+       x="640.17682"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.08804035px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="369.17154"
+         x="640.17682"
+         id="tspan4747"
+         sodipodi:role="line">Flow</tspan></text>
+    <g
+       id="g4799"
+       transform="translate(175.00001,1.7351353e-4)">
+      <rect
+         y="491.58994"
+         x="1.7280415"
+         height="362.25824"
+         width="146.54393"
+         id="rect4801"
+         style="opacity:0.91000001;fill:none;fill-opacity:1;stroke:#000000;stroke-width:3.45608401;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.08804035px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="42.132919"
+         y="886.31439"
+         id="text4803"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4805"
+           x="42.132919"
+           y="886.31439">Pressure</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4807"
+         y="474.88583"
+         x="28.169361"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.08804035px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="474.88583"
+           x="28.169361"
+           id="tspan4809"
+           sodipodi:role="line">Temperature</tspan></text>
+    </g>
+  </g>
+</svg>
