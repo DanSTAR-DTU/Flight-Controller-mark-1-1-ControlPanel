@@ -11,12 +11,12 @@ var client = udp.createSocket('udp4');
 
 io.sockets.on('connection', function (socket) {
     console.log("client connected")
-    // socket.emit('dataToClient', {hello: "world"});
+    //socket.emit('dataToClient', {hello: "world"});
     //buffer msg
-    var data = Buffer.from('Hello world');
+    var data = "hello world";
     client.send(data,5000,"192.168.2.2");
     socket.on('dataFromClient', function (data) {
-        console.log(data);
+        client.send(data, 5000, "192.168.2.2")
     });
 });
 
@@ -28,10 +28,9 @@ io.sockets.on('connection', function (socket) {
 
 
 
-client.on('message',function(msg,info){
-    console.log('Data received from server : ' + msg.toString());
-    console.log('Received %d bytes from %s:%d\n',msg.length, info.address, info.port);
-    io.sockets.emit("info", {data:"Win!"})
+client.on('message',function(msg){
+    var data = msg.toString()
+    io.sockets.emit("info", data);
 });
 
 //sending msg

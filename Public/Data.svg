@@ -118,7 +118,7 @@
      transform="translate(0,-302.36189)">
     <rect
        style="opacity:0.91000001;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2.78231359;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4698"
+       id="oxy"
        width="209.23494"
        height="82.21769"
        x="1.3911568"
@@ -194,7 +194,7 @@
          x="224.67621"
          height="247.44295"
          width="117.44295"
-         id="rect4232"
+         id="oxy"
          style="opacity:0.91000001;fill:url(#linearGradient4631);fill-opacity:1;stroke:#ffffff;stroke-width:2.55706787;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <text
          xml:space="preserve"
