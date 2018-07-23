@@ -1,10 +1,12 @@
 const express = require('express');
 var socket  = require("socket.io");
 var udp = require('dgram');
-
+const fs = require('fs');
 var app = express();
 var server = app.listen('3000');
 app.use(express.static('Public'));
+
+
 
 var io = socket(server)
 var client = udp.createSocket('udp4');
@@ -16,7 +18,13 @@ io.sockets.on('connection', function (socket) {
     var data = "hello world";
     client.send(data,5000,"192.168.2.2");
     socket.on('dataFromClient', function (data) {
-        client.send(data, 5000, "192.168.2.2")
+        var today = new Date();
+        fs.appendFile('testData.txt', '\n'+JSON.stringify(data), function (err) {
+            if (err) throw err;
+            console.log('Saved!');
+        });
+
+        client.send(data.s1, 5000, "192.168.2.2")
     });
 });
 
