@@ -11,6 +11,7 @@ var io = socket(server)
 var client = udp.createSocket('udp4');
 
 var startTime = Date.now();
+var accData = [];
 
 io.sockets.on('connection', function (socket) {
     console.log("client connected")
