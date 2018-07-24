@@ -4,7 +4,7 @@ var split = {}
 
 
 socket.on('info', function (data) {
-    var a = document.getElementById("testSVG");
+    var a = document.getElementById("svg60");
     a.addEventListener("load", function () {
         var svgDoc = a.contentDocument;
         var delta = svgDoc.getElementById("oxy")
