@@ -16,15 +16,9 @@ var accData = [];
 io.sockets.on('connection', function (socket) {
     console.log("client connected")
     //socket.emit('dataToClient', {hello: "world"});
-    //buffer msg
     var data = "hello world";
     client.send(data, 5000, "192.168.2.2");
     socket.on('dataFromClient', function (data) {
-        var today = new Date();
-        fs.appendFile('testData.txt', '\n'+JSON.stringify(data), function (err) {
-            if (err) throw err;
-            console.log('Saved!');
-        });
 
         client.send(data.s1, 5000, "192.168.2.2")
     });
