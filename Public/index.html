@@ -18,18 +18,34 @@
     </style>
     <link rel="stylesheet" href="common.css" >
     <link rel="stylesheet" href="index.css" >
+    <script type="text/javascript" src="libraries/socket.io.js"></script>
 </head>
 <body>
-    <div class="button_container">
-        <a href="rocket.html">
-            <p class="link_button">Rocket overview</p>
-        </a>
+
+    <div class="header">
+        <h1>DanStar rocket engine sensor output</h1>
     </div>
-    <div class="button_container">
-        <a href="graphs.html">
-            <p class="link_button">Graphs</p>
-        </a>
+
+    <div class="buttons">
+        <div class="button_container">
+                <a href="rocket.html">
+                    <p class="link_button">Rocket overview</p>
+                </a>
+            </div>
+            <div class="button_container">
+                <a href="graphs.html">
+                    <p class="link_button">Graphs</p>
+                </a>
+            </div>
     </div>
+    
+    <div class="footer_info">
+        <p>Connected to SocketIO-server: <span id="con_label_socketio"></span></p>
+        <p>Connected to Beaglebone-server: <span id="con_label_beagle"></span></p>
+    </div>
+
+    
+    <script type="text/javascript" src="index.js"></script>
 </body>
 
 </html>
