@@ -25,6 +25,14 @@ socket.on('info', function (data) {
 });
 //'/([^,]+)([^;]+)/g'
 */
+var IO_IP = "0.0.0.0";
+var IO_PORT = 3000;
+var socket = io(IO_IP + ":" + IO_PORT);
+
+socket.on("info", function(data) {
+    console.log(data);
+});
+
 //control of vent 1
 var a = document.getElementById("DataSVG");
 var stateArray = []
