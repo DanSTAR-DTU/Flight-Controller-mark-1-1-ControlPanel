@@ -86,8 +86,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.5"
-     inkscape:cx="326.12502"
-     inkscape:cy="392.32233"
+     inkscape:cx="166.12502"
+     inkscape:cy="472.32233"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -233,11 +233,12 @@
            style="font-size:13.08804035px;line-height:1.25">Temp</tspan></text>
     </g>
     <path
-       style="opacity:1;fill:#ff0000;fill-opacity:0;stroke:#ffffff;stroke-width:1.90020442;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:0.943;fill:#ff00ff;fill-opacity:0;stroke:#ffffff;stroke-width:1.90020442;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 36.028275,572.30202 h 41.17109 l -20.58554,28.05488 20.58554,28.05488 h -41.17109 l 20.58555,-28.05488 z"
-       id="vent1"
+       id="visual_vent"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccc" />
+       sodipodi:nodetypes="ccccccc"
+       inkscape:label="#vent1" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.00031253;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;"
@@ -255,7 +256,7 @@
        inkscape:connector-curvature="0"
        id="vent2"
        d="m 184.47194,572.30202 h 41.17109 l -20.58553,28.05488 20.58553,28.05488 H 184.47194 L 205.0575,600.3569 Z"
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:1.90020442;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#f9ffff;stroke-width:1.90020442;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        inkscape:label="#path4202" />
     <text
        id="vent2_text"
@@ -709,5 +710,53 @@
        height="82.217682"
        x="1.3911568"
        y="403.75311" />
+    <rect
+       style="opacity:0.496;fill:#000000;fill-rule:evenodd;stroke-width:1.87500005;stroke:#ffffff;stroke-opacity:1;fill-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="vent2-1"
+       width="69.050644"
+       height="30.059879"
+       x="67.824364"
+       y="583.552"
+       inkscape:label="#rect3320" />
+    <rect
+       style="opacity:0.49599998;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.87499988;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="vent2-2"
+       width="69.050644"
+       height="30.059879"
+       x="220.4747"
+       y="585.45697"
+       inkscape:label="#rect3320" />
+    <rect
+       style="opacity:0.49599998;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.87500005;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="vent2-6"
+       width="69.050644"
+       height="30.059879"
+       x="586.09967"
+       y="471.08194"
+       inkscape:label="#rect3320" />
+    <rect
+       style="opacity:0.49599998;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.87499988;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="vent2-3"
+       width="69.050644"
+       height="30.059879"
+       x="226.0997"
+       y="688.58197"
+       inkscape:label="#rect3320" />
+    <rect
+       style="opacity:0.49599998;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.87499988;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="vent2-5"
+       width="69.050644"
+       height="30.059879"
+       x="370.4747"
+       y="471.08197"
+       inkscape:label="#rect3320" />
+    <rect
+       style="opacity:0.49599998;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.7716713;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="vent2-4"
+       width="61.64978"
+       height="30.059879"
+       x="271.00058"
+       y="431.70694"
+       inkscape:label="#rect3320" />
   </g>
 </svg>

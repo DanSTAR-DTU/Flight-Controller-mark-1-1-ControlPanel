@@ -15,10 +15,59 @@
     #DataSVG {
        height: 100vh;
     }
+        #inputs{
+            position: absolute;
+            right:35%;
+            top: 5%;
+        }
+     input{
+         width: 200px;
+         box-sizing: border-box;
+         border: 2px solid #ccc;
+         border-radius: 4px;
+         font-size: 16px;
+         background-color: white;
+         background-position: 10px 10px;
+         background-repeat: no-repeat;
+         padding: 12px 12px 12px;
+         -webkit-transition: width 0.4s ease-in-out;
+         transition: width 0.4s ease-in-out;
+
+     }
+
+    button{
+        background-color: whitesmoke;
+        border: none;
+        color: black;
+        padding: 10px 24px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+
+    }
+    #openValve2{
+            position: absolute;
+            top:110%;
+            right: 33%;
+        }
+
+    #openValveButton2{
+        position: absolute;
+        top:110%;
+        right: 0%;
+
+    }
     </style>
     <script type="text/javascript" src="libraries/socket.io.js"></script>
 </head>
 <body>
+<div id="inputs">
+    <input id="openValve1" type="text" placeholder="fuel actuator">
+    <button id="openValveButton1">Action</button>
+    <input id="openValve2" type="text" placeholder="oxidizer actuator">
+    <button id="openValveButton2">Action</button>
+</div>
     <object id="DataSVG" data="Data.svg" type="image/svg+xml">
     </object>
 
