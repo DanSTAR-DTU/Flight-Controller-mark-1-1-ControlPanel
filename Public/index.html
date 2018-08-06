@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"><!-- zoom
+    w3-container w3-center w3-animate-zoom-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"><!--fadein
+    w3-container w3-center w3-animate-opacity -->
     <title>Home</title>
     <style>
     * {
@@ -9,22 +13,82 @@
         margin:0; 
         box-sizing: border-box
     }
-    #menu{
-        height: 100vh;
-    }
     body {
         background-color: #000000;
     }
     a {
         color: white;
     }
+    #links{
+        margin-top: 5%;
+    }
+    /* danstart logo svg animation */
+    .heart {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3%;
+
+        animation: beat .99s infinite alternate;
+        transform-origin: center;
+
+
+    }
+    @keyframes beat{
+        to { transform: scale(1.4); }
+    }
+
+
+    .slide-top {
+        -webkit-animation: slide-top 5s cubic-bezier(0.250, 0.460, 0.450, 0.940) reverse both;
+        animation: slide-top 5s cubic-bezier(0.250, 0.460, 0.450, 0.940) reverse both;
+    }
+    @-webkit-keyframes slide-top {
+        0% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+        100% {
+            -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+    }
+    @keyframes slide-top {
+        0% {
+            -webkit-transform: translateY(65%);
+            transform: translateY(65%);
+        }
+        100% {  /* animation starting point */
+            -webkit-transform: translateY(-175%);
+            transform: translateY(-175%);
+        }
+    }
+        #leftSide{
+            position: absolute;
+            margin-left: -15%;
+    }
+
+
     </style>
 </head>
+
+
+
 <body style = 'text-align: center'>
-<object id="menu" data="Menu.svg" type="image/svg+xml">
-</object>
+
+<div class="heart">
+    <img id="preload"  src="DanSTAR5.svg" width="20%", height="20%"  >
+</div>
+
+<div class="slide-top" id = "leftSide">
+    <img src="rocketAnimation.svg" width="35%" height="35%">
+</div>
+
+<div id="links">
     <a href="rocket.html">Rocket!</a>
     <a href="graphs.html">Graphs!</a>
+</div>
 </body>
-<script type="text/javascript" src="menu.js"></script>
+
+
+
 </html>

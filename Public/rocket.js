@@ -25,6 +25,11 @@ socket.on('info', function (data) {
 });
 //'/([^,]+)([^;]+)/g'
 */
+var socket = io.connect('0.0.0.0:3000');
+
+socket.on('info', function (data) {
+    console.log(data)
+})
 
 var a = document.getElementById("DataSVG");
 var stateArray = []
@@ -99,6 +104,7 @@ function actuator() {
         }else{
             svgDoc.getElementById('vent6_text').textContent = input.value;
             svgDoc.getElementById('vent6_text').style.fill = 'green';
+
         }
     })
 }
