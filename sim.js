@@ -32,7 +32,7 @@ var sensors = [
 setInterval(() => {
     var block = generateDataBlock();
     sendBlock(block);
-}, 1000);
+}, 750);
 
 function sendBlock(block) {
     if (receiverDeviceAddress == null || receiverDevicePort == null) {

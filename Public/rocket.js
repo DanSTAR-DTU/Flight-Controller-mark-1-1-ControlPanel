@@ -34,7 +34,7 @@ socket.on('info', function (data) {
 var a = document.getElementById("DataSVG");
 var stateArray = []
 var valvesArr = []
-//sets alle valves to closed state
+//sets all valves to closed state
 function preLoad() {
     var svgDoc = a.contentDocument;
     for (var i = 1; i <= 6; i++) {

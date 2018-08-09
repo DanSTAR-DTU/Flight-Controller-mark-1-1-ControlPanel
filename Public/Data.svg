@@ -67,7 +67,8 @@
        y1="428.71375"
        x2="278.39767"
        y2="671.71375"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-73.397666,296.64817)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4645"
@@ -76,7 +77,8 @@
        y1="428.71375"
        x2="144.9763"
        y2="672.71375"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-81.976296,296.64814)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -87,7 +89,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.5"
      inkscape:cx="166.12502"
-     inkscape:cy="472.32233"
+     inkscape:cy="312.32233"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -126,11 +128,12 @@
        transform="scale(1,-1)"
        inkscape:label="#oxy" />
     <text
-       id="text4730"
+       id="pressure_tank"
        y="473.07919"
        x="73.141541"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:label="#text4730"><tspan
          y="473.07919"
          x="73.141541"
          id="tspan4732"
@@ -142,96 +145,90 @@
        id="path4250"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
-    <g
-       id="fuel"
-       transform="translate(-81.976296,296.64814)"
-       inkscape:label="#g4420">
-      <rect
-         style="opacity:0.91000001;fill:url(#linearGradient4651);fill-opacity:1;stroke:#ffffff;stroke-width:2.55706763;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4706"
-         width="117.44294"
-         height="247.44295"
-         x="83.254829"
-         y="426.99228" />
-      <text
-         id="text4238"
-         y="562.42096"
-         x="97.196732"
-         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.16151428px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1"
-           y="562.42096"
-           x="97.196732"
-           id="tspan4240"
-           sodipodi:role="line">FUEL</tspan></text>
-      <text
-         id="text4270"
-         y="663.96954"
-         x="110.90459"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           y="663.96954"
-           x="110.90459"
-           id="tspan4272"
-           sodipodi:role="line"
-           style="font-size:13.08804035px;line-height:1.25">Pressure</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="122.90459"
-         y="442.96954"
-         id="text4274"><tspan
-           sodipodi:role="line"
-           id="tspan4276"
-           x="122.90459"
-           y="442.96954"
-           style="font-size:13.08804035px;line-height:1.25">Temp</tspan></text>
-    </g>
-    <g
-       id="oxy"
-       transform="translate(-73.397666,296.64817)"
-       inkscape:label="#g4411">
-      <rect
-         y="426.99225"
-         x="224.67621"
-         height="247.44295"
-         width="117.44295"
-         id="rect29"
-         style="opacity:0.91000001;fill:url(#linearGradient4631);fill-opacity:1;stroke:#ffffff;stroke-width:2.55706787;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="237.06343"
-         y="562.20892"
-         id="text4242"><tspan
-           sodipodi:role="line"
-           id="tspan4244"
-           x="237.06343"
-           y="562.20892"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.16151428px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1">OXID</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="249.9046"
-         y="663.96954"
-         id="text4266"><tspan
-           sodipodi:role="line"
-           id="tspan4268"
-           x="249.9046"
-           y="663.96954"
-           style="font-size:13.08804035px;line-height:1.25">Pressure</tspan></text>
-      <text
-         id="text4278"
-         y="442.96954"
-         x="260.9046"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           y="442.96954"
-           x="260.9046"
-           id="tspan4280"
-           sodipodi:role="line"
-           style="font-size:13.08804035px;line-height:1.25">Temp</tspan></text>
-    </g>
+    <rect
+       y="723.64044"
+       x="1.2785335"
+       height="247.44295"
+       width="117.44294"
+       id="rect4706"
+       style="opacity:0.91000001;fill:url(#linearGradient4651);fill-opacity:1;stroke:#ffffff;stroke-width:2.55706763;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="15.220435"
+       y="859.06909"
+       id="text4238"><tspan
+         sodipodi:role="line"
+         id="tspan4240"
+         x="15.220435"
+         y="859.06909"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.16151428px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1">FUEL</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="28.928291"
+       y="960.61768"
+       id="fuel_pressure"
+       inkscape:label="#text4270"><tspan
+         style="font-size:13.08804035px;line-height:1.25"
+         sodipodi:role="line"
+         id="tspan4272"
+         x="28.928291"
+         y="960.61768">Pressure</tspan></text>
+    <text
+       id="fuel_temp"
+       y="739.61768"
+       x="40.928291"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"
+       inkscape:label="#text4274"><tspan
+         style="font-size:13.08804035px;line-height:1.25"
+         y="739.61768"
+         x="40.928291"
+         id="tspan4276"
+         sodipodi:role="line">Temp</tspan></text>
+    <rect
+       style="opacity:0.91000001;fill:url(#linearGradient4631);fill-opacity:1;stroke:#ffffff;stroke-width:2.55706787;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect29"
+       width="117.44295"
+       height="247.44295"
+       x="151.27855"
+       y="723.64044" />
+    <text
+       id="text4242"
+       y="858.85712"
+       x="163.66577"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.16151428px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1"
+         y="858.85712"
+         x="163.66577"
+         id="tspan4244"
+         sodipodi:role="line">OXID</tspan></text>
+    <text
+       id="oxid_pressure"
+       y="960.61774"
+       x="176.50694"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"
+       inkscape:label="#text4266"><tspan
+         style="font-size:13.08804035px;line-height:1.25"
+         y="960.61774"
+         x="176.50694"
+         id="tspan4268"
+         sodipodi:role="line">Pressure</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="187.50694"
+       y="739.61774"
+       id="oxid_temp"
+       inkscape:label="#text4278"><tspan
+         style="font-size:13.08804035px;line-height:1.25"
+         sodipodi:role="line"
+         id="tspan4280"
+         x="187.50694"
+         y="739.61774">Temp</tspan></text>
     <path
        style="opacity:0.943;fill:#ff00ff;fill-opacity:0;stroke:#ffffff;stroke-width:1.90020442;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 36.028275,572.30202 h 41.17109 l -20.58554,28.05488 20.58554,28.05488 h -41.17109 l 20.58555,-28.05488 z"
@@ -301,11 +298,12 @@
          sodipodi:role="line"
          style="font-size:40px;line-height:1.25">faf</tspan></text>
     <text
-       id="text4489"
+       id="fuel_flow"
        y="423.29575"
        x="383.53751"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:label="#text4489"><tspan
          y="423.29575"
          x="383.53751"
          id="tspan4491"
@@ -336,40 +334,44 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="417.9046"
        y="574.96954"
-       id="text4258"><tspan
+       id="left_side_pressure"
+       inkscape:label="#text4258"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          sodipodi:role="line"
          id="tspan4260"
          x="417.9046"
          y="574.96954">Pressure</tspan></text>
     <text
-       id="text4262"
+       id="right_side_pressure"
        y="574.96954"
        x="539.9046"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:label="#text4262"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          y="574.96954"
          x="539.9046"
          id="tspan4264"
          sodipodi:role="line">Pressure</tspan></text>
     <text
-       id="text4282"
+       id="champer_pressure"
        y="766.96954"
        x="659.9046"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:label="#text4282"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          y="766.96954"
          x="659.9046"
          id="tspan4284"
          sodipodi:role="line">Pressure</tspan></text>
     <text
-       id="text4290"
+       id="temp1"
        y="725.96954"
        x="661.04211"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:label="#text4290"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          y="725.96954"
          x="661.04211"
@@ -380,29 +382,32 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="661.04211"
        y="812.96954"
-       id="text4294"><tspan
+       id="temp2"
+       inkscape:label="#text4294"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          sodipodi:role="line"
          id="tspan4296"
          x="661.04211"
          y="812.96954">Temp</tspan></text>
     <text
-       id="text4298"
+       id="temp3"
        y="854.96954"
        x="661.04211"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:label="#text4298"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          y="854.96954"
          x="661.04211"
          id="tspan4300"
          sodipodi:role="line">Temp</tspan></text>
     <text
-       id="text4302"
+       id="temp4"
        y="901.96954"
        x="661.04211"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:label="#text4302"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          y="901.96954"
          x="661.04211"
@@ -413,18 +418,20 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="661.04211"
        y="943.96954"
-       id="text4306"><tspan
+       id="temp5"
+       inkscape:label="#text4306"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          sodipodi:role="line"
          id="tspan4308"
          x="661.04211"
          y="943.96954">Temp</tspan></text>
     <text
-       id="text4310"
+       id="temp6"
        y="990.96954"
        x="661.04211"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:label="#text4310"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          y="990.96954"
          x="661.04211"
@@ -534,7 +541,8 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="608.53754"
        y="423.29575"
-       id="text4514"><tspan
+       id="oxid_flow"
+       inkscape:label="#text4514"><tspan
          sodipodi:role="line"
          id="tspan4516"
          x="608.53754"

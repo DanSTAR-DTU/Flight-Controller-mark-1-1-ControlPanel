@@ -48,7 +48,7 @@ var chart = new Chart(context, {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: "Time [ms]",
+                    labelString: "Time [s]",
                     fontColor: 'rgb(255,255,255)'
                 }
             }], yAxes: [{
@@ -90,5 +90,6 @@ function getRandomValue() {
 
 socket.on("graph_data", function(data){
     console.log(data);
-    addData(chart, data.timestamp, data.value);
+    addData(chart, (Date.now() - startTime)/1000, data.s1);
 });
+

@@ -39,7 +39,7 @@ UDPSocket.on('message', msg => {
     var data = msg.toString()
     console.log("Data from Beagle:" + data);
     var parsedBlock = parseRaw(data);
-    io.sockets.emit("info", parsedBlock);
+    io.sockets.emit("graph_data", parsedBlock);
     console.log("Emitted: " + JSON.stringify(parsedBlock) + "\n");
 });
 
