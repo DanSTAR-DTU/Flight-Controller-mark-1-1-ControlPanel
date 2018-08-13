@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> Rocket Control Panel</title>
-    <link rel="stylesheet" href="common.css">
-    <link rel="stylesheet" href="rocket.css">
-    <script type="text/javascript" src="libraries/socket.io.js"></script>
-</head>
-<body>
-<div id="inputs">
-    <input id="openValve1" type="text" placeholder="fuel actuator">
-    <button id="openValveButton1">Action</button>
-    <input id="openValve2" type="text" placeholder="oxidizer actuator">
-    <button id="openValveButton2">Action</button>
-</div>
-    <object id="DataSVG" data="Data.svg" type="image/svg+xml">
-    </object>
+    <head>
+        <meta charset="UTF-8">
+        <title> Rocket Control Panel</title>
+        <link rel="stylesheet" href="common.css">
+        <link rel="stylesheet" href="rocket.css">
+        <script type="text/javascript" src="libraries/socket.io.js"></script>
+    </head>
+    <body>
+        <div id="inputs">
+            <input id="openValve1" type="text" placeholder="fuel actuator">
+            <button id="openValveButton1">Action</button>
+            <input id="openValve2" type="text" placeholder="oxidizer actuator">
+            <button id="openValveButton2">Action</button>
+        </div>
 
-</body>
-<script type="text/javascript" src="rocket.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="tempeture_visual.js"></script>
+        <object id="DataSVG" data="Data.svg" type="image/svg+xml">
+        </object>
+    </body>
+    <script type="text/javascript" src="rocket.js"></script>
+    <script type="text/javascript" src="tempeture_visual.js"></script>
 </html>

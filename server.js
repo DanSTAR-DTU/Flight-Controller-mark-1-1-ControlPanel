@@ -7,11 +7,14 @@ var app = express();
 var server = app.listen('3000');
 app.use(express.static('Public'));
 
+// Front end
 var io = socket(server)
+
+// Beaglebone
 var UDPSocket = udp.createSocket('udp4');
 
 var startTime = Date.now();
-var accData = [];
+var historyData = [];
 
 //const UDP_IP = "192.168.2.2";
 const UDP_IP = "localhost";
@@ -19,13 +22,7 @@ const UDP_PORT = 5000;
 
 io.sockets.on('connection', function (socket) {
     console.log("client connected")
-    //socket.emit('dataToClient', {hello: "world"});
-    var data = "hello world";
-    UDPSocket.send(data, UDP_PORT, UDP_IP);
-    socket.on('dataFromClient', function (data) {
-
-        UDPSocket.send(data.s1, UDP_PORT, UDP_IP)
-    });
+    socket.emit("graph_history", historyData);
 });
 
 // Make Beagle device send messages to this device
@@ -36,17 +33,21 @@ setInterval(() => {
 
 // creating a client socket
 UDPSocket.on('message', msg => {
+    
+    // Parse data
     var data = msg.toString()
-    console.log("Data from Beagle:" + data);
     var parsedBlock = parseRaw(data);
-    io.sockets.emit("graph_data", parsedBlock);
+    console.log("Data from Beagle:" + data);
+
+    // Add data to history and emit
+    addData(parsedBlock);
     console.log("Emitted: " + JSON.stringify(parsedBlock) + "\n");
 });
 
 // For testing
 app.get("/adddata", function(req, res) {
     var value = parseInt(req.query.value);
-    io.sockets.emit("graph_data", {value: value, timestamp: Date.now() - startTime});
+    io.sockets.emit("graph_data", {value: value, timestamp: getSessionTime()});
     res.send("Received: " + value + "\n");
 });
 
@@ -88,8 +89,18 @@ function parseRaw(block) {
     return parsedData;
 }
 
+function addData(block) {
+    var dataPoint = {block: block, timestamp: getSessionTime()};
+    // Save to history
+    historyData.push(dataPoint);
 
+    // Emit to clients
+    io.sockets.emit("graph_data", dataPoint);
+}
 
+function getSessionTime() {
+    return Date.now() - startTime;
+}
 
 
 

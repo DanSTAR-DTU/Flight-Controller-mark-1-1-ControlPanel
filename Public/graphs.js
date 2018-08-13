@@ -69,27 +69,20 @@ var chart = new Chart(context, {
     }
 });
 
-var startTime = Date.now();
-var lastValue = 50;
-
-/*addData(chart, 0, getRandomValue());
-setInterval(function() {
-    addData(chart, Date.now() - startTime, getRandomValue());
-}, 250);*/
-
 function addData(chart, timestamp, value) {
     chart.data.labels.push(timestamp);
     chart.data.datasets[0].data.push(value);
     chart.update();
 }
 
-function getRandomValue() {
-    lastValue += ((Math.random() * 10) - 5);
-    return lastValue;
-}
-
 socket.on("graph_data", function(data){
     console.log(data);
-    addData(chart, (Date.now() - startTime)/1000, data.s1);
+    addData(chart, data.timestamp, data.block.s1);
 });
 
+socket.on("graph_history", function(data){
+    console.log(data);
+    data.forEach((datapoint) => {
+        addData(chart, datapoint.timestamp, datapoint.block.s1);
+    });
+});
