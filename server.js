@@ -16,6 +16,40 @@ var UDPSocket = udp.createSocket('udp4');
 var startTime = Date.now();
 var historyData = [];
 
+var MODEL = {
+    V4: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+    V5: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+    V12: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+    V17: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+
+    PT_N2: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
+    PT_IPA: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
+    PT_N2O: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
+
+    TC_IPA: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+    TC_N2O: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+
+    FLO_IPA: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0},
+    FLO_N2O: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0},
+
+    LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
+}
+
+var DICTIONARY = {
+    v1 : "V4",
+    v2 : "V5",
+    v3 : "V12",
+    v4 : "V17",
+    p1 : "PT_N2",
+    p2 : "PT_IPA",
+    p3 : "PT_N2O",
+    t1 : "TC_IPA",
+    t2 : "TC_N2O",
+    f1 : "FLO_IPA",
+    f1 : "FLO_N2O",
+    l1 : "LOAD",
+};
+
 //const UDP_IP = "192.168.2.2";
 const UDP_IP = "localhost";
 const UDP_PORT = 5000;
@@ -40,7 +74,7 @@ UDPSocket.on('message', msg => {
     console.log("Data from Beagle:" + data);
 
     // Add data to history and emit
-    addData(parsedBlock);
+    update(parsedBlock);
     console.log("Emitted: " + JSON.stringify(parsedBlock) + "\n");
 });
 
@@ -84,18 +118,29 @@ function parseRaw(block) {
         var value = parseFloat(nameValueSplit[1]);
         
         // Add to parsed data object
-        parsedData[name] = value;
+        parsedData[DICTIONARY[name]] = value;
     }
     return parsedData;
 }
 
-function addData(block) {
-    var dataPoint = {block: block, timestamp: getSessionTime()};
+function update(block) {
+
     // Save to history
+    var dataPoint = {block: block, timestamp: getSessionTime()};
     historyData.push(dataPoint);
 
-    // Emit to clients
+    // Update model
+    for (var key in block) {
+        if (block.hasOwnProperty(key)) {
+            MODEL[key].value = block[key];
+        }
+    }
+
+    // Emit graph point
     io.sockets.emit("graph_data", dataPoint);
+
+    // Emit model to clients
+    io.sockets.emit("model_update", MODEL);
 }
 
 function getSessionTime() {

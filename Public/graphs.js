@@ -12,21 +12,17 @@ function addData(chart, timestamp, value) {
 
 socket.on("graph_data", function(data){
     console.log(data);
-    addData(loadCellChart, data.timestamp, data.block.s1);
-    addData(flowsChart, data.timestamp, data.block.s2);
-    addData(engineTemperaturesChart, data.timestamp, data.block.s3);
+    addData(loadCellChart, data.timestamp, data.block.LOAD);
+    addData(flowsChart, data.timestamp, data.block.TC_IPA);
+    addData(engineTemperaturesChart, data.timestamp, data.block.PT_N2);
     
 });
 
 socket.on("graph_history", function(data){
     console.log(data);
     data.forEach((datapoint) => {
-        addData(loadCellChart, datapoint.timestamp, datapoint.block.s1);
-    });
-    data.forEach((datapoint) => {
-        addData(flowsChart, datapoint.timestamp, datapoint.block.s2);
-    });
-    data.forEach((datapoint) => {
-        addData(engineTemperaturesChart, datapoint.timestamp, datapoint.block.s3);
+        addData(loadCellChart, datapoint.timestamp, datapoint.block.LOAD);
+        addData(flowsChart, datapoint.timestamp, datapoint.block.TC_IPA);
+        addData(engineTemperaturesChart, datapoint.timestamp, datapoint.block.PT_N2);
     });
 });

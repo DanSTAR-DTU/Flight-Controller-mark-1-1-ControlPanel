@@ -23,10 +23,10 @@ socket.on("message", (message, remote) => {
 socket.bind(PORT);
 
 var sensors = [
-    {name: "s1", min: 30, max: 60},
-    {name: "s2", min: 40, max: 70},
-    {name: "s3", min: -100, max: 10},
-    {name: "s4", min: 30, max: 60}
+    {name: "LOAD", min: 0, max: 3, last: 0},
+    {name: "TC_IPA", min: 40, max: 70, last: 0},
+    {name: "TC_N2O", min: -100, max: 10, last: 0},
+    {name: "PT_N2", min: 30, max: 60, last: 0}
 ];
 
 setInterval(() => {
@@ -40,8 +40,9 @@ function sendBlock(block) {
         return;
     }
 
-    console.log("Sending: " + block);
-    socket.send(block, receiverDevicePort, receiverDeviceAddress, (err) => {
+    var blockString = JSON.stringify(block);
+    console.log("Sending: " + blockString);
+    socket.send(blockString, receiverDevicePort, receiverDeviceAddress, (err) => {
         if (err != null) {
             console.error(err);
         }
@@ -49,20 +50,13 @@ function sendBlock(block) {
 }
 
 function generateDataBlock() {
-    var blockString = "";
+    var blockObject = {};
 
     for (sensor of sensors) {
-        blockString += generateSensorOutput(sensor);
+        blockObject[sensor.name] = rand(sensor.min, sensor.max);
     }
 
-    return blockString
-}
-
-function generateSensorOutput(sensor) {
-    return sensor.name 
-            + "," 
-            + rand(sensor.min, sensor.max)
-            + ";";
+    return blockObject;
 }
 
 function rand(min, max) {
