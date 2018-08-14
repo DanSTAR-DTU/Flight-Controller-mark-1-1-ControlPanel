@@ -45,7 +45,9 @@ var DATA = {
     TC_N2O: {svg_name: "TC_N2O", type: "TEMPERATURE_SENSOR", dom_element: null},
 
     FLO_IPA: {svg_name: "FLO_IPA", type: "FLOW_SENSOR", dom_element: null},
-    FLO_N2O: {svg_name: "FLO_N2O", type: "FLOW_SENSOR", dom_element: null}
+    FLO_N2O: {svg_name: "FLO_N2O", type: "FLOW_SENSOR", dom_element: null},
+
+    LOAD: {html_name: "FLO_N2O", type: "LOAD_CELL", dom_element: null},
 }
 
 // INIT
@@ -79,6 +81,8 @@ function initializeSVGElements() {
 
     DATA.FLO_IPA = svgDoc.getElementById(DATA.FLO_IPA.svg_name);
     DATA.FLO_N2O = svgDoc.getElementById(DATA.FLO_N2O.svg_name);
+
+    DATA.LOAD = document.getElementById(DATA.LOAD.html_name);
 }
 
 function syncStateVisuals() {

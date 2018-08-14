@@ -1,46 +1,67 @@
 #DataSVG {
     height: 100vh;
+    float: left;
+}
+.sidepanel {
+    float: left;
+    position: relative;
+    height: 100vh;
+    width: calc(100vw - 100vh);
+}
+
+#inputs{
+    width: 300px;
+    margin-top: 20px;
+    
+}
+input{
+    width: 196px;
+    height: 40px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 12px 12px;
+    float: left;
+    margin-bottom: 10px;
+}
+
+button{
+    width: 100px;
+    height: 40px;
+    background-color: whitesmoke;
+    border: none;
+    color: black;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    float: left;
  }
-     #inputs{
-         position: absolute;
-         right:35%;
-         top: 5%;
-     }
-  input{
-      width: 200px;
-      box-sizing: border-box;
-      border: 2px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-      background-color: white;
-      background-position: 10px 10px;
-      background-repeat: no-repeat;
-      padding: 12px 12px 12px;
-      -webkit-transition: width 0.4s ease-in-out;
-      transition: width 0.4s ease-in-out;
+#openValve2{
+   
+}
 
-  }
+#openValveButton2{
+     
+}
 
- button{
-     background-color: whitesmoke;
-     border: none;
-     color: black;
-     padding: 10px 24px;
-     text-align: center;
-     text-decoration: none;
-     display: inline-block;
-     font-size: 16px;
-
- }
- #openValve2{
-         position: absolute;
-         top:110%;
-         right: 33%;
-     }
-
- #openValveButton2{
-     position: absolute;
-     top:110%;
-     right: 0%;
-
- }
+#loadCellContainer {
+    color: white;
+    margin-top: 50px;
+}
+#loadCellContainer h4 {
+    font-size: 24px;
+    font-weight: normal;
+}
+#loadCellContainer h1 {
+    display: inline-block;
+    font-size: 74px;
+}
+#loadCellContainer h3 {
+    display: inline-block;
+    font-size: 36px;
+}
