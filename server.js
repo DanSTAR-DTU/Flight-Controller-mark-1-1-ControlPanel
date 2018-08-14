@@ -63,6 +63,11 @@ io.sockets.on('connection', function (socket) {
     socket.on("refresh_model", (data) => {
         emitModel();
     });
+
+    socket.on("VALVE", function (data) {
+        UDPSocket.send(data.valve_name,  UDP_PORT,UDP_IP)
+        console.log(data.valve_name)
+    });
 });
 
 // Make Beagle device send messages to this device
