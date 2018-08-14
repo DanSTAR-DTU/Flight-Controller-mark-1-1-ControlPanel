@@ -42,8 +42,8 @@ var MODEL = {
     LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
 }
 
-//const UDP_IP = "192.168.2.2";
-const UDP_IP = "localhost";
+const UDP_IP = "192.168.2.2";
+//const UDP_IP = "localhost";
 const UDP_PORT = 5000;
 
 io.sockets.on('connection', function (socket) {
