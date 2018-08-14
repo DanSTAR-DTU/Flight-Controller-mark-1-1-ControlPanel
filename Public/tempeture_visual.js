@@ -15,8 +15,7 @@ temperature.addEventListener('load', function(){
     svgDoc.getElementById("oxid_temp").textContent = 0+' C';
     svgDoc.getElementById("champer_pressure").textContent = 0+' bar';
     for(var i = 1; i <= 6; i++) {
-        console.log('temp'+i+'');
-        svgDoc.getElementById('temp'+i+'').textContent = 0
+        svgDoc.getElementById('temp'+i+'').textContent = 0+' C'
     }
 });
 
