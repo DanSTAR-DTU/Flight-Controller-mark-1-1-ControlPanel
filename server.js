@@ -29,6 +29,13 @@ var MODEL = {
     TC_IPA: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
     TC_N2O: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
 
+    TC_1: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+    TC_2: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+    TC_3: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+    TC_4: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+    TC_5: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+    TC_6: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+
     FLO_IPA: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0},
     FLO_N2O: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0},
 
@@ -64,30 +71,6 @@ UDPSocket.on('message', msg => {
 
 function sendUDPheartbeat() {
     UDPSocket.send("Hi! I'm server :)", UDP_PORT, UDP_IP);
-}
-
-function parseRaw(block) {
-    var parsedData = {};
-
-    // Remove white space
-    var trimmedBlock = block.replace(/\s/g, "");
-    
-    // Split string into array by sensor seperator ";"
-    var sensors = trimmedBlock.split(/;/g);
-    // Regex splits also on last ";", so remove last element
-    sensors.pop();
-
-    for (var i = 0; i < sensors.length; i++) {
-        // Split each sensor name and value by seperator ","
-        var nameValueSplit = sensors[i].split(/,/g);
-        
-        var name = nameValueSplit[0];
-        var value = parseFloat(nameValueSplit[1]);
-        
-        // Add to parsed data object
-        parsedData[DICTIONARY[name]] = value;
-    }
-    return parsedData;
 }
 
 function update(block) {

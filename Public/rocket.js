@@ -1,30 +1,3 @@
-/*var socket = io.connect('0.0.0.0:3000');
-var array
-var split = {}
-
-
-socket.on('info', function (data) {
-    var a = document.getElementById("svg_data");
-    a.addEventListener("load", function () {
-        var svgDoc = a.contentDocument;
-        var delta = svgDoc.getElementById("oxy")
-        delta.addEventListener("mousedown", function () {
-            array = data.replace(/,|;/gi,'');
-            array = array.split(' ');
-            for(var i = 0; i<=(array.length/2)+1; i=i+2){
-                split[array[i]] = array[i+1]
-            }
-            console.log(split)
-            svgDoc.getElementById('oxy').setAttribute('fill', 'green');
-
-            socket.emit("dataFromClient", split)
-        }, false);
-
-    });
-
-});
-//'/([^,]+)([^;]+)/g'
-*/
 var socket = io.connect('0.0.0.0:3000');
 
 // Valve States
@@ -44,16 +17,23 @@ var DATA = {
     TC_IPA: {svg_name: "TC_IPA", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
     TC_N2O: {svg_name: "TC_N2O", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
 
+    TC_1: {svg_name: "TC_N2O", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
+    TC_2: {svg_name: "TC_N2O", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
+    TC_3: {svg_name: "TC_N2O", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
+    TC_4: {svg_name: "TC_N2O", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
+    TC_5: {svg_name: "TC_N2O", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
+    TC_6: {svg_name: "TC_N2O", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
+
     FLO_IPA: {svg_name: "FLO_IPA", value: 0, type: "FLOW_SENSOR", dom_element: null},
     FLO_N2O: {svg_name: "FLO_N2O", value: 0, type: "FLOW_SENSOR", dom_element: null},
 
-    LOAD: {html_name: "load_cell_text", value: 0, type: "LOAD_CELL", dom_element: null},
+    LOAD: {html_name: "load_cell_text", value: 0, type: "LOAD_CELL", dom_element: null}
 }
 
 // INIT
 window.onload = function () {
     initializeSVGElements();
-    syncStateVisuals();
+    syncVisuals();
 }
 
 
@@ -79,18 +59,43 @@ function initializeSVGElements() {
     DATA.TC_IPA.dom_element = svgDoc.getElementById(DATA.TC_IPA.svg_name);
     DATA.TC_N2O.dom_element = svgDoc.getElementById(DATA.TC_N2O.svg_name);
 
+    DATA.TC_1.dom_element = svgDoc.getElementById(DATA.TC_1.svg_name);
+    DATA.TC_2.dom_element = svgDoc.getElementById(DATA.TC_2.svg_name);
+    DATA.TC_3.dom_element = svgDoc.getElementById(DATA.TC_3.svg_name);
+    DATA.TC_4.dom_element = svgDoc.getElementById(DATA.TC_4.svg_name);
+    DATA.TC_5.dom_element = svgDoc.getElementById(DATA.TC_5.svg_name);
+    DATA.TC_6.dom_element = svgDoc.getElementById(DATA.TC_6.svg_name);
+
     DATA.FLO_IPA.dom_element = svgDoc.getElementById(DATA.FLO_IPA.svg_name);
     DATA.FLO_N2O.dom_element = svgDoc.getElementById(DATA.FLO_N2O.svg_name);
 
     DATA.LOAD.dom_element = document.getElementById(DATA.LOAD.html_name);
 }
 
-function syncStateVisuals() {
+function syncVisuals() {
     updateValveVisual(DATA.V4);
     updateValveVisual(DATA.V5);
     updateValveVisual(DATA.V12);
     updateValveVisual(DATA.V17);
-    updateLoadCell()
+
+    updatePressureSensor(DATA.PT_IPA);
+    updatePressureSensor(DATA.PT_N2O);
+    updatePressureSensor(DATA.PT_N2);
+
+    updateTemperatureSensor(DATA.TC_IPA);
+    updateTemperatureSensor(DATA.TC_N2O);
+
+    updateTemperatureSensor(DATA.TC_1);
+    updateTemperatureSensor(DATA.TC_2);
+    updateTemperatureSensor(DATA.TC_3);
+    updateTemperatureSensor(DATA.TC_4);
+    updateTemperatureSensor(DATA.TC_5);
+    updateTemperatureSensor(DATA.TC_6);
+
+    updateFlowSensor(DATA.FLO_IPA);
+    updateFlowSensor(DATA.FLO_N2O);
+    
+    updateLoadCell(DATA.LOAD);
 }
 
 function updateValveVisual(valveElement) {
@@ -110,8 +115,20 @@ function updateValveVisual(valveElement) {
     }
 }
 
-function updateLoadCell() {
-    DATA.LOAD.dom_element.innerHTML = DATA.LOAD.value;
+function updateLoadCell(loadSensor) {
+    loadSensor.dom_element.innerHTML = loadSensor.value;
+}
+
+function updatePressureSensor(pressureSensor) {
+    pressureSensor.dom_element.innerHTML = pressureSensor.value + " bar";
+}
+
+function updateTemperatureSensor(temperatureSensor) {
+    temperatureSensor.dom_element.innerHTML = temperatureSensor.value + " °C";
+}
+
+function updateFlowSensor(flowSensor) {
+    flowSensor.dom_element.innerHTML = flowSensor.value + " kg/s";
 }
 
 function addValveButtonListener(svgDoc, dataElement) {
@@ -143,83 +160,5 @@ socket.on('model_update', function (data){
             DATA[key].value = data[key].value;
         }
     }
-    syncStateVisuals();
+    syncVisuals();
 });
-/*
-var a = document.getElementById("DataSVG");
-var stateArray = []
-var valvesArr = []
-//sets all valves to closed state
-function preLoad() {
-    var svgDoc = a.contentDocument;
-    for (var i = 1; i <= 6; i++) {
-        svgDoc.getElementById('vent'+i+'_text').textContent = "CLOSED";
-        svgDoc.getElementById('vent'+i+'_text').style.fill = 'red';
-
-        stateArray[i] = false
-
-    }
-
-}
-// listensten to all click events on vents
-a.addEventListener('load', function () {
-    preLoad();
-    valves(1);
-    valves(2);
-    valves(3);
-    valves(4);
-    actuator();
-});
-
-function valves(i) {
-    var svgDoc = a.contentDocument
-    var delta = svgDoc.getElementById("vent2-"+i);
-    delta.addEventListener("click", function () {
-        if (stateArray[i] == false) {
-            svgDoc.getElementById('vent'+i+'_text').textContent = 'OPEN';
-            svgDoc.getElementById('vent'+i+'_text').style.fill = 'green';
-            stateArray[i] = true
-        } else {
-            svgDoc.getElementById('vent'+i+'_text').textContent = "CLOSED";
-            svgDoc.getElementById('vent'+i+'_text').style.fill = 'red';
-            stateArray[i] = false
-        }
-    })
-}
-
-
-function actuator() {
-    var svgDoc = a.contentDocument;
-    var delta = document.getElementById("openValveButton1")
-    delta.addEventListener("click", function () {
-        var input = document.getElementById('openValve1')
-        console.log(input.value)
-        if(input.value == 'close'){
-            svgDoc.getElementById('vent5_text').textContent = "CLOSED";
-            svgDoc.getElementById('vent5_text').style.fill = 'red';
-        }else if (input.value == 'open') {
-            svgDoc.getElementById('vent5_text').textContent = 'OPEN';
-            svgDoc.getElementById('vent5_text').style.fill = 'green';
-        }else{
-            svgDoc.getElementById('vent5_text').textContent = input.value;
-            svgDoc.getElementById('vent5_text').style.fill = 'green';
-        }
-    })
-    var gamma = document.getElementById("openValveButton2")
-    gamma.addEventListener("click", function () {
-        var input = document.getElementById('openValve2')
-        console.log(input.value)
-        if(input.value == 'close'){
-            svgDoc.getElementById('vent6_text').textContent = "CLOSED";
-            svgDoc.getElementById('vent6_text').style.fill = 'red';
-        }else if (input.value == 'open') {
-            svgDoc.getElementById('vent6_text').textContent = 'OPEN';
-            svgDoc.getElementById('vent6_text').style.fill = 'green';
-        }else{
-            svgDoc.getElementById('vent6_text').textContent = input.value;
-            svgDoc.getElementById('vent6_text').style.fill = 'green';
-
-        }
-    })
-}
-*/
