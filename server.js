@@ -35,21 +35,6 @@ var MODEL = {
     LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
 }
 
-var DICTIONARY = {
-    v1 : "V4",
-    v2 : "V5",
-    v3 : "V12",
-    v4 : "V17",
-    p1 : "PT_N2",
-    p2 : "PT_IPA",
-    p3 : "PT_N2O",
-    t1 : "TC_IPA",
-    t2 : "TC_N2O",
-    f1 : "FLO_IPA",
-    f1 : "FLO_N2O",
-    l1 : "LOAD",
-};
-
 //const UDP_IP = "192.168.2.2";
 const UDP_IP = "localhost";
 const UDP_PORT = 5000;
@@ -69,31 +54,13 @@ setInterval(() => {
 UDPSocket.on('message', msg => {
     
     // Parse data
-    var data = msg.toString()
-    var parsedBlock = parseRaw(data);
+    var data = msg.toString();
     console.log("Data from Beagle:" + data);
 
     // Add data to history and emit
-    update(parsedBlock);
-    console.log("Emitted: " + JSON.stringify(parsedBlock) + "\n");
+    update(JSON.parse(data));
 });
 
-// For testing
-app.get("/adddata", function(req, res) {
-    var value = parseInt(req.query.value);
-    io.sockets.emit("graph_data", {value: value, timestamp: getSessionTime()});
-    res.send("Received: " + value + "\n");
-});
-
-//sending msg
-/*client.send(data,5000,"192.168.2.2",function(error){
-    if(error){
-        client.close();
-    }else{
-        console.log('Data sent !!!');
-    }
-});
-*/
 
 function sendUDPheartbeat() {
     UDPSocket.send("Hi! I'm server :)", UDP_PORT, UDP_IP);

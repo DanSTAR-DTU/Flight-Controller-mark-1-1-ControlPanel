@@ -23,7 +23,7 @@ socket.on("message", (message, remote) => {
 socket.bind(PORT);
 
 var sensors = [
-    {name: "LOAD", min: 0, max: 3, last: 0},
+    {name: "LOAD", min: 0, max: 30, last: 0},
     {name: "TC_IPA", min: 40, max: 70, last: 0},
     {name: "TC_N2O", min: -100, max: 10, last: 0},
     {name: "PT_N2", min: 30, max: 60, last: 0}
