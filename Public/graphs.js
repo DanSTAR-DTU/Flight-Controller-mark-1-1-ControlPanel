@@ -4,25 +4,31 @@ var loadCellChart = loadCellChart;
 var flowsChart = flowsChart;
 var engineTemperaturesChart = engineTemperaturesChart;
 
-function addData(chart, timestamp, value) {
+function addSingleData(chart, setIndex, timestamp, value) {
     chart.data.labels.push(timestamp);
-    chart.data.datasets[0].data.push(value);
+    chart.data.datasets[setIndex].data.push(value);
+    chart.update();
+}
+
+function addMultipleData(chart, setIndex, data, valuename) {
+    data.forEach((datapoint) => {
+        chart.data.labels.push(datapoint.timestamp);
+        chart.data.datasets[setIndex].data.push(datapoint.block[valuename]);
+    });
     chart.update();
 }
 
 socket.on("graph_data", function(data){
     console.log(data);
-    addData(loadCellChart, data.timestamp, data.block.LOAD);
-    addData(flowsChart, data.timestamp, data.block.TC_IPA);
-    addData(engineTemperaturesChart, data.timestamp, data.block.PT_N2);
+    addSingleData(loadCellChart, 0, data.timestamp, data.block.LOAD);
+    addSingleData(flowsChart, 0, data.timestamp, data.block.TC_IPA);
+    addSingleData(engineTemperaturesChart, 0, data.timestamp, data.block.PT_N2);
     
 });
 
 socket.on("graph_history", function(data){
     console.log(data);
-    data.forEach((datapoint) => {
-        addData(loadCellChart, datapoint.timestamp, datapoint.block.LOAD);
-        addData(flowsChart, datapoint.timestamp, datapoint.block.TC_IPA);
-        addData(engineTemperaturesChart, datapoint.timestamp, datapoint.block.PT_N2);
-    });
+    addMultipleData(loadCellChart, 0, data, "LOAD");
+    addMultipleData(flowsChart, 0, data, "TC_IPA");
+    addMultipleData(engineTemperaturesChart, 0, data, "PT_N2");
 });

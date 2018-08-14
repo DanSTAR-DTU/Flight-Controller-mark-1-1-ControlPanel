@@ -49,7 +49,7 @@ var stateSensors = [
 setInterval(() => {
     var block = generateDataBlock();
     sendBlock(block);
-}, 100);
+}, 1000);
 
 function sendBlock(block) {
     if (receiverDeviceAddress == null || receiverDevicePort == null) {

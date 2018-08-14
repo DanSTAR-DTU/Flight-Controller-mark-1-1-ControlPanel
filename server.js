@@ -36,19 +36,33 @@ var MODEL = {
     TC_5: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
     TC_6: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
 
-    FLO_IPA: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0},
-    FLO_N2O: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0},
+    FLO_IPA: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
+    FLO_N2O: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
 
     LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
 }
 
-const UDP_IP = "192.168.2.2";
-//const UDP_IP = "localhost";
+//const UDP_IP = "192.168.2.2";
+const UDP_IP = "localhost";
 const UDP_PORT = 5000;
 
 io.sockets.on('connection', function (socket) {
     console.log("client connected")
     socket.emit("graph_history", historyData);
+
+    socket.on("flowrate_density_change", (data) => {
+        if (!isNaN(data.density)) {
+            MODEL[data.name].density = data.density;
+            console.log("Flowrate density changed to " + MODEL[data.name].density);
+            emitModel();
+        } else {
+            console.log("Flowrate tried to set to NaN!");
+        }
+    });
+
+    socket.on("refresh_model", (data) => {
+        emitModel();
+    });
 });
 
 // Make Beagle device send messages to this device
@@ -89,6 +103,11 @@ function update(block) {
     // Emit graph point
     io.sockets.emit("graph_data", dataPoint);
 
+    emitModel();
+    
+}
+
+function emitModel() {
     // Emit model to clients
     io.sockets.emit("model_update", MODEL);
 }

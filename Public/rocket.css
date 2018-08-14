@@ -12,7 +12,7 @@
 #inputs{
     width: 300px;
     margin-top: 20px;
-    
+    float: left;
 }
 input{
     width: 196px;
@@ -64,4 +64,48 @@ button{
 #loadCellContainer h3 {
     display: inline-block;
     font-size: 36px;
+}
+
+.flowratePanel {
+    width: 300px;
+    color:white;
+    float: left;
+}
+.flowratePanelRow {
+    width: 300px;
+    height: 60px;
+}
+.flowratePanelRow .field_label {
+    width: 300px;
+    height: 20px;
+    float: left;
+}
+.flowratePanelRow .input_field {
+    width: 150px;
+    height: 40px;
+    float: left;
+}
+.flowratePanelRow .input_field_disabled {
+    color: #333333;
+    background-color: #666666;
+    pointer-events: none;
+}
+.flowratePanelRow .field_unit {
+    width: 70px;
+    padding-left: 10px;
+    line-height: 40px;
+    float: left;
+}
+.flowratePanelRow .field_button {
+    text-align: center;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #ffffff;
+    float: left;
+    cursor: pointer;
+}
+.flowratePanelRow .field_button:hover {
+    color: #000000;
+    background-color: #ffffff;
 }

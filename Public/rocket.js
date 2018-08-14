@@ -24,16 +24,21 @@ var DATA = {
     TC_5: {svg_name: "TC_5", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
     TC_6: {svg_name: "TC_6", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
 
-    FLO_IPA: {svg_name: "FLO_IPA", value: 0, type: "FLOW_SENSOR", dom_element: null},
-    FLO_N2O: {svg_name: "FLO_N2O", value: 0, type: "FLOW_SENSOR", dom_element: null},
+    FLO_IPA: {svg_name: "FLO_IPA", value: 0, type: "FLOW_SENSOR", dom_element: null, density: 0},
+    FLO_N2O: {svg_name: "FLO_N2O", value: 0, type: "FLOW_SENSOR", dom_element: null, density: 0},
 
     LOAD: {html_name: "load_cell_text", value: 0, type: "LOAD_CELL", dom_element: null}
 }
 
-// INIT
+// Flowrate panel 
+var fuelDensityButtonLocked = false;
+var oxidizerDensityButtonLocked = false;
+
+// INIT (wait on SVG)
 window.onload = function () {
     initializeSVGElements();
-    syncVisuals();
+    addFlowratePanelListeners();
+    socket.emit("refresh_model", {});
 }
 
 
@@ -96,6 +101,8 @@ function syncVisuals() {
     updateFlowSensor(DATA.FLO_N2O);
     
     updateLoadCell(DATA.LOAD);
+
+    updateFlowratePanel();
 }
 
 function updateValveVisual(valveElement) {
@@ -131,6 +138,13 @@ function updateFlowSensor(flowSensor) {
     flowSensor.dom_element.innerHTML = flowSensor.value + " kg/s";
 }
 
+function updateFlowratePanel() {
+    var fuelDensityInput = document.getElementById("flowrate_fuel_density_input");
+    fuelDensityInput.value = DATA.FLO_IPA.density;
+    var oxidizerDensityInput = document.getElementById("flowrate_oxidizer_density_input");
+    oxidizerDensityInput.value = DATA.FLO_N2O.density;
+}
+
 function addValveButtonListener(svgDoc, dataElement) {
     // CSS properties to external object SVG
     svgDoc.getElementById(dataElement.svg_name).setAttribute("pointer-events", "none");
@@ -149,9 +163,72 @@ function addValveButtonListener(svgDoc, dataElement) {
     });
 }
 
+function addFlowratePanelListeners() {
+    var fuelDensityInput = document.getElementById("flowrate_fuel_density_input");
+    var oxidizerDensityInput = document.getElementById("flowrate_oxidizer_density_input");
+    var fuelDensityButton = document.getElementById("flowrate_fuel_density_update");
+    var oxidizerDensityButton = document.getElementById("flowrate_oxidizer_density_update");
+
+    // Initial disable
+    fuelDensityButtonLocked = true;
+    fuelDensityButton.innerHTML = "Unlock";
+    fuelDensityInput.classList.add("input_field_disabled");
+
+    oxidizerDensityButtonLocked = true;
+    oxidizerDensityButton.innerHTML = "Unlock";
+    oxidizerDensityInput.classList.add("input_field_disabled");
+    
+    // Add click listeners
+    fuelDensityButton.addEventListener("click", function() {
+        if (fuelDensityButtonLocked) {
+            fuelDensityInput.classList.remove("input_field_disabled");
+            fuelDensityButtonLocked = false;
+            fuelDensityButton.innerHTML = "Lock";
+        } else {
+            
+            var fuelDensity = parseFloat(fuelDensityInput.value);
+            if (!isNaN(fuelDensity)) {
+                fuelDensityInput.classList.add("input_field_disabled");
+                fuelDensityButtonLocked = true;
+                fuelDensityButton.innerHTML = "Unlock";
+                console.log("Fuel density: " + fuelDensity);
+                socket.emit("flowrate_density_change", {name: "FLO_IPA", density: fuelDensity});
+            } else {
+                alert("Please input number!");
+            }
+            
+        } 
+    });
+
+    oxidizerDensityButton.addEventListener("click", function() {
+        if (oxidizerDensityButtonLocked) {
+            oxidizerDensityInput.classList.remove("input_field_disabled");
+            oxidizerDensityButtonLocked = false;
+            oxidizerDensityButton.innerHTML = "Lock";
+
+        } else {
+            
+            var oxidizerDensity = parseFloat(oxidizerDensityInput.value);
+            if (!isNaN(oxidizerDensity)) {
+                oxidizerDensityInput.classList.add("input_field_disabled");
+                oxidizerDensityButtonLocket = true;
+                oxidizerDensityButton.innerHTML = "Unlock";
+                console.log("Oxidizer density: " + oxidizerDensity);
+                socket.emit("flowrate_density_change", {name: "FLO_N2O", density: oxidizerDensity});
+            } else {
+                alert("Please input number!");
+            }
+        }
+    });
+}
+
 socket.on('info', function (data) {
     console.log(data)
 })
+
+socket.on('connect', function() {
+    console.log("Connected");
+});
 
 socket.on('model_update', function (data){
     console.log(data);
@@ -160,5 +237,7 @@ socket.on('model_update', function (data){
             DATA[key].value = data[key].value;
         }
     }
+    DATA.FLO_IPA.density = data.FLO_IPA.density;
+    DATA.FLO_N2O.density = data.FLO_N2O.density;
     syncVisuals();
 });
