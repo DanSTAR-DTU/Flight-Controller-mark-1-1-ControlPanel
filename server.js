@@ -46,20 +46,33 @@ const UDP_IP = "192.168.2.2";
 //const UDP_IP = "localhost";
 const UDP_PORT = 5000;
 
+
+
 io.sockets.on('connection', function (socket) {
     console.log("client connected")
+    socket.on("VALVE", function (data) {
+        UDPSocket.send(data.valve_name,  UDP_PORT,UDP_IP)
+        console.log(data.valve_name)
+    });
     socket.emit("graph_history", historyData);
 });
 
+
+
+
+
+
 // Make Beagle device send messages to this device
+
 sendUDPheartbeat();
 setInterval(() => {
     sendUDPheartbeat();
+
 }, 10 * 1000);
 
 // creating a client socket
 UDPSocket.on('message', msg => {
-    
+
     // Parse data
     var data = msg.toString();
     console.log("Data from Beagle:" + data);
@@ -69,8 +82,21 @@ UDPSocket.on('message', msg => {
 });
 
 
+
+
+io.sockets.on("VALVE", function (data) {
+    console.log(data);
+    UDPSocket.send(data, UDP_PORT, UDP_IP);
+});
+
+
+
+
+
 function sendUDPheartbeat() {
     UDPSocket.send("Hi! I'm server :)", UDP_PORT, UDP_IP);
+
+
 }
 
 function update(block) {

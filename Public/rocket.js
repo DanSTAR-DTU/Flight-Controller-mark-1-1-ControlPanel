@@ -145,7 +145,8 @@ function addValveButtonListener(svgDoc, dataElement) {
             dataElement.value = CLOSED;
         }
         updateValveVisual(dataElement);
-        socket.emit("VALVE_PRESSED", {valve_name: dataElement.svg_name});
+        socket.emit("VALVE", {valve_name: dataElement.svg_name});
+
     });
 }
 
