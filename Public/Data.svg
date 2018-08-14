@@ -87,9 +87,9 @@
      borderopacity="1"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="213.5545"
-     inkscape:cy="473.71738"
+     inkscape:zoom="1"
+     inkscape:cx="556.96069"
+     inkscape:cy="213.9156"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -403,7 +403,7 @@
          id="tspan4284"
          sodipodi:role="line">Pressure</tspan></text>
     <text
-       id="temp1"
+       id="TC_1"
        y="725.96954"
        x="661.04211"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -419,7 +419,7 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="661.04211"
        y="812.96954"
-       id="temp2"
+       id="TC_2"
        inkscape:label="#text4294"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          sodipodi:role="line"
@@ -427,7 +427,7 @@
          x="661.04211"
          y="812.96954">Temp</tspan></text>
     <text
-       id="temp3"
+       id="TC_3"
        y="854.96954"
        x="661.04211"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -439,7 +439,7 @@
          id="tspan4300"
          sodipodi:role="line">Temp</tspan></text>
     <text
-       id="temp4"
+       id="TC_4"
        y="901.96954"
        x="661.04211"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -455,7 +455,7 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="661.04211"
        y="943.96954"
-       id="temp5"
+       id="TC_5"
        inkscape:label="#text4306"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          sodipodi:role="line"
@@ -463,7 +463,7 @@
          x="661.04211"
          y="943.96954">Temp</tspan></text>
     <text
-       id="temp6"
+       id="TC_6"
        y="990.96954"
        x="661.04211"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -946,7 +946,7 @@
          sodipodi:role="line"
          id="tspan4387"
          x="662.45184"
-         y="709.01941">I-8</tspan></text>
+         y="709.01941">TC_1</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text4389"
@@ -968,7 +968,11 @@
          sodipodi:role="line"
          id="tspan4395"
          x="662.45184"
-         y="797.01941">I-8</tspan></text>
+         y="797.01941">TC_2</tspan><tspan
+         sodipodi:role="line"
+         x="662.45184"
+         y="811.08252"
+         id="tspan4295" /></text>
     <text
        sodipodi:linespacing="125%"
        id="text4397"
@@ -979,7 +983,11 @@
          y="841.01941"
          x="662.45184"
          id="tspan4399"
-         sodipodi:role="line">I-8</tspan></text>
+         sodipodi:role="line">TC_3</tspan><tspan
+         y="855.08252"
+         x="662.45184"
+         sodipodi:role="line"
+         id="tspan4297" /></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.25047112px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -988,9 +996,9 @@
        id="text4401"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan4403"
          x="662.95184"
-         y="886.01941">I-8</tspan></text>
+         y="886.01941"
+         id="tspan4299">TC_4</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text4405"
@@ -1001,7 +1009,7 @@
          y="930.01941"
          x="662.45184"
          id="tspan4407"
-         sodipodi:role="line">I-8</tspan></text>
+         sodipodi:role="line">TC_5</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.25047112px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -1012,6 +1020,6 @@
          sodipodi:role="line"
          id="tspan4411"
          x="662.45184"
-         y="975.01941">I-8</tspan></text>
+         y="975.01941">TC_6</tspan></text>
   </g>
 </svg>
