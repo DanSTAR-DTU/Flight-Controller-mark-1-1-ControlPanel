@@ -55,8 +55,8 @@ io.sockets.on('connection', function (socket) {
 
     socket.on("flowrate_density_change", (data) => {
         if (!isNaN(data.density)) {
-            MODEL[data.name].density = data.density;
-            console.log("Flowrate density changed to " + MODEL[data.name].density);
+            MODEL.SENSORS[data.name].density = data.density;
+            console.log("Flowrate density changed to " + MODEL.SENSORS[data.name].density);
             emitModel();
         } else {
             console.log("Flowrate tried to set to NaN!");
