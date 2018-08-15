@@ -25,3 +25,8 @@ function setLabelStatus(label, connected) {
         label.classList.add("notconnected");
     }
 }
+
+function logging(data) {
+    var log = data
+    socket.emit('logging' , log);
+}

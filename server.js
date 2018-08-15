@@ -1,7 +1,7 @@
 const express = require('express');
 var socket  = require("socket.io");
 var udp = require('dgram');
-const fs = require('fs');
+var fs = require('fs');
 var app = express();
 
 var server = app.listen('3000');
@@ -15,6 +15,8 @@ var UDPSocket = udp.createSocket('udp4');
 
 var startTime = Date.now();
 var historyData = [];
+let logState = '';
+
 
 var MODEL = {
     V4: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
@@ -42,8 +44,8 @@ var MODEL = {
     LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
 }
 
-//const UDP_IP = "192.168.2.2";
-const UDP_IP = "localhost";
+const UDP_IP = "192.168.2.2";
+//const UDP_IP = "localhost";
 const UDP_PORT = 5000;
 
 io.sockets.on('connection', function (socket) {
@@ -67,6 +69,11 @@ io.sockets.on('connection', function (socket) {
     socket.on("VALVE", function (data) {
         UDPSocket.send(data.valve_name,  UDP_PORT,UDP_IP)
         console.log(data.valve_name)
+    });
+
+     socket.on('logging', (data)=>{
+            logState = data;
+
     });
 });
 
@@ -94,9 +101,22 @@ function sendUDPheartbeat() {
 
 function update(block) {
 
-    // Save to history
+
     var dataPoint = {block: block, timestamp: getSessionTime()};
-    historyData.push(dataPoint);
+        switch (logState) {
+            // Save to history
+            case "true":
+                historyData.push(dataPoint);
+                console.log(historyData);
+                break;
+            case "reset":
+                historyData = [];
+                console.log(historyData + "there is nothing");
+                break;
+            case "save":
+                //save?
+                break;
+    }
 
     // Update model
     for (var key in block) {
@@ -120,8 +140,6 @@ function emitModel() {
 function getSessionTime() {
     return Date.now() - startTime;
 }
-
-
 
 
 
