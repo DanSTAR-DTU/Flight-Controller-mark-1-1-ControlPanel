@@ -5,7 +5,7 @@ var engineTemperaturesChart = new Chart(engineTemperaturesContext, {
     data: {
         labels: [],
         datasets: [{
-            label: 'Input',
+            label: 'TC_1',
             data: [],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)'

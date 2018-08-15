@@ -5,7 +5,7 @@ var loadCellChart = new Chart(loadCellContext, {
     data: {
         labels: [],
         datasets: [{
-            label: 'Input',
+            label: 'LOAD',
             data: [],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)'

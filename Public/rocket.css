@@ -9,45 +9,7 @@
     width: calc(100vw - 100vh);
 }
 
-#inputs{
-    width: 300px;
-    margin-top: 20px;
-    float: left;
-}
-input{
-    width: 196px;
-    height: 40px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: white;
-    background-position: 10px 10px;
-    background-repeat: no-repeat;
-    padding: 12px 12px 12px;
-    float: left;
-    margin-bottom: 10px;
-}
 
-button{
-    width: 100px;
-    height: 40px;
-    background-color: whitesmoke;
-    border: none;
-    color: black;
-    padding: 10px 24px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    float: left;
- }
-#openValve2{
-   
-}
-
-#openValveButton2{
-     
-}
 
 #loadCellContainer {
     color: white;
@@ -66,11 +28,64 @@ button{
     font-size: 36px;
 }
 
-.flowratePanel {
+.panel {
     width: 300px;
+    margin-bottom: 10px;
     color:white;
     float: left;
+    padding: 10px;
+    border: 1px solid #ffffff;
 }
+.panel_header {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: normal;
+    text-decoration: underline;
+}
+.panel_button {
+    height: 40px;  
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #ffffff;
+    float: left;
+    cursor: pointer;
+}
+.panel_button:hover {
+    color: #000000;
+    background-color: #ffffff;
+}
+.panel_button_disabled {
+    color: #333333;
+    background-color: #666666;
+    pointer-events: none;
+    border: none;
+}
+.panel_input {
+    height: 40px;
+    float: left;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 12px 12px 12px;
+    float: left;
+    margin-bottom: 10px;
+}
+.panel_input_disabled {
+    color: #333333;
+    background-color: #666666;
+    pointer-events: none;
+}
+
+
+.actuator_control_button {
+    width: 80px;
+}
+.actuator_input {
+    width: 180px;
+    margin-right: 18px;
+}
+
+
 .flowratePanelRow {
     width: 300px;
     height: 60px;
@@ -80,15 +95,8 @@ button{
     height: 20px;
     float: left;
 }
-.flowratePanelRow .input_field {
-    width: 150px;
-    height: 40px;
-    float: left;
-}
-.flowratePanelRow .input_field_disabled {
-    color: #333333;
-    background-color: #666666;
-    pointer-events: none;
+.flowratePanelRow input {
+    width: 130px;
 }
 .flowratePanelRow .field_unit {
     width: 70px;
@@ -97,15 +105,14 @@ button{
     float: left;
 }
 .flowratePanelRow .field_button {
-    text-align: center;
     width: 80px;
-    height: 40px;
-    line-height: 40px;
-    border: 1px solid #ffffff;
-    float: left;
-    cursor: pointer;
 }
-.flowratePanelRow .field_button:hover {
-    color: #000000;
-    background-color: #ffffff;
+
+
+.log_button {
+    width: 56px;
+    margin-right: 18px;
+}
+.log_button:last-child {
+    margin-right: 0;
 }

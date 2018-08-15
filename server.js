@@ -15,37 +15,38 @@ var UDPSocket = udp.createSocket('udp4');
 
 var startTime = Date.now();
 var historyData = [];
-let logState = '';
-
 
 var MODEL = {
-    V4: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
-    V5: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
-    V12: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
-    V17: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+    SENSORS: {
+        V4: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+        V5: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+        V12: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+        V17: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
 
-    PT_N2: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
-    PT_IPA: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
-    PT_N2O: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
+        PT_N2: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
+        PT_IPA: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
+        PT_N2O: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
 
-    TC_IPA: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-    TC_N2O: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+        TC_IPA: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+        TC_N2O: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
 
-    TC_1: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-    TC_2: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-    TC_3: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-    TC_4: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-    TC_5: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-    TC_6: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+        TC_1: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+        TC_2: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+        TC_3: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+        TC_4: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+        TC_5: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+        TC_6: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
 
-    FLO_IPA: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
-    FLO_N2O: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
+        FLO_IPA: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
+        FLO_N2O: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
 
-    LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
+        LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0}
+    },
+    IS_LOGGING: false
 }
 
-const UDP_IP = "192.168.2.2";
-//const UDP_IP = "localhost";
+//const UDP_IP = "192.168.2.2";
+const UDP_IP = "localhost";
 const UDP_PORT = 5000;
 
 io.sockets.on('connection', function (socket) {
@@ -71,9 +72,27 @@ io.sockets.on('connection', function (socket) {
         console.log(data.valve_name)
     });
 
-     socket.on('logging', (data)=>{
-            logState = data;
-
+    socket.on('log_cmd', (data) => {
+        switch(data) {
+            case "START":
+                MODEL.IS_LOGGING = true;
+                startTime = Date.now();
+                break;
+            case "STOP":
+                MODEL.IS_LOGGING = false;
+                break;
+            case "RESET":
+                // Clear history data
+                historyData = [];
+                io.sockets.emit("clear_graphs", 0);
+                break;
+            case "SAVE":
+                // TODO?
+                break;
+            default:
+                console.log("Unkown log command");
+                break;
+        }   
     });
 });
 
@@ -103,30 +122,19 @@ function update(block) {
 
 
     var dataPoint = {block: block, timestamp: getSessionTime()};
-        switch (logState) {
-            // Save to history
-            case "true":
-                historyData.push(dataPoint);
-                console.log(historyData);
-                break;
-            case "reset":
-                historyData = [];
-                console.log(historyData + "there is nothing");
-                break;
-            case "save":
-                //save?
-                break;
+
+    if (MODEL.IS_LOGGING) {
+        historyData.push(dataPoint);
+        // Emit graph point
+        io.sockets.emit("graph_data", dataPoint);
     }
 
     // Update model
     for (var key in block) {
         if (block.hasOwnProperty(key)) {
-            MODEL[key].value = block[key];
+            MODEL.SENSORS[key].value = block[key];
         }
     }
-
-    // Emit graph point
-    io.sockets.emit("graph_data", dataPoint);
 
     emitModel();
     

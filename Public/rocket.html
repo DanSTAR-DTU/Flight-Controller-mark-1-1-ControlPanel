@@ -20,30 +20,59 @@
                     <h3>N</h3>
                 </hgroup>
             </div>
-            <div id="inputs">
+
+            <div class="panel actuator_control_panel">
+                
+                <h1 class="panel_header">Actuators</h1>
+
+                <div class="actuator_control_panel_row">
+                        <input id="openValve1" class="panel_input actuator_input" type="text" placeholder="Fuel actuator">
+                        <p class="panel_button actuator_control_button" id="openValveButton1">Action</p>
+                        <input id="openValve2" class="panel_input actuator_input" type="text" placeholder="Oxidizer actuator">
+                        <p class="panel_button actuator_control_button" id="openValveButton2">Action</p>
+                </div>
+                    
+            </div>
+
+            <!--<div id="inputs">
                 <input id="openValve1" type="text" placeholder="fuel actuator">
                 <button id="openValveButton1">Action</button>
                 <input id="openValve2" type="text" placeholder="oxidizer actuator">
                 <button id="openValveButton2">Action</button>
-            </div>
+            </div>-->
 
-            <div class="flowratePanel">
+            <div class="panel">
+
+                <h1 class="panel_header">Flowrates</h1>
 
                 <div class="flowratePanelRow">
                     <p class="field_label">Fuel density</p>
-                    <input id="flowrate_fuel_density_input" class="input_field" id="input_fuel_density">
+                    <input id="flowrate_fuel_density_input" class="panel_input input_field" id="input_fuel_density">
                     <p class="field_unit">kg/m3</p>
-                    <p id="flowrate_fuel_density_update" class="field_button">Update!</p>
+                    <p id="flowrate_fuel_density_update" class="panel_button field_button">Update!</p>
                 </div>
                 
                 <div class="flowratePanelRow">
                     <p class="field_label">Oxidizer density</p>
-                    <input id="flowrate_oxidizer_density_input" class="input_field" id="input_fuel_density">
+                    <input id="flowrate_oxidizer_density_input" class="panel_input input_field" id="input_fuel_density">
                     <p class="field_unit">kg/m3</p>
-                    <p id="flowrate_oxidizer_density_update" class="field_button">Update!</p>
+                    <p id="flowrate_oxidizer_density_update" class="panel_button field_button">Update!</p>
                 </div>
 
             </div>
+
+            <div class="panel">
+
+                    <h1 class="panel_header">Logging</h1>
+    
+                    <div class="log_buttons_row">
+                        <p id="log_button_start" class="panel_button log_button">Start</p>
+                        <p id="log_button_stop" class="panel_button log_button">Stop</p>
+                        <p id="log_button_reset" class="panel_button log_button">Reset</p>
+                        <p id="log_button_save" class="panel_button log_button">Save</p>
+                    </div>
+    
+                </div>
 
         </div>
         

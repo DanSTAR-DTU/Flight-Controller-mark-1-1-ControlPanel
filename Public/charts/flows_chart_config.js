@@ -5,7 +5,7 @@ var flowsChart = new Chart(flowsContext, {
     data: {
         labels: [],
         datasets: [{
-            label: 'Input',
+            label: 'FLO_IPA',
             data: [],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)'
