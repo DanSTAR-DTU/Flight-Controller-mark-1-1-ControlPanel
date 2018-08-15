@@ -7,12 +7,8 @@ var loadCellChart = new Chart(loadCellContext, {
         datasets: [{
             label: 'LOAD',
             data: [],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)'
-            ],
+            backgroundColor: ['rgba(255, 99, 132, 0.0)'],
+            borderColor: ['rgba(255, 99, 132, 1.0)'],
             borderWidth: 1
         }]
     },

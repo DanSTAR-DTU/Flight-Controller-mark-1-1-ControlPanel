@@ -7,12 +7,15 @@ var flowsChart = new Chart(flowsContext, {
         datasets: [{
             label: 'FLO_IPA',
             data: [],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)'
-            ],
+            backgroundColor: ['rgba(255, 99, 132, 0.0)'],
+            borderColor: ['rgba(255, 99, 132, 1.0)'],
+            borderWidth: 1
+        },
+        {
+            label: 'FLO_N2O',
+            data: [],
+            backgroundColor: ['rgba(229, 255, 96, 0.0)'],
+            borderColor: ['rgba(229, 255, 96, 1.0)'],
             borderWidth: 1
         }]
     },
