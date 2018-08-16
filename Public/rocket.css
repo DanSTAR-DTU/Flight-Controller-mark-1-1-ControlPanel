@@ -1,4 +1,5 @@
 #DataSVG {
+    padding: 10px;
     height: 100vh;
     float: left;
 }
@@ -13,7 +14,7 @@
 
 #loadCellContainer {
     color: white;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 #loadCellContainer h4 {
     font-size: 24px;
