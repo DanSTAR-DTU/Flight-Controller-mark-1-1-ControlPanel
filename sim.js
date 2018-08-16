@@ -24,19 +24,29 @@ socket.bind(PORT);
 
 var numericSensors = [
     {name: "LOAD", min: 0, max: 80, last: 40},
+
     {name: "TC_IPA", min: 40, max: 70, last: 55},
     {name: "TC_N2O", min: -100, max: 10, last: -55},
+
     {name: "TC_1", min: -100, max: 300, last: 100},
     {name: "TC_2", min: -100, max: 300, last: 100},
     {name: "TC_3", min: -100, max: 300, last: 100},
     {name: "TC_4", min: -100, max: 300, last: 100},
     {name: "TC_5", min: -100, max: 300, last: 100},
     {name: "TC_6", min: -100, max: 300, last: 100},
+
     {name: "PT_N2", min: 30, max: 60, last: 45},
     {name: "PT_IPA", min: 30, max: 60, last: 45},
     {name: "PT_N2O", min: 30, max: 60, last: 45},
+    {name: "PT_INJ_IPA", min: 30, max: 60, last: 45},
+    {name: "PT_INJ_N2O", min: 30, max: 60, last: 45},
+    {name: "PT_CHAM", min: 30, max: 60, last: 45},
+
     {name: "FLO_IPA", min: 30, max: 60, last: 45},
-    {name: "FLO_N2O", min: 30, max: 60, last: 45}
+    {name: "FLO_N2O", min: 30, max: 60, last: 45},
+
+    {name: "ACT_IPA", min: 0, max: 100, last: 50},
+    {name: "ACT_N2O", min: 0, max: 100, last: 50}
 ];
 
 var stateSensors = [

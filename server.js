@@ -30,6 +30,9 @@ var MODEL = {
         PT_N2: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
         PT_IPA: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
         PT_N2O: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
+        PT_INJ_IPA: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
+        PT_INJ_N2O: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
+        PT_CHAM: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
 
         TC_IPA: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
         TC_N2O: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
@@ -44,7 +47,10 @@ var MODEL = {
         FLO_IPA: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
         FLO_N2O: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
 
-        LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0}
+        LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
+
+        ACT_IPA: {value: 0, type: "ACTUATOR", lastUpdated: 0},
+        ACT_N2O: {value: 0, type: "ACTUATOR", lastUpdated: 0}
     },
     IS_LOGGING: false
 }

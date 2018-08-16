@@ -15,6 +15,10 @@ var DATA = {
         PT_IPA: {svg_name: "PT_IPA", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
         PT_N2O: {svg_name: "PT_N2O", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
 
+        PT_INJ_IPA: {svg_name: "PT_INJ_IPA", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
+        PT_INJ_N2O: {svg_name: "PT_INJ_N2O", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
+        PT_CHAM: {svg_name: "PT_CHAM", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
+
         TC_IPA: {svg_name: "TC_IPA", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
         TC_N2O: {svg_name: "TC_N2O", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
 
@@ -28,7 +32,10 @@ var DATA = {
         FLO_IPA: {svg_name: "FLO_IPA", value: 0, type: "FLOW_SENSOR", dom_element_l: null, dom_element_m: null, density: 0},
         FLO_N2O: {svg_name: "FLO_N2O", value: 0, type: "FLOW_SENSOR", dom_element_l: null,  dom_element_m: null, density: 0},
 
-        LOAD: {html_name: "load_cell_text", value: 0, type: "LOAD_CELL", dom_element: null}
+        LOAD: {html_name: "load_cell_text", value: 0, type: "LOAD_CELL", dom_element: null},
+
+        ACT_IPA: {svg_name: "ACT_IPA", value: 0, type: "ACTUATOR", dom_element: null},
+        ACT_N2O: {svg_name: "ACT_N2O", value: 0, type: "ACTUATOR", dom_element: null}
     },
     IS_LOGGING: false
 }
@@ -64,6 +71,9 @@ function initializeSVGElements() {
     DATA.SENSORS.PT_N2.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_N2.svg_name);
     DATA.SENSORS.PT_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_IPA.svg_name);
     DATA.SENSORS.PT_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_N2O.svg_name);
+    DATA.SENSORS.PT_INJ_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_INJ_IPA.svg_name);
+    DATA.SENSORS.PT_INJ_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_INJ_N2O.svg_name);
+    DATA.SENSORS.PT_CHAM.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_CHAM.svg_name);
 
     DATA.SENSORS.TC_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.TC_IPA.svg_name);
     DATA.SENSORS.TC_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.TC_N2O.svg_name);
@@ -81,6 +91,9 @@ function initializeSVGElements() {
     DATA.SENSORS.FLO_N2O.dom_element_m = svgDoc.getElementById(DATA.SENSORS.FLO_N2O.svg_name + "_M");
 
     DATA.SENSORS.LOAD.dom_element = document.getElementById(DATA.SENSORS.LOAD.html_name);
+
+    DATA.SENSORS.ACT_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.ACT_IPA.svg_name);
+    DATA.SENSORS.ACT_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.ACT_N2O.svg_name);
 }
 
 function syncVisuals() {
@@ -92,6 +105,9 @@ function syncVisuals() {
     updatePressureSensor(DATA.SENSORS.PT_IPA);
     updatePressureSensor(DATA.SENSORS.PT_N2O);
     updatePressureSensor(DATA.SENSORS.PT_N2);
+    updatePressureSensor(DATA.SENSORS.PT_INJ_IPA);
+    updatePressureSensor(DATA.SENSORS.PT_INJ_N2O);
+    updatePressureSensor(DATA.SENSORS.PT_CHAM);
 
     updateTemperatureSensor(DATA.SENSORS.TC_IPA);
     updateTemperatureSensor(DATA.SENSORS.TC_N2O);
@@ -107,6 +123,9 @@ function syncVisuals() {
     updateFlowSensor(DATA.SENSORS.FLO_N2O);
     
     updateLoadCell(DATA.SENSORS.LOAD);
+
+    updateActuator(DATA.SENSORS.ACT_IPA);
+    updateActuator(DATA.SENSORS.ACT_N2O);
 
     updateFlowratePanel();
     updateLogButtons();
@@ -144,6 +163,10 @@ function updateTemperatureSensor(temperatureSensor) {
 function updateFlowSensor(flowSensor) {
     flowSensor.dom_element_l.textContent = flowSensor.value + " L/s";
     flowSensor.dom_element_m.textContent = (flowSensor.value * flowSensor.density).toFixed(2) + " kg/s";
+}
+
+function updateActuator(actuator) {
+    actuator.dom_element.textContent = actuator.value + "%";
 }
 
 function updateFlowratePanel() {
