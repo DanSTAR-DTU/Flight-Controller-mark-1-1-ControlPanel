@@ -1,11 +1,15 @@
-const express = require('express');
-var socket  = require("socket.io");
-var udp = require('dgram');
-var fs = require('fs');
-var app = express();
 
+var socket = require("socket.io");
+var udp = require('dgram');
+
+var express = require('express');
+var favicon = require('serve-favicon')
+var path = require('path')
+
+var app = express();
 var server = app.listen('3000');
 app.use(express.static('Public'));
+app.use(favicon(path.join(__dirname, 'Public/res', 'favicon.png')))
 
 // Front end
 var io = socket(server)
