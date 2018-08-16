@@ -69,7 +69,6 @@
     border-radius: 4px;
     font-size: 16px;
     padding: 12px 12px 12px;
-    float: left;
     margin-bottom: 10px;
 }
 .panel_input_disabled {
@@ -80,11 +79,18 @@
 
 
 .actuator_control_button {
-    width: 80px;
+    width: 86px;
+    margin-right: 10px;
+}
+.actuator_control_button:last-child {
+    margin-right: 0px;
 }
 .actuator_input {
-    width: 180px;
+    width: 130px;
     margin-right: 18px;
+}
+.actuator_input:last-of-type {
+    margin-right: 0;
 }
 
 
@@ -117,4 +123,18 @@
 }
 .log_button:last-child {
     margin-right: 0;
+}
+
+
+.fuel_volume_row .field_unit {
+    width: 68px;
+    padding-left: 10px;
+    line-height: 40px;
+    float: left;
+}
+.fuel_volume_row .panel_input {
+    width: 130px;
+}
+.fuel_volume_row .panel_button {
+    width: 80px;
 }

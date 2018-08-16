@@ -37,7 +37,8 @@ var DATA = {
         ACT_IPA: {svg_name: "ACT_IPA", value: 0, type: "ACTUATOR", dom_element: null},
         ACT_N2O: {svg_name: "ACT_N2O", value: 0, type: "ACTUATOR", dom_element: null}
     },
-    IS_LOGGING: false
+    IS_LOGGING: false,
+    INITIAL_FUEL: 0
 }
 
 // Flowrate panel 
@@ -49,6 +50,7 @@ window.onload = function () {
     initializeSVGElements();
     addFlowratePanelListeners();
     addLoggingPanelListeners();
+    addInitialFuelListener();
     socket.emit("refresh_model", {});
 }
 
@@ -129,6 +131,8 @@ function syncVisuals() {
 
     updateFlowratePanel();
     updateLogButtons();
+
+    updateInitialFuelVolume();
 }
 
 function updateValveVisual(valveElement) {
@@ -273,6 +277,19 @@ function addLoggingPanelListeners() {
     });
 }
 
+function addInitialFuelListener() {
+    var setInitialFuelButton = document.getElementById("fuel_volume_set");
+    var initialFuelField = document.getElementById("input_fuel_volume");
+    setInitialFuelButton.addEventListener("click", function() {
+        var fuel = parseFloat(initialFuelField.value);
+        if (!isNaN(fuel)) {
+            socket.emit("initial_fuel", {initialFuel: fuel});
+        } else {
+            console.log("Initial fuel input has non-number characters");
+        }
+    });
+}
+
 function updateLogButtons() {
     var startButton = document.getElementById("log_button_start");
     var stopButton = document.getElementById("log_button_stop");
@@ -300,6 +317,11 @@ function setButton(button, enable) {
     }
 }
 
+function updateInitialFuelVolume() {
+    var header = document.getElementsByClassName("fuel_volume_panel")[0].getElementsByClassName("panel_header")[0];
+    header.innerHTML = "Initial fuel volume: " + DATA.INITIAL_FUEL + " L";
+}
+
 socket.on('info', function (data) {
     console.log(data)
 })
@@ -318,6 +340,7 @@ socket.on('model_update', function (data){
     DATA.SENSORS.FLO_IPA.density = data.SENSORS.FLO_IPA.density;
     DATA.SENSORS.FLO_N2O.density = data.SENSORS.FLO_N2O.density;
     DATA.IS_LOGGING = data.IS_LOGGING;
+    DATA.INITIAL_FUEL = data.INITIAL_FUEL;
     syncVisuals();
 });
 

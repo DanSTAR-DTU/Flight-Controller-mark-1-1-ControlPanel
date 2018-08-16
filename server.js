@@ -52,7 +52,8 @@ var MODEL = {
         ACT_IPA: {value: 0, type: "ACTUATOR", lastUpdated: 0},
         ACT_N2O: {value: 0, type: "ACTUATOR", lastUpdated: 0}
     },
-    IS_LOGGING: false
+    IS_LOGGING: false,
+    INITIAL_FUEL: 0
 }
 
 //const UDP_IP = "192.168.2.2";
@@ -103,6 +104,11 @@ io.sockets.on('connection', function (socket) {
                 console.log("Unkown log command");
                 break;
         }   
+    });
+
+    socket.on("initial_fuel", (data) => {
+        MODEL.INITIAL_FUEL = data.initialFuel;
+        console.log("Initial fuel: " + MODEL.INITIAL_FUEL);
     });
 });
 
