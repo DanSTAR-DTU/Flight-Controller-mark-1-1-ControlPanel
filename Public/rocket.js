@@ -25,8 +25,8 @@ var DATA = {
         TC_5: {svg_name: "TC_5", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
         TC_6: {svg_name: "TC_6", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
 
-        FLO_IPA: {svg_name: "FLO_IPA", value: 0, type: "FLOW_SENSOR", dom_element: null, density: 0},
-        FLO_N2O: {svg_name: "FLO_N2O", value: 0, type: "FLOW_SENSOR", dom_element: null, density: 0},
+        FLO_IPA: {svg_name: "FLO_IPA", value: 0, type: "FLOW_SENSOR", dom_element_l: null, dom_element_m: null, density: 0},
+        FLO_N2O: {svg_name: "FLO_N2O", value: 0, type: "FLOW_SENSOR", dom_element_l: null,  dom_element_m: null, density: 0},
 
         LOAD: {html_name: "load_cell_text", value: 0, type: "LOAD_CELL", dom_element: null}
     },
@@ -75,8 +75,10 @@ function initializeSVGElements() {
     DATA.SENSORS.TC_5.dom_element = svgDoc.getElementById(DATA.SENSORS.TC_5.svg_name);
     DATA.SENSORS.TC_6.dom_element = svgDoc.getElementById(DATA.SENSORS.TC_6.svg_name);
 
-    DATA.SENSORS.FLO_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.FLO_IPA.svg_name);
-    DATA.SENSORS.FLO_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.FLO_N2O.svg_name);
+    DATA.SENSORS.FLO_IPA.dom_element_l = svgDoc.getElementById(DATA.SENSORS.FLO_IPA.svg_name + "_L");
+    DATA.SENSORS.FLO_IPA.dom_element_m = svgDoc.getElementById(DATA.SENSORS.FLO_IPA.svg_name + "_M");
+    DATA.SENSORS.FLO_N2O.dom_element_l = svgDoc.getElementById(DATA.SENSORS.FLO_N2O.svg_name + "_L");
+    DATA.SENSORS.FLO_N2O.dom_element_m = svgDoc.getElementById(DATA.SENSORS.FLO_N2O.svg_name + "_M");
 
     DATA.SENSORS.LOAD.dom_element = document.getElementById(DATA.SENSORS.LOAD.html_name);
 }
@@ -140,14 +142,20 @@ function updateTemperatureSensor(temperatureSensor) {
 }
 
 function updateFlowSensor(flowSensor) {
-    flowSensor.dom_element.innerHTML = flowSensor.value + " kg/s";
+    flowSensor.dom_element_l.textContent = flowSensor.value + " L/s";
+    flowSensor.dom_element_m.textContent = (flowSensor.value * flowSensor.density).toFixed(2) + " kg/s";
 }
 
 function updateFlowratePanel() {
     var fuelDensityInput = document.getElementById("flowrate_fuel_density_input");
-    fuelDensityInput.value = DATA.SENSORS.FLO_IPA.density;
+    if (fuelDensityButtonLocked) {
+        fuelDensityInput.value = DATA.SENSORS.FLO_IPA.density;
+    }
     var oxidizerDensityInput = document.getElementById("flowrate_oxidizer_density_input");
-    oxidizerDensityInput.value = DATA.SENSORS.FLO_N2O.density;
+    if (oxidizerDensityButtonLocked) {
+        oxidizerDensityInput.value = DATA.SENSORS.FLO_N2O.density;
+    }
+    
 }
 
 function addValveButtonListener(svgDoc, dataElement) {

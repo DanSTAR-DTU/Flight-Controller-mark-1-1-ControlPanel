@@ -87,9 +87,9 @@
      borderopacity="1"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="556.96069"
-     inkscape:cy="213.9156"
+     inkscape:zoom="2"
+     inkscape:cx="497.58895"
+     inkscape:cy="651.73841"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -335,17 +335,18 @@
          sodipodi:role="line"
          style="font-size:40px;line-height:1.25">faf</tspan></text>
     <text
-       id="FLO_IPA"
-       y="423.29575"
-       x="383.53751"
+       id="FLO_IPA_L"
+       y="422.9422"
+       x="372.03751"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"
-       inkscape:label="#text4489"><tspan
-         y="423.29575"
-         x="383.53751"
+       inkscape:label="#text4489"
+       sodipodi:linespacing="0%"><tspan
+         y="422.9422"
+         x="372.03751"
          id="tspan4491"
          sodipodi:role="line"
-         style="font-size:13.08804035px;line-height:1.25">Flow</tspan></text>
+         style="font-size:13.08804035px;line-height:1.25">FlowL</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2.84181094;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4704"
@@ -576,15 +577,16 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="608.53754"
-       y="423.29575"
-       id="FLO_N2O"
-       inkscape:label="#text4514"><tspan
+       x="607.33044"
+       y="420.73508"
+       id="FLO_N2O_L"
+       inkscape:label="#text4514"
+       sodipodi:linespacing="0%"><tspan
          sodipodi:role="line"
          id="tspan4516"
-         x="608.53754"
-         y="423.29575"
-         style="font-size:13.08804035px;line-height:1.25">Flow</tspan></text>
+         x="607.33044"
+         y="420.73508"
+         style="font-size:13.08804035px;line-height:1.25">FlowL</tspan></text>
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
@@ -701,7 +703,7 @@
        sodipodi:nodetypes="ccc" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.00000024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 258.09398,418.79418 0,-91.92388 397.39401,0 0,207.18229 -67.88225,0 c -10.22757,-11.66726 -18.29309,-12.01597 -30.4056,0 l -103.23759,0"
+       d="m 258.09398,418.79418 0,-91.92388 431.89401,0 0,207.18229 -102.38225,0 c -10.22757,-11.66726 -18.29309,-12.01597 -30.4056,0 l -103.23759,0"
        id="path4586"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc" />
@@ -873,13 +875,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.25047112px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="382.95181"
+       x="371.45181"
        y="439.01941"
        id="text4361"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4363"
-         x="382.95181"
+         x="371.45181"
          y="439.01941">FLO-IPA</tspan></text>
     <text
        sodipodi:linespacing="125%"
@@ -1021,5 +1023,31 @@
          id="tspan4411"
          x="662.45184"
          y="975.01941">TC_6</tspan></text>
+    <text
+       sodipodi:linespacing="0%"
+       inkscape:label="#text4514"
+       id="FLO_N2O_M"
+       y="404.11807"
+       x="607.33044"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-size:13.08804035px;line-height:1.25"
+         y="404.11807"
+         x="607.33044"
+         id="tspan4305"
+         sodipodi:role="line">FlowM</tspan></text>
+    <text
+       sodipodi:linespacing="0%"
+       inkscape:label="#text4489"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="372.03751"
+       y="404.91098"
+       id="FLO_IPA_M"><tspan
+         style="font-size:13.08804035px;line-height:1.25"
+         sodipodi:role="line"
+         id="tspan4309"
+         x="372.03751"
+         y="404.91098">FlowM</tspan></text>
   </g>
 </svg>
