@@ -192,14 +192,16 @@ function addValveButtonListener(svgDoc, dataElement) {
 
     // Add click listener
     svgDoc.getElementById(dataElement.svg_name + "_BUTTON").addEventListener("click", function() {
-        console.log("Valve " + dataElementsvg_name + " pressed!");
+        console.log("Valve " + dataElement.svg_name + " pressed!");
         if (dataElement.value == CLOSED) {
             dataElement.value = OPEN;
+            socket.emit("VALVE", {valve_name: dataElement.svg_name, value: dataElement.value});
         } else if (dataElement.value == OPEN) {
             dataElement.value = CLOSED;
+            socket.emit("VALVE", {valve_name: dataElement.svg_name, value: dataElement.value});
         }
         updateValveVisual(dataElement);
-        socket.emit("VALVE", {valve_name: dataElement.svg_name});
+
 
     });
 }

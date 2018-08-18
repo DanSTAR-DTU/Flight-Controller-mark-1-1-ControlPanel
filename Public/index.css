@@ -12,7 +12,7 @@
     display: inline-block; /* fit content */
     height: 25vh;
     margin: 5vh auto 0;
-    animation: beat 1s infinite alternate;
+    animation: beat 3s infinite alternate;
     transform-origin: center;
     
 }

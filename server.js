@@ -56,8 +56,8 @@ var MODEL = {
     INITIAL_FUEL: 0
 }
 
-//const UDP_IP = "192.168.2.2";
-const UDP_IP = "localhost";
+const UDP_IP = "192.168.2.2";
+//const UDP_IP = "localhost";
 const UDP_PORT = 5000;
 
 io.sockets.on('connection', function (socket) {
@@ -79,8 +79,8 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on("VALVE", function (data) {
-        UDPSocket.send(data.valve_name,  UDP_PORT,UDP_IP)
-        console.log(data.valve_name)
+        UDPSocket.send(JSON.stringify(data),  UDP_PORT,UDP_IP)
+       // console.log(data.value)
     });
 
     socket.on('log_cmd', (data) => {
@@ -88,6 +88,7 @@ io.sockets.on('connection', function (socket) {
             case "START":
                 MODEL.IS_LOGGING = true;
                 startTime = Date.now();
+                UDPSocket.send("START")
                 break;
             case "STOP":
                 MODEL.IS_LOGGING = false;
@@ -131,7 +132,7 @@ UDPSocket.on('message', msg => {
 
 
 function sendUDPheartbeat() {
-    UDPSocket.send("Hi! I'm server :)", UDP_PORT, UDP_IP);
+    //UDPSocket.send("Hi! I'm server :)", UDP_PORT, UDP_IP);
 }
 
 function update(block) {
@@ -148,7 +149,9 @@ function update(block) {
     // Update model
     for (var key in block) {
         if (block.hasOwnProperty(key)) {
+
             MODEL.SENSORS[key].value = block[key];
+
         }
     }
 
