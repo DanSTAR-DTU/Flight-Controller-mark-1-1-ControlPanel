@@ -6,10 +6,10 @@ var CLOSED = "CLOSED";
 
 var DATA = {
     SENSORS: {
-        V4: {svg_name: "V4", value: CLOSED, type: "VALVE", dom_element: null},
-        V5: {svg_name: "V5", value: CLOSED, type: "VALVE", dom_element: null},
-        V12: {svg_name: "V12", value: CLOSED, type: "VALVE", dom_element: null},
-        V17: {svg_name: "V17", value: CLOSED, type: "VALVE", dom_element: null},
+        SV_FLUSH: {svg_name: "SV_FLUSH", value: CLOSED, type: "VALVE", dom_element: null},
+        SV_N2O: {svg_name: "SV_N2O", value: CLOSED, type: "VALVE", dom_element: null},
+        SV_N2O_FILL: {svg_name: "SV_N2O_FILL", value: CLOSED, type: "VALVE", dom_element: null},
+        SV_IPA: {svg_name: "SV_IPA", value: CLOSED, type: "VALVE", dom_element: null},
 
         PT_N2: {svg_name: "PT_N2", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
         PT_IPA: {svg_name: "PT_IPA", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
@@ -59,16 +59,16 @@ function initializeSVGElements() {
     var svgHTML = document.getElementById("DataSVG");
     var svgDoc = svgHTML.contentDocument;
 
-    DATA.SENSORS.V4.dom_element = svgDoc.getElementById(DATA.SENSORS.V4.svg_name);
-    DATA.SENSORS.V5.dom_element = svgDoc.getElementById(DATA.SENSORS.V5.svg_name);
-    DATA.SENSORS.V12.dom_element = svgDoc.getElementById(DATA.SENSORS.V12.svg_name);
-    DATA.SENSORS.V17.dom_element = svgDoc.getElementById(DATA.SENSORS.V17.svg_name);
+    DATA.SENSORS.SV_FLUSH.dom_element = svgDoc.getElementById(DATA.SENSORS.SV_FLUSH.svg_name);
+    DATA.SENSORS.SV_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.SV_N2O.svg_name);
+    DATA.SENSORS.SV_N2O_FILL.dom_element = svgDoc.getElementById(DATA.SENSORS.SV_N2O_FILL.svg_name);
+    DATA.SENSORS.SV_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.SV_IPA.svg_name);
 
     // Add listeners
-    addValveButtonListener(svgDoc, DATA.SENSORS.V4);
-    addValveButtonListener(svgDoc, DATA.SENSORS.V5);
-    addValveButtonListener(svgDoc, DATA.SENSORS.V12);
-    addValveButtonListener(svgDoc, DATA.SENSORS.V17);
+    addValveButtonListener(svgDoc, DATA.SENSORS.SV_FLUSH);
+    addValveButtonListener(svgDoc, DATA.SENSORS.SV_N2O);
+    addValveButtonListener(svgDoc, DATA.SENSORS.SV_N2O_FILL);
+    addValveButtonListener(svgDoc, DATA.SENSORS.SV_IPA);
 
     DATA.SENSORS.PT_N2.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_N2.svg_name);
     DATA.SENSORS.PT_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_IPA.svg_name);
@@ -107,10 +107,10 @@ function initializeSVGElements() {
 }
 
 function syncVisuals() {
-    updateValveVisual(DATA.SENSORS.V4);
-    updateValveVisual(DATA.SENSORS.V5);
-    updateValveVisual(DATA.SENSORS.V12);
-    updateValveVisual(DATA.SENSORS.V17);
+    updateValveVisual(DATA.SENSORS.SV_FLUSH);
+    updateValveVisual(DATA.SENSORS.SV_N2O);
+    updateValveVisual(DATA.SENSORS.SV_N2O_FILL);
+    updateValveVisual(DATA.SENSORS.SV_IPA);
 
     updatePressureSensor(DATA.SENSORS.PT_IPA);
     updatePressureSensor(DATA.SENSORS.PT_N2O);
@@ -465,14 +465,18 @@ socket.on('model_update', function (data){
     for (var key in data.SENSORS) {
         if (data.SENSORS.hasOwnProperty(key)) {
             DATA.SENSORS[key].value = data.SENSORS[key].value;
-            DATA.SENSORS[key].accumulated = data.SENSORS[key].accumulated;
         }
     }
     DATA.SENSORS.FLO_IPA.density = data.SENSORS.FLO_IPA.density;
     DATA.SENSORS.FLO_N2O.density = data.SENSORS.FLO_N2O.density;
-    DATA.IS_LOGGING = data.IS_LOGGING;
+    
     DATA.SENSORS.FLO_IPA.initial = data.SENSORS.FLO_IPA.initial;
     DATA.SENSORS.FLO_N2O.initial = data.SENSORS.FLO_N2O.initial;
+
+    DATA.SENSORS.FLO_IPA.accumulated = data.SENSORS.FLO_IPA.accumulated;
+    DATA.SENSORS.FLO_N2O.accumulated = data.SENSORS.FLO_N2O.accumulated;
+
+    DATA.IS_LOGGING = data.IS_LOGGING;
     syncVisuals();
     console.log(DATA);
 });
@@ -514,7 +518,7 @@ function updateVolumeIndicators() {
     DATA.SENSORS.FLO_IPA.dom_element_gradient.children[1].setAttribute("offset", 1-fuelFraction);
     DATA.SENSORS.FLO_IPA.dom_element_gradient.children[2].setAttribute("offset", 1-fuelFraction);
     DATA.SENSORS.FLO_IPA.dom_element_percentage.textContent = (fuelFraction * 100).toFixed(1) + "%";
-    DATA.SENSORS.FLO_IPA.dom_element_time.textContent = fuelTimeLeft + "s"
+    DATA.SENSORS.FLO_IPA.dom_element_time.textContent = fuelTimeLeft.toFixed(1) + "s"
 
     var oxidizerFraction = (DATA.SENSORS.FLO_N2O.initial - DATA.SENSORS.FLO_N2O.accumulated) / DATA.SENSORS.FLO_N2O.initial;
     var oxidizerTimeLeft = (DATA.SENSORS.FLO_N2O.initial - DATA.SENSORS.FLO_N2O.accumulated) / DATA.SENSORS.FLO_N2O.value;
@@ -522,6 +526,6 @@ function updateVolumeIndicators() {
     DATA.SENSORS.FLO_N2O.dom_element_gradient.children[1].setAttribute("offset", 1-oxidizerFraction);
     DATA.SENSORS.FLO_N2O.dom_element_gradient.children[2].setAttribute("offset", 1-oxidizerFraction);
     DATA.SENSORS.FLO_N2O.dom_element_percentage.textContent = (oxidizerFraction * 100).toFixed(1) + "%";
-    DATA.SENSORS.FLO_N2O.dom_element_time.textContent = oxidizerTimeLeft + "s"
+    DATA.SENSORS.FLO_N2O.dom_element_time.textContent = oxidizerTimeLeft.toFixed(1) + "s"
 
 } 

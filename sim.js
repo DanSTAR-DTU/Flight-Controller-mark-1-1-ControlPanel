@@ -42,18 +42,18 @@ var numericSensors = [
     {name: "PT_INJ_N2O", min: 30, max: 60, last: 45},
     {name: "PT_CHAM", min: 30, max: 60, last: 45},
 
-    {name: "FLO_IPA", min: 30, max: 60, last: 45},
-    {name: "FLO_N2O", min: 30, max: 60, last: 45},
+    {name: "FLO_IPA", min: 0.1, max: 2, last: 1},
+    {name: "FLO_N2O", min: 0.1, max: 2, last: 1},
 
     {name: "ACT_IPA", min: 0, max: 100, last: 50},
     {name: "ACT_N2O", min: 0, max: 100, last: 50}
 ];
 
 var stateSensors = [
-    {name: "V4", states : ["OPEN", "CLOSED"]},
-    {name: "V5", states : ["OPEN", "CLOSED"]},
-    {name: "V12", states : ["OPEN", "CLOSED"]},
-    {name: "V17", states : ["OPEN", "CLOSED"]}
+    {name: "SV_FLUSH", states : ["OPEN", "CLOSED"]},
+    {name: "SV_N2O", states : ["OPEN", "CLOSED"]},
+    {name: "SV_N2O_FILL", states : ["OPEN", "CLOSED"]},
+    {name: "SV_IPA", states : ["OPEN", "CLOSED"]}
 ];
 
 setInterval(() => {

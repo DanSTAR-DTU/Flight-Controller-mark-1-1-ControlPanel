@@ -87,9 +87,9 @@
      borderopacity="1"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="141.26631"
-     inkscape:cy="201.92464"
+     inkscape:zoom="1"
+     inkscape:cx="445.7961"
+     inkscape:cy="389.38283"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -124,7 +124,7 @@
      transform="translate(2.5000005,-336.87033)">
     <rect
        style="opacity:0.49599998;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.98614955;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="V4_BUTTON"
+       id="SV_FLUSH_BUTTON"
        width="78.036697"
        height="29.8454"
        x="248.98126"
@@ -132,7 +132,7 @@
        inkscape:label="#rect3320" />
     <rect
        style="opacity:0.49599998;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.01247811;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="V17_BUTTON"
+       id="SV_IPA_BUTTON"
        width="79.91317"
        height="29.922401"
        x="75.428642"
@@ -140,7 +140,7 @@
        inkscape:label="#rect3320" />
     <rect
        style="opacity:0.49599998;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.01247811;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="V12_BUTTON"
+       id="SV_N2O_FILL_BUTTON"
        width="79.91317"
        height="29.922401"
        x="231.10777"
@@ -148,7 +148,7 @@
        inkscape:label="#rect3320" />
     <rect
        style="opacity:0.49599998;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.08911538;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="V5_BUTTON"
+       id="SV_N2O_BUTTON"
        width="86.336533"
        height="29.845764"
        x="229.87465"
@@ -277,7 +277,7 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.00031257;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="80.175003"
        y="603.32874"
-       id="V17"
+       id="SV_IPA"
        onclick=""
        inkscape:label="#vent17_text"><tspan
          style="font-size:13.08804035px;line-height:1.25;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.00031257;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -293,7 +293,7 @@
        style="opacity:1;fill:#000000;fill-opacity:1;stroke:#f9ffff;stroke-width:1.90020442;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        inkscape:label="#path4202" />
     <text
-       id="V5"
+       id="SV_N2O"
        y="603.32874"
        x="234.69731"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -625,7 +625,7 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="235.92123"
        y="702.99896"
-       id="V12"
+       id="SV_N2O_FILL"
        inkscape:label="#text4534"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          sodipodi:role="line"
@@ -680,7 +680,7 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="256.19479"
        y="452.00787"
-       id="V4"
+       id="SV_FLUSH"
        inkscape:label="#text4572"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          sodipodi:role="line"

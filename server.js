@@ -21,10 +21,10 @@ var historyData = [];
 var timeStamp = {year:'', month:'', day:'', hours:'', minutes: '', seconds:''};
 var MODEL = {
     SENSORS: {
-        V4: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
-        V5: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
-        V12: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
-        V17: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+        SV_FLUSH: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+        SV_N2O: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+        SV_N2O_FILL: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+        SV_IPA: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
 
         PT_N2: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
         PT_IPA: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
@@ -43,8 +43,8 @@ var MODEL = {
         TC_5: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
         TC_6: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
 
-        FLO_IPA: {value: 1, initial: 60, accumulated: 36, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
-        FLO_N2O: {value: 1, initial: 60, accumulated: 18, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
+        FLO_IPA: {value: 1, initial: 20, accumulated: 7, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
+        FLO_N2O: {value: 1, initial: 20, accumulated: 4, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
 
         LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
 
@@ -147,7 +147,7 @@ UDPSocket.on('message', msg => {
 
 //sneding a signal every 10 sekunds
 function sendUDPheartbeat() {
-    //UDPSocket.send("Hi! I'm server :)", UDP_PORT, UDP_IP);
+    UDPSocket.send("Hi! I'm server :)", UDP_PORT, UDP_IP);
 }
 //
 function update(block) {
@@ -162,10 +162,8 @@ function update(block) {
     // Update model
     for (var key in block) {
         if (block.hasOwnProperty(key)) {
-
+            
             MODEL.SENSORS[key].value = block[key];
-            console.log(MODEL.SENSORS[key].accumulated = block[key].accumulated);
-            MODEL.SENSORS[key].accumulated = block[key].accumulated;
 
         }
     }
