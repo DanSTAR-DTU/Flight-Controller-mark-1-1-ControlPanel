@@ -116,12 +116,12 @@ io.sockets.on('connection', function (socket) {
                 startTime = Date.now();
                 syncTime(timeStamp)
                 emitModel();
-                sendToBeagle("LOG", timeStamp);
+                sendToBeagle("LOG_START", timeStamp);
                 break;
             case "STOP":
                 MODEL.IS_LOGGING = false;
-                 UDPSocket.send("STOP", UDP_PORT, UDP_IP);
-                 emitModel();
+                sendToBeagle("LOG_STOP", "");
+                emitModel();
                 break;
             case "RESET":
                 // Clear history data
