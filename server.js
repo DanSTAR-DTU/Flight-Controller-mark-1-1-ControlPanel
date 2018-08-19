@@ -116,7 +116,7 @@ io.sockets.on('connection', function (socket) {
                 startTime = Date.now();
                 syncTime(timeStamp)
                 emitModel();
-                UDPSocket.send(JSON.stringify(timeStamp), UDP_PORT, UDP_IP);
+                sendToBeagle("LOG", timeStamp);
                 break;
             case "STOP":
                 MODEL.IS_LOGGING = false;
@@ -129,7 +129,6 @@ io.sockets.on('connection', function (socket) {
                 io.sockets.emit("clear_graphs", 0);
                 break;
             case "SAVE":
-                // TODO?
                 var folder = "logs/";
                 var sd = new Date(startTime);
                 var now = new Date();
