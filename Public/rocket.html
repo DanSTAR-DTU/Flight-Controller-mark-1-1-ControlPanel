@@ -21,16 +21,27 @@
                 </hgroup>
             </div>
 
-            <div class="panel actuator_control_panel">
+            <div id="actuator_control_panel" class="panel actuator_control_panel">
                 
-                <h1 class="panel_header">Actuators</h1>
+                <div class="panel_header_with_lock">
+                    <h1 class="panel_header">Actuators</h1>
+                    <input type="checkbox" name="actuator_lock_checkbox" value="Lock" id="actuator_lock_checkbox">
+                    <p>Lock</p>
+                </div>
+                
 
                 <div class="actuator_control_panel_row">
-                        <input id="openValve1" class="panel_input actuator_input" type="text" placeholder="Fuel valve">
-                        <input id="openValve2" class="panel_input actuator_input" type="text" placeholder="Oxidizer valve">
-                        <p class="panel_button actuator_control_button" id="openValveButton1">Set fuel</p>
-                        <p class="panel_button actuator_control_button" id="openValveButton2">Set oxidizer</p>
-                        <p class="panel_button actuator_control_button" id="openValveButton2">Set both</p>
+                        <div>
+                            <p class="actuator_input_label">Fuel value</p>
+                            <p class="actuator_input_label">Oxidizer value</p>
+                        </div>
+                        <div>
+                            <input id="actuator_fuel_input" class="panel_input actuator_input" type="text" placeholder="Fuel valve">
+                            <input id="actuator_oxidizer_input" class="panel_input actuator_input" type="text" placeholder="Oxidizer valve">        
+                        </div>
+                        <p class="panel_button actuator_control_button" id="actuator_fuel_set_button">Set fuel</p>
+                        <p class="panel_button actuator_control_button" id="actuator_oxidizer_set_button">Set oxidizer</p>
+                        <p class="panel_button actuator_control_button" id="actuator_both_set_button">Set both</p>
                 </div>
                     
             </div>

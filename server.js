@@ -56,8 +56,8 @@ var MODEL = {
     INITIAL_OXIDIZER: 0
 };
 
-const UDP_IP = "192.168.2.2";
-//const UDP_IP = "localhost";
+//const UDP_IP = "192.168.2.2";
+const UDP_IP = "localhost";
 const UDP_PORT = 5000;
 
 io.sockets.on('connection', function (socket) {
@@ -82,8 +82,18 @@ io.sockets.on('connection', function (socket) {
         UDPSocket.send(JSON.stringify(data),  UDP_PORT,UDP_IP)
     });
 
-    socket.on('Actuator', (data) => {
+    socket.on('actuator_set', (data) => {
+        // Update model
+        for (var i = 0; i < data.length; i++) {
+            MODEL.SENSORS[data[i].name].value = data[i].value;
+        }
 
+        // Send out both model actuator values
+        UDPSocket.send(JSON.stringify({type: "ACTUATOR", data: {
+            ACT_IPA_VALUE: MODEL.SENSORS.ACT_IPA.value,
+            ACT_N2O_VALUE: MODEL.SENSORS.ACT_N2O.value
+        }}), UDP_PORT, UDP_IP);
+        emitModel();
     });
 
     socket.on('log_cmd', (data) => {

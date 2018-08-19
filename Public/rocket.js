@@ -52,6 +52,7 @@ window.onload = function () {
     addFlowratePanelListeners();
     addLoggingPanelListeners();
     addInitialFuelListener();
+    addActuatorPanelListeners();
     socket.emit("refresh_model", {});
 };
 
@@ -97,6 +98,7 @@ function initializeSVGElements() {
 
     DATA.SENSORS.ACT_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.ACT_IPA.svg_name);
     DATA.SENSORS.ACT_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.ACT_N2O.svg_name);
+
 }
 
 function syncVisuals() {
@@ -249,6 +251,72 @@ function addFlowratePanelListeners() {
             }
         }
     });
+}
+
+function addActuatorPanelListeners() {
+    var fuelButton = document.getElementById("actuator_fuel_set_button");
+    var oxidizerButton = document.getElementById("actuator_oxidizer_set_button");
+    var bothButton = document.getElementById("actuator_both_set_button");
+    var fuelField = document.getElementById("actuator_fuel_input");
+    var oxidizerField = document.getElementById("actuator_oxidizer_input");
+    var actuatorLockCheckbox = document.getElementById("actuator_lock_checkbox");
+    
+    fuelButton.addEventListener("click", function () {
+        var fuelValue = (getActuatorFieldValue(fuelField)) ? getActuatorFieldValue(fuelField) : DATA.SENSORS.ACT_IPA.value;
+        socket.emit("actuator_set", [{name: DATA.SENSORS.ACT_IPA.svg_name, value: fuelValue}]);
+        actuatorPanelLock(true);
+    });
+
+    oxidizerButton.addEventListener("click", function () {
+        var oxidizerValue = (getActuatorFieldValue(oxidizerField)) ? getActuatorFieldValue(oxidizerField) : DATA.SENSORS.ACT_N2O.value;
+        socket.emit("actuator_set", [{name: DATA.SENSORS.ACT_N2O.svg_name, value: oxidizerValue}]);
+        actuatorPanelLock(true);
+    });
+
+    bothButton.addEventListener("click", function () {
+        var fuelValue = (getActuatorFieldValue(fuelField)) ? getActuatorFieldValue(fuelField) : DATA.SENSORS.ACT_IPA.value;
+        var oxidizerValue = (getActuatorFieldValue(oxidizerField)) ? getActuatorFieldValue(oxidizerField) : DATA.SENSORS.ACT_N2O.value;
+
+        socket.emit("actuator_set", [
+            {name: DATA.SENSORS.ACT_IPA.svg_name, value: fuelValue}, 
+            {name: DATA.SENSORS.ACT_N2O.svg_name, value: oxidizerValue}
+        ]);
+        actuatorPanelLock(true);
+    });
+
+    actuatorLockCheckbox.addEventListener("click", function () {
+        actuatorPanelLock(actuatorLockCheckbox.checked);
+    }); 
+
+    actuatorPanelLock(true);
+}
+
+function actuatorPanelLock(lock) {
+    var actuatorPanel = document.getElementById("actuator_control_panel");
+    var actuatorLockCheckbox = document.getElementById("actuator_lock_checkbox");
+
+    if (lock) {
+        actuatorPanel.classList.add("panel_disabled");
+    } else {
+        actuatorPanel.classList.remove("panel_disabled");
+    }
+
+    actuatorLockCheckbox.checked = lock;
+}
+
+function getActuatorFieldValue(field) {
+    var value = parseFloat(field.value);
+    if (!isNaN(value)) {
+        if (value >= 0 && value <= 100) {
+            return value;
+        } else {
+            field.value = "";
+            return false;
+        }
+    } else {
+        field.value = "";
+        return false;
+    }
 }
 
 function addLoggingPanelListeners() {

@@ -38,11 +38,36 @@
     padding: 10px;
     border: 1px solid #ffffff;
 }
+.panel_disabled .panel_button {
+    color: #333333;
+    background-color: #666666;
+    pointer-events: none;
+    border: none;
+}
+.panel_disabled .panel_input {
+    color: #333333;
+    background-color: #666666;
+    pointer-events: none;
+}
+
 .panel_header {
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: normal;
     text-decoration: underline;
+}
+
+.panel_header_with_lock {
+    width: 300px;
+    float: left;
+}
+.panel_header_with_lock .panel_header {
+    float: left;
+    margin-right: 150px;
+}
+.panel_header_with_lock input, .panel_header_with_lock p {
+    float: left;
+    margin-right: 5px;
 }
 
 .panel_header_oxid {
@@ -98,6 +123,14 @@
     margin-right: 18px;
 }
 .actuator_input:last-of-type {
+    margin-right: 0;
+}
+.actuator_input_label {
+    width: 130px;
+    margin-right: 18px;
+    float: left;
+}
+.actuator_input_label:last-of-type {
     margin-right: 0;
 }
 
