@@ -15,8 +15,8 @@ var DATA = {
         PT_IPA: {svg_name: "PT_IPA", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
         PT_N2O: {svg_name: "PT_N2O", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
 
-        PT_INJ_IPA: {svg_name: "PT_INJ_IPA", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
-        PT_INJ_N2O: {svg_name: "PT_INJ_N2O", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
+        PT_FUEL: {svg_name: "PT_FUEL", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
+        PT_OX: {svg_name: "PT_OX", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
         PT_CHAM: {svg_name: "PT_CHAM", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
 
         TC_IPA: {svg_name: "TC_IPA", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
@@ -73,8 +73,8 @@ function initializeSVGElements() {
     DATA.SENSORS.PT_N2.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_N2.svg_name);
     DATA.SENSORS.PT_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_IPA.svg_name);
     DATA.SENSORS.PT_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_N2O.svg_name);
-    DATA.SENSORS.PT_INJ_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_INJ_IPA.svg_name);
-    DATA.SENSORS.PT_INJ_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_INJ_N2O.svg_name);
+    DATA.SENSORS.PT_FUEL.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_FUEL.svg_name);
+    DATA.SENSORS.PT_OX.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_OX.svg_name);
     DATA.SENSORS.PT_CHAM.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_CHAM.svg_name);
 
     DATA.SENSORS.TC_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.TC_IPA.svg_name);
@@ -115,8 +115,8 @@ function syncVisuals() {
     updatePressureSensor(DATA.SENSORS.PT_IPA);
     updatePressureSensor(DATA.SENSORS.PT_N2O);
     updatePressureSensor(DATA.SENSORS.PT_N2);
-    updatePressureSensor(DATA.SENSORS.PT_INJ_IPA);
-    updatePressureSensor(DATA.SENSORS.PT_INJ_N2O);
+    updatePressureSensor(DATA.SENSORS.PT_FUEL);
+    updatePressureSensor(DATA.SENSORS.PT_OX);
     updatePressureSensor(DATA.SENSORS.PT_CHAM);
 
     updateTemperatureSensor(DATA.SENSORS.TC_IPA);

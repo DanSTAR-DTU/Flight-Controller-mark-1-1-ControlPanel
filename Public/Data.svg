@@ -371,7 +371,7 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="453.45935"
        y="574.96954"
-       id="PT_INJ_IPA"
+       id="PT_FUEL"
        inkscape:label="#text4258"><tspan
          style="font-size:13.08804035px;line-height:1.25;text-align:center;text-anchor:middle"
          sodipodi:role="line"
@@ -379,7 +379,7 @@
          x="453.45935"
          y="574.96954">Pressure</tspan></text>
     <text
-       id="PT_INJ_N2O"
+       id="PT_OX"
        y="574.96954"
        x="571.57025"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
