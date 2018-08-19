@@ -1,7 +1,12 @@
 
+// File writing
+var fs = require('fs');
+
+// Networking
 var socket = require("socket.io");
 var udp = require('dgram');
 
+// Web server
 var express = require('express');
 var favicon = require('serve-favicon')
 var path = require('path')
@@ -76,8 +81,17 @@ io.sockets.on('connection', function (socket) {
         emitModel();
     });
 
-    socket.on("VALVE", function (data) {
-        UDPSocket.send(JSON.stringify(data),  UDP_PORT,UDP_IP)
+    socket.on("valve", function (data) {
+        if (data.value == "OPEN") {
+            MODEL.SENSORS[data.name].value = "OPEN";
+            sendToBeagle("VALVE", {name: data.name, value: "OPEN"});
+        } else if (data.value == "CLOSED") {
+            MODEL.SENSORS[data.name].value = "CLOSED";
+            sendToBeagle("VALVE", {name: data.name, value: "CLOSED"});
+        } else {
+            console.log("Valve: " + data.name + " tried to set to value: " + data.value);
+        }
+        
     });
 
     socket.on('actuator_set', (data) => {
@@ -85,12 +99,13 @@ io.sockets.on('connection', function (socket) {
         for (var i = 0; i < data.length; i++) {
             MODEL.SENSORS[data[i].name].value = data[i].value;
         }
-
+        
         // Send out both model actuator values
-        UDPSocket.send(JSON.stringify({type: "ACTUATOR", data: {
+        sendToBeagle("ACTUATOR", {
             ACT_IPA_VALUE: MODEL.SENSORS.ACT_IPA.value,
             ACT_N2O_VALUE: MODEL.SENSORS.ACT_N2O.value
-        }}), UDP_PORT, UDP_IP);
+        });
+        
         emitModel();
     });
 
@@ -115,6 +130,7 @@ io.sockets.on('connection', function (socket) {
                 break;
             case "SAVE":
                 // TODO?
+                var json
                 break;
             default:
                 console.log("Unkown log command");

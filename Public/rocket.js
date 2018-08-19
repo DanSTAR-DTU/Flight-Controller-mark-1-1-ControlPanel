@@ -206,13 +206,12 @@ function addValveButtonListener(svgDoc, dataElement) {
         console.log("Valve " + dataElement.svg_name + " pressed!");
         if (dataElement.value == CLOSED) {
             dataElement.value = OPEN;
-            socket.emit("VALVE", {valve_name: dataElement.svg_name, value: dataElement.value});
+            socket.emit("valve", {name: dataElement.svg_name, value: dataElement.value});
         } else if (dataElement.value == OPEN) {
             dataElement.value = CLOSED;
-            socket.emit("VALVE", {valve_name: dataElement.svg_name, value: dataElement.value});
+            socket.emit("valve", {name: dataElement.svg_name, value: dataElement.value});
         }
         updateValveVisual(dataElement);
-
 
     });
 }
@@ -514,7 +513,7 @@ function updateVolumeIndicators() {
 
     var fuelFraction = (DATA.SENSORS.FLO_IPA.initial - DATA.SENSORS.FLO_IPA.accumulated) / DATA.SENSORS.FLO_IPA.initial;
     var fuelTimeLeft = (DATA.SENSORS.FLO_IPA.initial - DATA.SENSORS.FLO_IPA.accumulated) / DATA.SENSORS.FLO_IPA.value;
-    console.log(DATA.SENSORS.FLO_IPA.value);
+    //console.log(DATA.SENSORS.FLO_IPA.value);
     DATA.SENSORS.FLO_IPA.dom_element_gradient.children[1].setAttribute("offset", 1-fuelFraction);
     DATA.SENSORS.FLO_IPA.dom_element_gradient.children[2].setAttribute("offset", 1-fuelFraction);
     DATA.SENSORS.FLO_IPA.dom_element_percentage.textContent = (fuelFraction * 100).toFixed(1) + "%";
@@ -522,7 +521,7 @@ function updateVolumeIndicators() {
 
     var oxidizerFraction = (DATA.SENSORS.FLO_N2O.initial - DATA.SENSORS.FLO_N2O.accumulated) / DATA.SENSORS.FLO_N2O.initial;
     var oxidizerTimeLeft = (DATA.SENSORS.FLO_N2O.initial - DATA.SENSORS.FLO_N2O.accumulated) / DATA.SENSORS.FLO_N2O.value;
-    console.log(oxidizerFraction);
+    //console.log(oxidizerFraction);
     DATA.SENSORS.FLO_N2O.dom_element_gradient.children[1].setAttribute("offset", 1-oxidizerFraction);
     DATA.SENSORS.FLO_N2O.dom_element_gradient.children[2].setAttribute("offset", 1-oxidizerFraction);
     DATA.SENSORS.FLO_N2O.dom_element_percentage.textContent = (oxidizerFraction * 100).toFixed(1) + "%";
