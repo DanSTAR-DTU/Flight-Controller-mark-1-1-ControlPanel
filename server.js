@@ -130,7 +130,23 @@ io.sockets.on('connection', function (socket) {
                 break;
             case "SAVE":
                 // TODO?
-                var json
+                var folder = "logs/";
+                var sd = new Date(startTime);
+                var now = new Date();
+                var sTime = sd.getHours() + "_" + sd.getMinutes() + "_" + sd.getSeconds() + "__" + sd.getDate() + "_" + sd.getMonth() + "_" + sd.getFullYear();
+                var nowTime = now.getHours() + "_" + now.getMinutes() + "_" + now.getSeconds() + "__" + now.getDate() + "_" + now.getMonth() + "_" + now.getFullYear();
+                var filename = folder + sTime + "-" + nowTime + ".json";
+
+                var jsonString = JSON.stringify(historyData);
+                console.log(filename);
+                fs.writeFile(filename, jsonString, 'utf-8', function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("Wrote successfully!");
+                    }
+                });
+                
                 break;
             default:
                 console.log("Unkown log command");
