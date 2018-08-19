@@ -38,7 +38,8 @@ var DATA = {
         ACT_N2O: {svg_name: "ACT_N2O", value: 0, type: "ACTUATOR", dom_element: null}
     },
     IS_LOGGING: false,
-    INITIAL_FUEL: 0
+    INITIAL_FUEL: 0,
+    INITIAL_OXIDIZER: 0
 }
 
 // Flowrate panel 
@@ -52,7 +53,7 @@ window.onload = function () {
     addLoggingPanelListeners();
     addInitialFuelListener();
     socket.emit("refresh_model", {});
-}
+};
 
 
 function initializeSVGElements() {
@@ -131,7 +132,6 @@ function syncVisuals() {
 
     updateFlowratePanel();
     updateLogButtons();
-
     updateInitialFuelVolume();
 }
 
@@ -282,14 +282,28 @@ function addLoggingPanelListeners() {
 function addInitialFuelListener() {
     var setInitialFuelButton = document.getElementById("fuel_volume_set");
     var initialFuelField = document.getElementById("input_fuel_volume");
+    var setInitialOxidizerButton = document.getElementById("oxid_volume_set");
+    var initialOxidizerField = document.getElementById("input_oxidizer_volume");
     setInitialFuelButton.addEventListener("click", function() {
         var fuel = parseFloat(initialFuelField.value);
+        var oxid = parseFloat(initialOxidizerField.value);
         if (!isNaN(fuel)) {
-            socket.emit("initial_fuel", {initialFuel: fuel});
+            console.log()
+            socket.emit("initial_fuel", {initialFuel: fuel, initialOxidizer: oxid});
+
         } else {
             console.log("Initial fuel input has non-number characters");
         }
     });
+    setInitialOxidizerButton.addEventListener("click", function() {
+        var oxid = parseFloat(initialOxidizerField.value);
+        var fuel = parseFloat(initialFuelField.value);
+        if (!isNaN(oxid)) {
+            socket.emit("initial_fuel", {initialOxidizer: oxid, initialFuel: fuel});
+        } else {
+            console.log("Initial fuel input has non-number characters");
+        }
+    })
 }
 
 function updateLogButtons() {
@@ -321,7 +335,9 @@ function setButton(button, enable) {
 
 function updateInitialFuelVolume() {
     var header = document.getElementsByClassName("fuel_volume_panel")[0].getElementsByClassName("panel_header")[0];
+    var oxHeader = document.getElementsByClassName("oxid_volume_panel")[0].getElementsByClassName('panel_header_oxid')[0]
     header.innerHTML = "Initial fuel volume: " + DATA.INITIAL_FUEL + " L";
+    oxHeader.innerHTML = "Initial oxidizer volume: " + DATA.INITIAL_OXIDIZER + " L";
 }
 
 socket.on('info', function (data) {
@@ -337,12 +353,14 @@ socket.on('model_update', function (data){
     for (var key in data.SENSORS) {
         if (data.SENSORS.hasOwnProperty(key)) {
             DATA.SENSORS[key].value = data.SENSORS[key].value;
+            DATA.SENSORS[key].total = data.SENSORS[key].total;
         }
     }
     DATA.SENSORS.FLO_IPA.density = data.SENSORS.FLO_IPA.density;
     DATA.SENSORS.FLO_N2O.density = data.SENSORS.FLO_N2O.density;
     DATA.IS_LOGGING = data.IS_LOGGING;
     DATA.INITIAL_FUEL = data.INITIAL_FUEL;
+    DATA.INITIAL_OXIDIZER = data.INITIAL_OXIDIZER;
     syncVisuals();
 });
 

@@ -16,10 +16,9 @@ var io = socket(server)
 
 // Beaglebone
 var UDPSocket = udp.createSocket('udp4');
-
 var startTime = Date.now();
 var historyData = [];
-
+var timeStamp = {year:'', month:'', day:'', hours:'', minutes: '', seconds:''};
 var MODEL = {
     SENSORS: {
         V4: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
@@ -44,8 +43,8 @@ var MODEL = {
         TC_5: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
         TC_6: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
 
-        FLO_IPA: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
-        FLO_N2O: {value: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
+        FLO_IPA: {value: 0, total: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
+        FLO_N2O: {value: 0, total: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
 
         LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
 
@@ -53,8 +52,9 @@ var MODEL = {
         ACT_N2O: {value: 0, type: "ACTUATOR", lastUpdated: 0}
     },
     IS_LOGGING: false,
-    INITIAL_FUEL: 0
-}
+    INITIAL_FUEL: 0,
+    INITIAL_OXIDIZER: 0
+};
 
 const UDP_IP = "192.168.2.2";
 //const UDP_IP = "localhost";
@@ -80,7 +80,10 @@ io.sockets.on('connection', function (socket) {
 
     socket.on("VALVE", function (data) {
         UDPSocket.send(JSON.stringify(data),  UDP_PORT,UDP_IP)
-       // console.log(data.value)
+    });
+
+    socket.on('Actuator', (data) => {
+
     });
 
     socket.on('log_cmd', (data) => {
@@ -88,10 +91,14 @@ io.sockets.on('connection', function (socket) {
             case "START":
                 MODEL.IS_LOGGING = true;
                 startTime = Date.now();
-                UDPSocket.send("START")
+                syncTime(timeStamp)
+                emitModel();
+                UDPSocket.send(JSON.stringify(timeStamp), UDP_PORT, UDP_IP);
                 break;
             case "STOP":
                 MODEL.IS_LOGGING = false;
+                 UDPSocket.send("STOP", UDP_PORT, UDP_IP);
+                 emitModel();
                 break;
             case "RESET":
                 // Clear history data
@@ -109,7 +116,8 @@ io.sockets.on('connection', function (socket) {
 
     socket.on("initial_fuel", (data) => {
         MODEL.INITIAL_FUEL = data.initialFuel;
-        console.log("Initial fuel: " + MODEL.INITIAL_FUEL);
+        MODEL.INITIAL_OXIDIZER = data.initialOxidizer;
+        emitModel();
     });
 });
 
@@ -124,20 +132,18 @@ UDPSocket.on('message', msg => {
     
     // Parse data
     var data = msg.toString();
-    console.log("Data from Beagle:" + data);
+  //  console.log("Data from Beagle:" + data);
 
     // Add data to history and emit
     update(JSON.parse(data));
 });
 
-
+//sneding a signal every 10 sekunds
 function sendUDPheartbeat() {
     //UDPSocket.send("Hi! I'm server :)", UDP_PORT, UDP_IP);
 }
-
+//
 function update(block) {
-
-
     var dataPoint = {block: block, timestamp: getSessionTime()};
 
     if (MODEL.IS_LOGGING) {
@@ -151,6 +157,8 @@ function update(block) {
         if (block.hasOwnProperty(key)) {
 
             MODEL.SENSORS[key].value = block[key];
+            console.log(MODEL.SENSORS[key].total = block[key].total)
+            MODEL.SENSORS[key].total = block[key].total
 
         }
     }
@@ -168,6 +176,14 @@ function getSessionTime() {
     return Date.now() - startTime;
 }
 
+function syncTime(block){
+    timeStamp.year = new Date().getFullYear()
+    timeStamp.month = new Date().getMonth()
+    timeStamp.day = new Date().getDate()
+    timeStamp.hours = new Date().getHours()
+    timeStamp.minutes = new Date().getMinutes()
+    timeStamp.seconds = new Date().getSeconds()
+}
 
 
 

@@ -44,6 +44,14 @@
     font-weight: normal;
     text-decoration: underline;
 }
+
+.panel_header_oxid {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
 .panel_button {
     height: 40px;  
     line-height: 40px;
@@ -136,5 +144,18 @@
     width: 130px;
 }
 .fuel_volume_row .panel_button {
+    width: 80px;
+}
+
+.oxid_volume_row .field_unit {
+    width: 68px;
+    padding-left: 10px;
+    line-height: 40px;
+    float: left;
+}
+.oxid_volume_row .panel_input {
+    width: 130px;
+}
+.oxid_volume_row .panel_button {
     width: 80px;
 }

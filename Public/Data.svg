@@ -88,7 +88,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="313.78013"
+     inkscape:cx="515.78013"
      inkscape:cy="322.913"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -113,7 +113,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -614,8 +614,8 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:1.90020442;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 292.4289,634.66955 0,41.1711 -28.05489,-20.58555 -28.05488,20.58555 0,-41.1711 28.05488,20.58555 z"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:1.09328222;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 276.20618,646.32 v 17.7966 l -21.4846,-8.8983 -21.48461,8.8983 V 646.32 l 21.48461,8.8983 z"
        id="vent3"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc"
@@ -652,7 +652,7 @@
        sodipodi:nodetypes="ccc" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.00000024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 292.20147,655.2209 15.9099,0 0,-25.63263"
+       d="m 277.20147,657.0959 h 15.9099 v -25.63263"
        id="path4554"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc" />
@@ -712,14 +712,14 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.00000024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 303.60357,636.32831 9.18043,5.30033"
+       d="m 288.60357,636.32831 9.18043,5.30033"
        id="path4610"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        inkscape:connector-curvature="0"
        id="path4620"
-       d="m 303.60357,642.32831 9.18043,5.30033"
+       d="m 288.60357,644.20331 9.18043,5.30033"
        style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.00000024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        sodipodi:nodetypes="cc" />
     <rect
@@ -817,14 +817,14 @@
     <text
        id="text4353"
        y="675.76941"
-       x="296.63931"
+       x="266.63931"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
          y="675.76941"
-         x="296.63931"
+         x="266.63931"
          id="tspan4355"
          sodipodi:role="line"
-         style="font-size:11.25047112px;line-height:1.25">SV-FILL</tspan></text>
+         style="font-size:11.25047112px;line-height:1.25">SV-N2OFILL</tspan></text>
     <text
        id="text4357"
        y="425.93616"
@@ -901,7 +901,7 @@
          x="540.70184"
          id="tspan4383"
          sodipodi:role="line"
-         style="font-size:11.25047112px;line-height:1.25">PT-N2O</tspan></text>
+         style="font-size:11.25047112px;line-height:1.25">PT-OX</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
