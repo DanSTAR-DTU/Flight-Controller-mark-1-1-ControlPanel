@@ -29,17 +29,15 @@ var DATA = {
         TC_5: {svg_name: "TC_5", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
         TC_6: {svg_name: "TC_6", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
 
-        FLO_IPA: {svg_name: "FLO_IPA", value: 0, type: "FLOW_SENSOR", dom_element_l: null, dom_element_m: null, density: 0},
-        FLO_N2O: {svg_name: "FLO_N2O", value: 0, type: "FLOW_SENSOR", dom_element_l: null,  dom_element_m: null, density: 0},
+        FLO_IPA: {svg_name: "FLO_IPA", value: 0, type: "FLOW_SENSOR", dom_element_l: null, dom_element_m: null, dom_element_gradient: null, dom_element_percentage: null, dom_element_time: null, density: 0, accumulated: 18},
+        FLO_N2O: {svg_name: "FLO_N2O", value: 0, type: "FLOW_SENSOR", dom_element_l: null,  dom_element_m: null, dom_element_gradient: null, dom_element_percentage: null, dom_element_time: null, density: 0, accumulated: 32},
 
         LOAD: {html_name: "load_cell_text", value: 0, type: "LOAD_CELL", dom_element: null},
 
         ACT_IPA: {svg_name: "ACT_IPA", value: 0, type: "ACTUATOR", dom_element: null},
         ACT_N2O: {svg_name: "ACT_N2O", value: 0, type: "ACTUATOR", dom_element: null}
     },
-    IS_LOGGING: false,
-    INITIAL_FUEL: 0,
-    INITIAL_OXIDIZER: 0
+    IS_LOGGING: false
 }
 
 // Flowrate panel 
@@ -91,8 +89,15 @@ function initializeSVGElements() {
 
     DATA.SENSORS.FLO_IPA.dom_element_l = svgDoc.getElementById(DATA.SENSORS.FLO_IPA.svg_name + "_L");
     DATA.SENSORS.FLO_IPA.dom_element_m = svgDoc.getElementById(DATA.SENSORS.FLO_IPA.svg_name + "_M");
+    DATA.SENSORS.FLO_IPA.dom_element_gradient = svgDoc.getElementById("gradient_blue");
+    DATA.SENSORS.FLO_IPA.dom_element_percentage = svgDoc.getElementById("fuel_percentage");
+    DATA.SENSORS.FLO_IPA.dom_element_time = svgDoc.getElementById("fuel_time");
+
     DATA.SENSORS.FLO_N2O.dom_element_l = svgDoc.getElementById(DATA.SENSORS.FLO_N2O.svg_name + "_L");
     DATA.SENSORS.FLO_N2O.dom_element_m = svgDoc.getElementById(DATA.SENSORS.FLO_N2O.svg_name + "_M");
+    DATA.SENSORS.FLO_N2O.dom_element_gradient = svgDoc.getElementById("gradient_red");
+    DATA.SENSORS.FLO_N2O.dom_element_percentage = svgDoc.getElementById("oxid_percentage");
+    DATA.SENSORS.FLO_N2O.dom_element_time = svgDoc.getElementById("oxid_time");
 
     DATA.SENSORS.LOAD.dom_element = document.getElementById(DATA.SENSORS.LOAD.html_name);
 
@@ -127,6 +132,8 @@ function syncVisuals() {
     updateFlowSensor(DATA.SENSORS.FLO_IPA);
     updateFlowSensor(DATA.SENSORS.FLO_N2O);
     
+    updateVolumeIndicators();
+
     updateLoadCell(DATA.SENSORS.LOAD);
 
     updateActuator(DATA.SENSORS.ACT_IPA);
@@ -135,6 +142,8 @@ function syncVisuals() {
     updateFlowratePanel();
     updateLogButtons();
     updateInitialFuelVolume();
+
+    
 }
 
 function updateValveVisual(valveElement) {
@@ -439,8 +448,8 @@ function setButton(button, enable) {
 function updateInitialFuelVolume() {
     var header = document.getElementById("initial_fuel_label");
     var oxHeader = document.getElementById("initial_oxidizer_label");
-    header.innerHTML = "Fuel: " + DATA.INITIAL_FUEL + " L";
-    oxHeader.innerHTML = "Oxidizer: " + DATA.INITIAL_OXIDIZER + " L";
+    header.innerHTML = "Fuel: " + DATA.SENSORS.FLO_IPA.initial + " L";
+    oxHeader.innerHTML = "Oxidizer: " + DATA.SENSORS.FLO_N2O.initial + " L";
 }
 
 socket.on('info', function (data) {
@@ -456,15 +465,16 @@ socket.on('model_update', function (data){
     for (var key in data.SENSORS) {
         if (data.SENSORS.hasOwnProperty(key)) {
             DATA.SENSORS[key].value = data.SENSORS[key].value;
-            DATA.SENSORS[key].total = data.SENSORS[key].total;
+            DATA.SENSORS[key].accumulated = data.SENSORS[key].accumulated;
         }
     }
     DATA.SENSORS.FLO_IPA.density = data.SENSORS.FLO_IPA.density;
     DATA.SENSORS.FLO_N2O.density = data.SENSORS.FLO_N2O.density;
     DATA.IS_LOGGING = data.IS_LOGGING;
-    DATA.INITIAL_FUEL = data.INITIAL_FUEL;
-    DATA.INITIAL_OXIDIZER = data.INITIAL_OXIDIZER;
+    DATA.SENSORS.FLO_IPA.initial = data.SENSORS.FLO_IPA.initial;
+    DATA.SENSORS.FLO_N2O.initial = data.SENSORS.FLO_N2O.initial;
     syncVisuals();
+    console.log(DATA);
 });
 
 function lockFuelDensity(enabled) {
@@ -495,3 +505,23 @@ function lockOxidizerDensity(enabled) {
         oxidizerDensityButton.innerHTML = "Lock";
     }
 }
+
+function updateVolumeIndicators() {
+
+    var fuelFraction = (DATA.SENSORS.FLO_IPA.initial - DATA.SENSORS.FLO_IPA.accumulated) / DATA.SENSORS.FLO_IPA.initial;
+    var fuelTimeLeft = (DATA.SENSORS.FLO_IPA.initial - DATA.SENSORS.FLO_IPA.accumulated) / DATA.SENSORS.FLO_IPA.value;
+    console.log(DATA.SENSORS.FLO_IPA.value);
+    DATA.SENSORS.FLO_IPA.dom_element_gradient.children[1].setAttribute("offset", 1-fuelFraction);
+    DATA.SENSORS.FLO_IPA.dom_element_gradient.children[2].setAttribute("offset", 1-fuelFraction);
+    DATA.SENSORS.FLO_IPA.dom_element_percentage.textContent = (fuelFraction * 100).toFixed(1) + "%";
+    DATA.SENSORS.FLO_IPA.dom_element_time.textContent = fuelTimeLeft + "s"
+
+    var oxidizerFraction = (DATA.SENSORS.FLO_N2O.initial - DATA.SENSORS.FLO_N2O.accumulated) / DATA.SENSORS.FLO_N2O.initial;
+    var oxidizerTimeLeft = (DATA.SENSORS.FLO_N2O.initial - DATA.SENSORS.FLO_N2O.accumulated) / DATA.SENSORS.FLO_N2O.value;
+    console.log(oxidizerFraction);
+    DATA.SENSORS.FLO_N2O.dom_element_gradient.children[1].setAttribute("offset", 1-oxidizerFraction);
+    DATA.SENSORS.FLO_N2O.dom_element_gradient.children[2].setAttribute("offset", 1-oxidizerFraction);
+    DATA.SENSORS.FLO_N2O.dom_element_percentage.textContent = (oxidizerFraction * 100).toFixed(1) + "%";
+    DATA.SENSORS.FLO_N2O.dom_element_time.textContent = oxidizerTimeLeft + "s"
+
+} 

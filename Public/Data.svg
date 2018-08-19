@@ -15,13 +15,13 @@
    viewBox="0 0 739.4373 717.54936"
    id="svg4150"
    version="1.1"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="Data.svg">
   <defs
      id="defs4152">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient4645">
+       id="gradient_blue">
       <stop
          style="stop-color:#000000;stop-opacity:0"
          offset="0"
@@ -41,7 +41,7 @@
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient4625">
+       id="gradient_red">
       <stop
          style="stop-color:#000000;stop-opacity:0"
          offset="0"
@@ -61,7 +61,7 @@
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4625"
+       xlink:href="#gradient_red"
        id="linearGradient4631"
        x1="278.39767"
        y1="428.71375"
@@ -71,7 +71,7 @@
        gradientTransform="translate(-73.397666,296.64817)" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4645"
+       xlink:href="#gradient_blue"
        id="linearGradient4651"
        x1="144.9763"
        y1="428.71375"
@@ -87,19 +87,19 @@
      borderopacity="1"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="515.78013"
-     inkscape:cy="322.913"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="141.26631"
+     inkscape:cy="201.92464"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="pt"
      inkscape:showpageshadow="false"
      borderlayer="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1052"
-     inkscape:window-x="1366"
-     inkscape:window-y="0"
+     inkscape:window-width="1280"
+     inkscape:window-height="751"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
      inkscape:window-maximized="1"
      fit-margin-top="2"
      fit-margin-left="2"
@@ -113,7 +113,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -819,12 +819,13 @@
        y="675.76941"
        x="266.63931"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       sodipodi:linespacing="0%"><tspan
          y="675.76941"
          x="266.63931"
          id="tspan4355"
          sodipodi:role="line"
-         style="font-size:11.25047112px;line-height:1.25">SV-N2OFILL</tspan></text>
+         style="font-size:11.25047112px;line-height:1.25">SV-N2O-FILL</tspan></text>
     <text
        id="text4357"
        y="425.93616"
@@ -1031,5 +1032,83 @@
        id="path4321"
        d="m 508.83961,683.54252 -85.46699,0 c 0,0 0.41975,146.51332 0,203.49363 -0.15626,21.21163 39.80279,36.48149 40,66.49361 0.19721,30.01212 -39.02222,33.46605 -40,95.98724 l 85.46699,0"
        style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:4.44033003;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="fuel_percentage"
+       y="888.15436"
+       x="59.331852"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.50000191px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"
+       sodipodi:linespacing="0%"
+       inkscape:label="#text4299"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.50000191px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
+         y="888.15436"
+         x="59.331852"
+         id="tspan4301"
+         sodipodi:role="line">100%</tspan></text>
+    <text
+       sodipodi:linespacing="0%"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.50000134px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       x="209.33186"
+       y="888.15436"
+       id="oxid_percentage"
+       inkscape:label="#text4303"><tspan
+         sodipodi:role="line"
+         id="tspan4306"
+         x="209.33186"
+         y="888.15436"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.50000134px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;">100%</tspan></text>
+    <text
+       inkscape:label="#text4299"
+       sodipodi:linespacing="0%"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.50000191px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="60.904541"
+       y="794.07294"
+       id="text4308"><tspan
+         sodipodi:role="line"
+         id="tspan4310"
+         x="60.904541"
+         y="794.07294"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.00000095px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1">Time left:</tspan></text>
+    <text
+       id="fuel_time"
+       y="818.68994"
+       x="59.791264"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.50000191px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"
+       sodipodi:linespacing="0%"
+       inkscape:label="#text4299"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.00000095px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
+         y="818.68994"
+         x="59.791264"
+         id="tspan4314"
+         sodipodi:role="line">5,6 s</tspan></text>
+    <text
+       id="text4316"
+       y="794.07294"
+       x="210.90456"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.50000191px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"
+       sodipodi:linespacing="0%"
+       inkscape:label="#text4299"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.00000095px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
+         y="794.07294"
+         x="210.90456"
+         id="tspan4318"
+         sodipodi:role="line">Time left:</tspan></text>
+    <text
+       inkscape:label="#text4299"
+       sodipodi:linespacing="0%"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.50000191px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="209.79128"
+       y="818.68994"
+       id="oxid_time"><tspan
+         sodipodi:role="line"
+         id="tspan4322"
+         x="209.79128"
+         y="818.68994"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.00000095px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1">5,6 s</tspan></text>
   </g>
 </svg>

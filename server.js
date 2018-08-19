@@ -43,8 +43,8 @@ var MODEL = {
         TC_5: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
         TC_6: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
 
-        FLO_IPA: {value: 0, total: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
-        FLO_N2O: {value: 0, total: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
+        FLO_IPA: {value: 1, initial: 60, accumulated: 36, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
+        FLO_N2O: {value: 1, initial: 60, accumulated: 18, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
 
         LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
 
@@ -52,8 +52,6 @@ var MODEL = {
         ACT_N2O: {value: 0, type: "ACTUATOR", lastUpdated: 0}
     },
     IS_LOGGING: false,
-    INITIAL_FUEL: 0,
-    INITIAL_OXIDIZER: 0
 };
 
 //const UDP_IP = "192.168.2.2";
@@ -166,8 +164,8 @@ function update(block) {
         if (block.hasOwnProperty(key)) {
 
             MODEL.SENSORS[key].value = block[key];
-            console.log(MODEL.SENSORS[key].total = block[key].total)
-            MODEL.SENSORS[key].total = block[key].total
+            console.log(MODEL.SENSORS[key].accumulated = block[key].accumulated);
+            MODEL.SENSORS[key].accumulated = block[key].accumulated;
 
         }
     }
