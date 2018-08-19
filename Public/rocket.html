@@ -16,7 +16,7 @@
             <div id="loadCellContainer">
                 <h4>Load cell:</h4>
                 <hgroup>
-                    <h1 id="load_cell_text">2.9</h1>
+                    <h1 id="load_cell_text">0</h1>
                     <h3>N</h3>
                 </hgroup>
             </div>
@@ -79,7 +79,31 @@
 
             </div>
 
-            <div class="panel fuel_volume_panel">
+            <div id="initial_volume_panel" class="panel initial_volume_panel">
+                
+                <div class="panel_header_with_lock">
+                    <h1 class="panel_header">Initial volumes</h1>
+                    <input type="checkbox" name="initial_volume_lock_checkbox" value="Lock" id="initial_volume_lock_checkbox">
+                    <p>Lock</p>
+                </div>
+                
+
+                <div>
+                        <div>
+                            <p id="initial_fuel_label" class="initial_input_label">Initial fuel:</p>
+                            <p id="initial_oxidizer_label" class="initial_input_label">Initial oxid:</p>
+                        </div>
+                        <div>
+                            <input id="initial_fuel_input" class="panel_input initial_volume_input" type="text" placeholder="Fuel valve">
+                            <input id="initial_oxidizer_input" class="panel_input initial_volume_input" type="text" placeholder="Oxidizer valve">        
+                        </div>
+                        <p class="panel_button initial_volume_control_button" id="initial_fuel_set_button">Set fuel</p>
+                        <p class="panel_button initial_volume_control_button" id="initial_oxidizer_set_button">Set oxidizer</p>
+                </div>
+                    
+            </div>
+
+            <!--<div class="panel fuel_volume_panel">
 
                 <h1 class="panel_header">Initial fuel volume</h1>
 
@@ -100,7 +124,7 @@
                     <p id="oxid_volume_set" class="panel_button ">Set</p>
                 </div>
 
-            </div>
+            </div>-->
         </div>
         
     </body>

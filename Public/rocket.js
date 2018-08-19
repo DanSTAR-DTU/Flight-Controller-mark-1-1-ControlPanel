@@ -51,7 +51,7 @@ window.onload = function () {
     initializeSVGElements();
     addFlowratePanelListeners();
     addLoggingPanelListeners();
-    addInitialFuelListener();
+    addInitialVolumesListener();
     addActuatorPanelListeners();
     socket.emit("refresh_model", {});
 };
@@ -347,31 +347,66 @@ function addLoggingPanelListeners() {
     });
 }
 
-function addInitialFuelListener() {
-    var setInitialFuelButton = document.getElementById("fuel_volume_set");
-    var initialFuelField = document.getElementById("input_fuel_volume");
-    var setInitialOxidizerButton = document.getElementById("oxid_volume_set");
-    var initialOxidizerField = document.getElementById("input_oxidizer_volume");
-    setInitialFuelButton.addEventListener("click", function() {
-        var fuel = parseFloat(initialFuelField.value);
-        var oxid = parseFloat(initialOxidizerField.value);
-        if (!isNaN(fuel)) {
-            console.log()
-            socket.emit("initial_fuel", {initialFuel: fuel, initialOxidizer: oxid});
+function addInitialVolumesListener() {
+    var setInitialFuelButton = document.getElementById("initial_fuel_set_button");
+    var initialFuelField = document.getElementById("initial_fuel_input");
+    var setInitialOxidizerButton = document.getElementById("initial_oxidizer_set_button");
+    var initialOxidizerField = document.getElementById("initial_oxidizer_input");
+    var initialVolumeLockCheckbox = document.getElementById("initial_volume_lock_checkbox");
 
+    setInitialFuelButton.addEventListener("click", function() {
+        var fuelValue = getInitialVolumeFieldValue(initialFuelField);
+        if (fuelValue) {
+            socket.emit("initial_volume", {name: "INITIAL_FUEL", value: fuelValue});
+            initialVolumePanelLock(true);
         } else {
-            console.log("Initial fuel input has non-number characters");
+            console.log("Initial fuel input has non-number characters: " + fuelValue);
         }
     });
+
     setInitialOxidizerButton.addEventListener("click", function() {
-        var oxid = parseFloat(initialOxidizerField.value);
-        var fuel = parseFloat(initialFuelField.value);
-        if (!isNaN(oxid)) {
-            socket.emit("initial_fuel", {initialOxidizer: oxid, initialFuel: fuel});
+        var oxidizerValue = getInitialVolumeFieldValue(initialOxidizerField);
+        if (oxidizerValue) {
+            socket.emit("initial_volume", {name: "INITIAL_OXIDIZER", value: oxidizerValue});
+            initialVolumePanelLock(true);
         } else {
-            console.log("Initial fuel input has non-number characters");
+            console.log("Initial fuel input has non-number characters: " + oxidizerValue);
         }
-    })
+    });
+
+    initialVolumeLockCheckbox.addEventListener("click", function () {
+        initialVolumePanelLock(initialVolumeLockCheckbox.checked);
+    }); 
+
+    initialVolumePanelLock(true);
+}
+
+function initialVolumePanelLock(lock) {
+    var initialVolumePanel = document.getElementById("initial_volume_panel");
+    var initialVolumeLockCheckbox = document.getElementById("initial_volume_lock_checkbox");
+
+    if (lock) {
+        initialVolumePanel.classList.add("panel_disabled");
+    } else {
+        initialVolumePanel.classList.remove("panel_disabled");
+    }
+
+    initialVolumeLockCheckbox.checked = lock;
+}
+
+function getInitialVolumeFieldValue(field) {
+    var value = parseFloat(field.value);
+    if (!isNaN(value)) {
+        if (value >= 0) {
+            return value;
+        } else {
+            field.value = "";
+            return false;
+        }
+    } else {
+        field.value = "";
+        return false;
+    }
 }
 
 function updateLogButtons() {
@@ -402,10 +437,10 @@ function setButton(button, enable) {
 }
 
 function updateInitialFuelVolume() {
-    var header = document.getElementsByClassName("fuel_volume_panel")[0].getElementsByClassName("panel_header")[0];
-    var oxHeader = document.getElementsByClassName("oxid_volume_panel")[0].getElementsByClassName('panel_header_oxid')[0]
-    header.innerHTML = "Initial fuel volume: " + DATA.INITIAL_FUEL + " L";
-    oxHeader.innerHTML = "Initial oxidizer volume: " + DATA.INITIAL_OXIDIZER + " L";
+    var header = document.getElementById("initial_fuel_label");
+    var oxHeader = document.getElementById("initial_oxidizer_label");
+    header.innerHTML = "Fuel: " + DATA.INITIAL_FUEL + " L";
+    oxHeader.innerHTML = "Oxidizer: " + DATA.INITIAL_OXIDIZER + " L";
 }
 
 socket.on('info', function (data) {

@@ -124,9 +124,8 @@ io.sockets.on('connection', function (socket) {
         }   
     });
 
-    socket.on("initial_fuel", (data) => {
-        MODEL.INITIAL_FUEL = data.initialFuel;
-        MODEL.INITIAL_OXIDIZER = data.initialOxidizer;
+    socket.on("initial_volume", (data) => {
+        MODEL[data.name] = data.value;
         emitModel();
     });
 });
