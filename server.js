@@ -48,8 +48,8 @@ var MODEL = {
         TC_5: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
         TC_6: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
 
-        FLO_IPA: {value: 1, initial: 20, accumulated: 7, type: "FLOW_SENSOR", lastUpdated: 0, density: 100},
-        FLO_N2O: {value: 1, initial: 20, accumulated: 4, type: "FLOW_SENSOR", lastUpdated: 0, density: 101},
+        FLO_IPA: {value: 1, initial: 20, accumulated: 7, type: "FLOW_SENSOR", lastUpdated: 0, density: 786},
+        FLO_N2O: {value: 1, initial: 20, accumulated: 4, type: "FLOW_SENSOR", lastUpdated: 0, density: 1071},
 
         LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
 
@@ -59,8 +59,8 @@ var MODEL = {
     IS_LOGGING: false,
 };
 
-//const UDP_IP = "192.168.2.2";
-const UDP_IP = "localhost";
+const UDP_IP = "192.168.2.2";
+//const UDP_IP = "localhost";
 const UDP_PORT = 5000;
 
 io.sockets.on('connection', function (socket) {
@@ -95,16 +95,21 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('actuator_set', (data) => {
+        console.log(data);
         // Update model
-        for (var i = 0; i < data.length; i++) {
-            MODEL.SENSORS[data[i].name].value = data[i].value;
+        if (data.type == "SINGLE") {
+            if(data.name == "ACT_IPA_VALUE") {
+                MODEL.SENSORS.ACT_IPA.value = data.value;
+                sendToBeagle("ACTUATOR", {type: "SINGLE", name: "ACT_IPA_VALUE", value: data.value});
+            } else if (data.name == "ACT_N2O_VALUE") {
+                MODEL.SENSORS.ACT_N2O.value = data.value;
+                sendToBeagle("ACTUATOR", {type: "SINGLE", name: "ACT_N2O_VALUE", value: data.value});
+            }
+        } else if (data.type == "BOTH") {
+            MODEL.SENSORS.ACT_IPA.value = data.fuelValue;
+            MODEL.SENSORS.ACT_N2O.value = data.oxidizerValue;
+            sendToBeagle("ACTUATOR", {type: "BOTH", fuelValue: data.fuelValue, oxidizerValue: data.oxidizerValue});
         }
-        
-        // Send out both model actuator values
-        sendToBeagle("ACTUATOR", {
-            ACT_IPA_VALUE: MODEL.SENSORS.ACT_IPA.value,
-            ACT_N2O_VALUE: MODEL.SENSORS.ACT_N2O.value
-        });
         
         emitModel();
     });
@@ -114,13 +119,13 @@ io.sockets.on('connection', function (socket) {
             case "START":
                 MODEL.IS_LOGGING = true;
                 startTime = Date.now();
-                syncTime(timeStamp)
+                syncTime(timeStamp);
                 emitModel();
-                sendToBeagle("LOG", timeStamp);
+                sendToBeagle("LOG_START", timeStamp);
                 break;
             case "STOP":
                 MODEL.IS_LOGGING = false;
-                 UDPSocket.send("STOP", UDP_PORT, UDP_IP);
+                 sendToBeagle("LOG_STOP", '');
                  emitModel();
                 break;
             case "RESET":
@@ -154,7 +159,11 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on("initial_volume", (data) => {
-        MODEL[data.name] = data.value;
+        if(data.name == "INITIAL_FUEL") {
+            MODEL.SENSORS.FLO_IPA.initial = data.value;
+        } else if (data.name == "INITIAL_OXIDIZER") {
+            MODEL.SENSORS.FLO_N2O.initial = data.value;
+        }
         emitModel();
     });
 });
@@ -202,18 +211,18 @@ function update(block) {
             
             break;
         case "FLOW_DATA":
-            MODEL.SENSORS.FLO_IPA.value = block.data.FLO_IPA.value;
-            MODEL.SENSORS.FLO_IPA.accumulated = block.data.FLO_IPA.accumulated;
+            MODEL.SENSORS.FLO_IPA.value = block.data.FLO_IPA.value/1000.0;
+            MODEL.SENSORS.FLO_IPA.accumulated = block.data.FLO_IPA.accumulated/1000.0;
 
-            MODEL.SENSORS.FLO_N2O.value = block.data.FLO_N2O.value;
-            MODEL.SENSORS.FLO_N2O.accumulated = block.data.FLO_N2O.accumulated;
+            MODEL.SENSORS.FLO_N2O.value = block.data.FLO_N2O.value/1000.0;
+            MODEL.SENSORS.FLO_N2O.accumulated = block.data.FLO_N2O.accumulated/1000.0;
 
             if (MODEL.IS_LOGGING) {
                 var formattedBlock = {
-                    FLO_IPA_VALUE: block.data.FLO_IPA.value,
-                    FLO_IPA_ACCUMULATED: block.data.FLO_IPA.accumulated,
-                    FLO_N2O_VALUE: block.data.FLO_N2O.value,
-                    FLO_N2O_ACCUMULATED: block.data.FLO_N2O.accumulated,
+                    FLO_IPA_VALUE: block.data.FLO_IPA.value/1000.0,
+                    FLO_IPA_ACCUMULATED: block.data.FLO_IPA.accumulated/1000.0,
+                    FLO_N2O_VALUE: block.data.FLO_N2O.value/1000.0,
+                    FLO_N2O_ACCUMULATED: block.data.FLO_N2O.accumulated/1000.0,
                 }
                 var dataPoint = {data: formattedBlock, timestamp: getSessionTime()};
                 historyData.FLOW.push(dataPoint);
@@ -268,7 +277,7 @@ function getSessionTime() {
     return Date.now() - startTime;
 }
 
-function syncTime(block){
+function syncTime(){
     timeStamp.year = new Date().getFullYear()
     timeStamp.month = new Date().getMonth()
     timeStamp.day = new Date().getDate()
