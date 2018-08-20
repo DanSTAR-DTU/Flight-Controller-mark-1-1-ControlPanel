@@ -117,7 +117,7 @@ portPins1.on('data',function(data){
     jsonPressure.data.PT_N2 = arduInput.fields[5]*0.002*VD*35.052-0.4656
     jsonLoadCell.data.LOAD_CELL = arduInput.fields[6]*voltsPerBit*1000/mvGram
 //  jsonData.TC_6 = arduInput.fields[7]/100
-
+    // gitfix
     console.log(jsonPressure)
     //console.log(jsonLoadCell)
     //console.log(PT.get('timer')+' timer!')
