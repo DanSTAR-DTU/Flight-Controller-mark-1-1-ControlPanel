@@ -48,8 +48,8 @@ var MODEL = {
         TC_5: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
         TC_6: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
 
-        FLO_IPA: {value: 1, initial: 20, accumulated: 7, type: "FLOW_SENSOR", lastUpdated: 0, density: 786},
-        FLO_N2O: {value: 1, initial: 20, accumulated: 4, type: "FLOW_SENSOR", lastUpdated: 0, density: 1071},
+        FLO_IPA: {value: 0, initial: 20, accumulated: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 786},
+        FLO_N2O: {value: 0, initial: 20, accumulated: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 1071},
 
         LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
 
