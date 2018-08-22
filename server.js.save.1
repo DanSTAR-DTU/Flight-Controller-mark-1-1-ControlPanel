@@ -270,7 +270,6 @@ function emitModel() {
 }
 
 function sendToBeagle(type, data) {
-    console.log("Sent to Beagle:" + JSON.stringify(data));
     UDPSocket.send(JSON.stringify({type: type, data: data}), UDP_PORT, UDP_IP);
 }
 
