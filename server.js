@@ -192,16 +192,18 @@ function sendUDPheartbeat() {
 //
 function update(block) {
 
+    var updateTime = Date.now();
+
     switch (block.type) {
         case "TC_DATA":
-            MODEL.SENSORS.TC_IPA.value = block.data.TC_IPA;
-            MODEL.SENSORS.TC_N2O.value = block.data.TC_N2O;
-            MODEL.SENSORS.TC_1.value = block.data.TC_1;
-            MODEL.SENSORS.TC_2.value = block.data.TC_2;
-            MODEL.SENSORS.TC_3.value = block.data.TC_3;
-            MODEL.SENSORS.TC_4.value = block.data.TC_4;
-            MODEL.SENSORS.TC_5.value = block.data.TC_5;
-            MODEL.SENSORS.TC_6.value = block.data.TC_6;
+            MODEL.SENSORS.TC_IPA.value = block.data.TC_IPA; MODEL.SENSORS.TC_IPA.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_N2O.value = block.data.TC_N2O; MODEL.SENSORS.TC_N2O.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_1.value = block.data.TC_1; MODEL.SENSORS.TC_1.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_2.value = block.data.TC_2; MODEL.SENSORS.TC_2.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_3.value = block.data.TC_3; MODEL.SENSORS.TC_3.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_4.value = block.data.TC_4; MODEL.SENSORS.TC_4.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_5.value = block.data.TC_5; MODEL.SENSORS.TC_5.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_6.value = block.data.TC_6; MODEL.SENSORS.TC_6.lastUpdated = updateTime;
 
             if(MODEL.IS_LOGGING) {
                 var dataPoint = {data: block.data, timestamp: getSessionTime()};
@@ -213,9 +215,11 @@ function update(block) {
         case "FLOW_DATA":
             MODEL.SENSORS.FLO_IPA.value = block.data.FLO_IPA.value/1000.0;
             MODEL.SENSORS.FLO_IPA.accumulated = block.data.FLO_IPA.accumulated/1000.0;
+            MODEL.SENSORS.FLO_IPA.lastUpdated = updateTime;
 
             MODEL.SENSORS.FLO_N2O.value = block.data.FLO_N2O.value/1000.0;
             MODEL.SENSORS.FLO_N2O.accumulated = block.data.FLO_N2O.accumulated/1000.0;
+            MODEL.SENSORS.FLO_N2O.lastUpdated = updateTime;
 
             if (MODEL.IS_LOGGING) {
                 var formattedBlock = {
@@ -231,12 +235,12 @@ function update(block) {
 
             break;
         case "PRESSURE_DATA":
-            MODEL.SENSORS.PT_IPA.value = block.data.PT_IPA;
-            MODEL.SENSORS.PT_N2O.value = block.data.PT_N2O;
-            MODEL.SENSORS.PT_N2.value = block.data.PT_N2;
-            MODEL.SENSORS.PT_OX.value = block.data.PT_OX;
-            MODEL.SENSORS.PT_FUEL.value = block.data.PT_FUEL;
-            MODEL.SENSORS.PT_CHAM.value = block.data.PT_CHAM;
+            MODEL.SENSORS.PT_IPA.value = block.data.PT_IPA; MODEL.SENSORS.PT_IPA.lastUpdated = updateTime;
+            MODEL.SENSORS.PT_N2O.value = block.data.PT_N2O; MODEL.SENSORS.PT_N2O.lastUpdated = updateTime;
+            MODEL.SENSORS.PT_N2.value = block.data.PT_N2; MODEL.SENSORS.PT_N2.lastUpdated = updateTime;
+            MODEL.SENSORS.PT_OX.value = block.data.PT_OX; MODEL.SENSORS.PT_OX.lastUpdated = updateTime;
+            MODEL.SENSORS.PT_FUEL.value = block.data.PT_FUEL; MODEL.SENSORS.PT_FUEL.lastUpdated = updateTime;
+            MODEL.SENSORS.PT_CHAM.value = block.data.PT_CHAM; MODEL.SENSORS.PT_CHAM.lastUpdated = updateTime;
 
             if (MODEL.IS_LOGGING) {
                 var dataPoint = {data: block.data, timestamp: getSessionTime()};
@@ -247,6 +251,7 @@ function update(block) {
             break;
         case "LOAD_CELL_DATA":
             MODEL.SENSORS.LOAD.value = block.data.LOAD_CELL;
+            MODEL.SENSORS.LOAD.lastUpdated = updateTime;
 
             if (MODEL.IS_LOGGING) {
                 var dataPoint = {data: block.data, timestamp: getSessionTime()};

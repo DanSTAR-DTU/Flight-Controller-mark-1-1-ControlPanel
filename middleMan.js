@@ -14,7 +14,7 @@ bone.digitalWrite('P8_8', bone.HIGH)
 
 var initialAccumulatedFlows = {FLO_IPA: 0, FLO_N2O:0}
 
-var USBport1 = new SerialPort('/dev/ttyACM1', { baudRate: 115200}, function(err) {
+/*var USBport1 = new SerialPort('/dev/ttyACM1', { baudRate: 115200}, function(err) {
     if(err){
         return console.log('Error: ', err.message);
     }
@@ -29,10 +29,9 @@ var USBport0 = new SerialPort('/dev/ttyACM0', { baudRate: 115200}, function(err)
     }
     console.log("USB0 ready")
 
-});
+});*/
 
-var i = 1;
-var portPins1 = new SerialPort('/dev/ttyO1', { baudRate: 115200}, function(err) {
+var pressureUART = new SerialPort('/dev/ttyO1', { baudRate: 115200}, function(err) {
     if(err){
         return console.log('Error: ', err.message);
     }
@@ -41,7 +40,7 @@ var portPins1 = new SerialPort('/dev/ttyO1', { baudRate: 115200}, function(err) 
 });
 
 
-var portPins4 = new SerialPort('/dev/ttyO4', { baudRate: 115200}, function(err) {
+var flowUART = new SerialPort('/dev/ttyO4', { baudRate: 115200}, function(err) {
     if(err){
         return console.log('Error: ', err.message);
     }
@@ -49,7 +48,13 @@ var portPins4 = new SerialPort('/dev/ttyO4', { baudRate: 115200}, function(err) 
 
 });
 
+var valveUART = new SerialPort('/dev/ttyO2', { baudRate: 115200}, function(err) {
+    if(err){
+        return console.log('Error: ', err.message);
+    }
+    console.log("UART5 ready - valve UART");
 
+});
 
 var receiverDeviceAddress;
 var receiverDevicePort;
@@ -83,7 +88,7 @@ let jsonLoadCell = {type:'LOAD_CELL_DATA', data:{LOAD_CELL:''}}
          sendBlock(jsonData);
 });*/
 
-portPins1.on('data',function(data){
+pressureUART.on('data',function(data){
 
 
     data = new Buffer(data)
@@ -177,7 +182,7 @@ portPins.on('data',function(data) {
 })*/
 
 
-portPins4.on('data', function(data){
+flowUART.on('data', function(data){
 
     //  console.log(data)
 
@@ -289,7 +294,7 @@ function startLog(message){
     isLogging  = true
     initialAccumulatedFlows.FLO_IPA = jsonFlow.data.FLO_IPA.accumulated;
     initialAccumulatedFlows.FLO_N2O = jsonFlow.data.FLO_N2O.accumulated;
-    writeStream = fs.createWriteStream("/run/user/1000/"+message.data.year+':'+message.data.month+':'+message.data.day+':'+message.data.hours+':'+message.data.minutes+':'+message.data.seconds+".txt")
+    writeStream = fs.createWriteStream("/danstar/logs/"+message.data.year+':'+message.data.month+':'+message.data.day+':'+message.data.hours+':'+message.data.minutes+':'+message.data.seconds+".txt")
     writeStream.write('start'+'\n', 'ascii');
 
 }
@@ -303,8 +308,7 @@ function valveState(valveName, valveValue){
     if(valveValue == 'CLOSED'){
         jsonDataValve[valveName] = valveValue
         console.log(valveName+' '+0)
-        USBport0.write(new Buffer.from(valveName+' 0'))
-        USBport1.write(new Buffer.from(valveName+' 0'))
+        valveUART.write(new Buffer.from(valveName+' 0'))
         // sendBlock(jsonDataValve)
 
 
@@ -312,8 +316,7 @@ function valveState(valveName, valveValue){
         console.log(valveName+' '+1)
         jsonDataValve[valveName] = valveValue
 
-        USBport0.write(new Buffer.from(valveName+' 1'))
-        USBport1.write(new Buffer.from(valveName+' 1'))
+        valveUART.write(new Buffer.from(valveName+' 1'))
         //sendBlock(jsonDataValve)
 
 
@@ -329,13 +332,11 @@ function actuator(data) {
     if (data.type == "SINGLE") {
         if (data.name == "ACT_IPA_VALUE") {
             console.log(fuelValve+' '+data.value)
-            USBport0.write(new Buffer.from(fuelValve+' '+data.value))
-            USBport1.write(new Buffer.from(fuelValve+' '+data.value))
+            valveUART.write(new Buffer.from(fuelValve+' '+data.value))
 
         } else if (data.name == "ACT_N2O_VALUE") {
             console.log(oxValve+' '+data.value)
-            USBport0.write(new Buffer.from(oxValve+' '+data.value))
-            USBport1.write(new Buffer.from(oxValve+' '+data.value))
+            valveUART.write(new Buffer.from(oxValve+' '+data.value))
         }
 
     } else if (data.type == "BOTH") {
