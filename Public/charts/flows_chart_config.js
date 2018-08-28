@@ -59,7 +59,7 @@ var flowsChart = new Chart(flowsContext, {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: "Input size",
+                    labelString: "Flow [L/s]",
                     fontColor: 'rgb(255,255,255)'
                 }
             }]

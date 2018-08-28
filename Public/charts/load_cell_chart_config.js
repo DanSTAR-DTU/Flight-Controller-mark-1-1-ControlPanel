@@ -52,7 +52,7 @@ var loadCellChart = new Chart(loadCellContext, {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: "Input size",
+                    labelString: "Force [N]",
                     fontColor: 'rgb(255,255,255)'
                 }
             }]
