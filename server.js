@@ -134,23 +134,7 @@ io.sockets.on('connection', function (socket) {
                 io.sockets.emit("clear_graphs", 0);
                 break;
             case "SAVE":
-                var folder = "logs/";
-                var sd = new Date(startTime);
-                var now = new Date();
-                var sTime = sd.getHours() + "_" + sd.getMinutes() + "_" + sd.getSeconds() + "__" + sd.getDate() + "_" + sd.getMonth() + "_" + sd.getFullYear();
-                var nowTime = now.getHours() + "_" + now.getMinutes() + "_" + now.getSeconds() + "__" + now.getDate() + "_" + now.getMonth() + "_" + now.getFullYear();
-                var filename = folder + sTime + "-" + nowTime + ".json";
-
-                var jsonString = JSON.stringify(historyData);
-                console.log(filename);
-                fs.writeFile(filename, jsonString, 'utf-8', function(err) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log("Wrote successfully!");
-                    }
-                });
-                
+                saveLogToCSV();
                 break;
             default:
                 console.log("Unkown log command");
@@ -292,9 +276,74 @@ function syncTime(){
     timeStamp.seconds = new Date().getSeconds()
 }
 
-//fixgit
-//gitfix
+function saveLogToCSV() {
+  
+    // Create filename based on datetime
+    var sd = new Date(startTime);
+    var now = new Date();
+    var sTime = sd.getHours() + "_" + sd.getMinutes() + "_" + sd.getSeconds() + "__" + sd.getDate() + "_" + sd.getMonth() + "_" + sd.getFullYear();
+    var nowTime = now.getHours() + "_" + now.getMinutes() + "_" + now.getSeconds() + "__" + now.getDate() + "_" + now.getMonth() + "_" + now.getFullYear();
 
+    var folder = "logs/" + sTime + "-" + nowTime + "/";
+    var filename;
 
+    // Make folder for this session's logs
+    !fs.existsSync(folder) && fs.mkdirSync(folder);
 
+    // Write flows to CSV
+    filename = folder + sTime + "-" + nowTime + "_flows.csv";
+    writeSensorBranch(filename, ["FLO_IPA_VALUE", "FLO_IPA_ACCUMULATED", "FLO_N2O_VALUE", "FLO_N2O_ACCUMULATED"], historyData.FLOW);
+
+    // Write pressures to CSV
+    filename = folder + sTime + "-" + nowTime + "_pressure.csv";
+    writeSensorBranch(filename, ["PT_IPA", "PT_N2O", "PT_N2", "PT_FUEL", "PT_OX", "PT_CHAM"], historyData.PRESSURE);
+
+    // Write temperatures to CSV
+    filename = folder + sTime + "-" + nowTime + "_temperatures.csv";
+    writeSensorBranch(filename, ["TC_IPA", "TC_N2O", "TC_1", "TC_2", "TC_3", "TC_4", "TC_5", "TC_6"], historyData.TC);
+    
+}
+
+// Write a part of historyData to CSV
+function writeSensorBranch(filename, columns, branch) {
+
+    var stream = fs.createWriteStream(filename, {flags : 'a'});
+    
+    // Give feedback when finished
+    stream.on("finish", function() {
+        console.log("File: " + filename + " written.");
+    });
+
+    // Write header with TIMESTAMP, column1, column2, ...
+    var header = "TIMESTAMP,"
+    columns.forEach((item, index) => {
+        header += item + ","
+    });
+
+    // Remove last "," from concatenation and write to file
+    header = header.slice(0, -1);
+    header += "\n";
+    stream.write(header);
+
+    // Append rows. One block per row.
+    branch.forEach((block) => {
+
+        // Start row with TIMESTAMP
+        var row = block.timestamp + ",";
+
+        // Concatenate measures as columns
+        columns.forEach((measure) => {
+            row += block.data[measure] + ",";
+        });
+
+        // Remove last "," from concatenation and write to file
+        row = row.slice(0, -1);
+        row += "\n";
+        stream.write(row);
+    });
+
+    // Close resource
+    stream.end();
+
+}
 

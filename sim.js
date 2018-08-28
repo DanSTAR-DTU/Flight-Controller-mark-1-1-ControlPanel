@@ -127,7 +127,7 @@ function generateFlow() {
                 accumulated: 7
             },
             FLO_N2O: {
-                value : rand(flows[0]), 
+                value : rand(flows[1]), 
                 accumulated: 4
             }
         }
