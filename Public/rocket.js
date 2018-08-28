@@ -486,8 +486,9 @@ socket.on('connect', function() {
 });
 
 socket.on('model_update', function (model){
-    console.log(model);
+    var beforeData = DATA;
     DATA = mergeModels(DATA, model);
+    console.log({model: model, beforeData: beforeData, afterData: DATA});
 
     syncVisuals();
 });

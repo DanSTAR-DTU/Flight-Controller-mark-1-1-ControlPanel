@@ -81,8 +81,8 @@ var load = [
 ];
 
 var flows = [
-    {name: "FLO_IPA", min: 0, max: 1000, last: 500},
-    {name: "FLO_N2O", min: 0, max: 1000, last: 500}
+    {name: "FLO_IPA", min: 0, max: 1000, last: 500, accumulatedLast: 0},
+    {name: "FLO_N2O", min: 0, max: 1000, last: 500, accumulatedLast: 0}
 ];
 
 setInterval(() => {
@@ -119,16 +119,19 @@ function sendBlock(block) {
 }
 
 function generateFlow() {
+    flows[0].accumulatedLast += flows[0].last;
+    flows[1].accumulatedLast += flows[1].last;    
+
     var block = {
         type: "FLOW_DATA", 
         data: {
             FLO_IPA: {
                 value : rand(flows[0], 200), 
-                accumulated: 7
+                accumulated: flows[0].accumulatedLast
             },
             FLO_N2O: {
                 value : rand(flows[1], 200), 
-                accumulated: 4
+                accumulated: flows[1].accumulatedLast
             }
         }
     }
