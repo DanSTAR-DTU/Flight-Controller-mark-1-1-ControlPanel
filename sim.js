@@ -81,23 +81,23 @@ var load = [
 ];
 
 var flows = [
-    {name: "FLO_IPA", min: 0.1, max: 2, last: 1},
-    {name: "FLO_N2O", min: 0.1, max: 2, last: 1}
+    {name: "FLO_IPA", min: 0, max: 1000, last: 500},
+    {name: "FLO_N2O", min: 0, max: 1000, last: 500}
 ];
 
 setInterval(() => {
-    sendBlock(generateDataBlock("TC_DATA", temperatures));
+    sendBlock(generateDataBlock("TC_DATA", temperatures, 2));
 
     setTimeout(function() {
         sendBlock(generateFlow());
     }, 100);
 
     setTimeout(function() {
-        sendBlock(generateDataBlock("LOAD_CELL_DATA", load));
+        sendBlock(generateDataBlock("LOAD_CELL_DATA", load, 2));
     }, 200);
 
     setTimeout(function() {
-        sendBlock(generateDataBlock("PRESSURE_DATA", pressures));
+        sendBlock(generateDataBlock("PRESSURE_DATA", pressures, 2));
         console.log("");
     }, 300);
     
@@ -123,11 +123,11 @@ function generateFlow() {
         type: "FLOW_DATA", 
         data: {
             FLO_IPA: {
-                value : rand(flows[0]), 
+                value : rand(flows[0], 200), 
                 accumulated: 7
             },
             FLO_N2O: {
-                value : rand(flows[1]), 
+                value : rand(flows[1], 200), 
                 accumulated: 4
             }
         }
@@ -136,22 +136,18 @@ function generateFlow() {
     return block;
 }
 
-function generateDataBlock(typename, listOfSensors) {
+function generateDataBlock(typename, listOfSensors, step) {
     var blockObject = {type: typename, data: {}};
 
     for (sensor of listOfSensors) {
-        var rNum = Math.random() * 2 - 1;
-        sensor.last += rNum;
-        sensor.last = parseFloat(sensor.last.toFixed(2));
-        sensor.last = Math.max(Math.min(sensor.last, sensor.max), sensor.min);
-        blockObject.data[sensor.name] = sensor.last;
+        blockObject.data[sensor.name] = rand(sensor, step);
     }
 
     return blockObject;
 }
 
-function rand(sensor) {
-    var rNum = Math.random() * 2 - 1;
+function rand(sensor, step) {
+    var rNum = Math.random() * step - (step / 2.0);
     sensor.last += rNum;
     sensor.last = parseFloat(sensor.last.toFixed(2));
     sensor.last = Math.max(Math.min(sensor.last, sensor.max), sensor.min);

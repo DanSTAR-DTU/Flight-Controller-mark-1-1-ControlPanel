@@ -26,35 +26,35 @@ var historyData = {TC: [], VALVE: [], ACTUATOR: [], FLOW: [], PRESSURE: [], LOAD
 var timeStamp = {year:'', month:'', day:'', hours:'', minutes: '', seconds:''};
 var MODEL = {
     SENSORS: {
-        SV_FLUSH: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
-        SV_N2O: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
-        SV_N2O_FILL: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
-        SV_IPA: {value: "CLOSED", type: "VALVE", lastUpdated: 0},
+        SV_FLUSH: {value: "CLOSED", lastUpdated: 0},
+        SV_N2O: {value: "CLOSED", lastUpdated: 0},
+        SV_N2O_FILL: {value: "CLOSED", lastUpdated: 0},
+        SV_IPA: {value: "CLOSED", lastUpdated: 0},
 
-        PT_N2: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
-        PT_IPA: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
-        PT_N2O: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
-        PT_FUEL: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
-        PT_OX: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
-        PT_CHAM: {value: 0, type: "PRESSURE_SENSOR", lastUpdated: 0},
+        PT_N2: {value: 0, lastUpdated: 0},
+        PT_IPA: {value: 0, lastUpdated: 0},
+        PT_N2O: {value: 0, lastUpdated: 0},
+        PT_FUEL: {value: 0, lastUpdated: 0},
+        PT_OX: {value: 0, lastUpdated: 0},
+        PT_CHAM: {value: 0, lastUpdated: 0},
 
-        TC_IPA: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-        TC_N2O: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+        TC_IPA: {value: 0, lastUpdated: 0},
+        TC_N2O: {value: 0, lastUpdated: 0},
 
-        TC_1: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-        TC_2: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-        TC_3: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-        TC_4: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-        TC_5: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
-        TC_6: {value: 0, type: "TEMPERATURE_SENSOR", lastUpdated: 0},
+        TC_1: {value: 0, lastUpdated: 0},
+        TC_2: {value: 0, lastUpdated: 0},
+        TC_3: {value: 0, lastUpdated: 0},
+        TC_4: {value: 0, lastUpdated: 0},
+        TC_5: {value: 0, lastUpdated: 0},
+        TC_6: {value: 0, lastUpdated: 0},
 
-        FLO_IPA: {value: 0, initial: 20, accumulated: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 786},
-        FLO_N2O: {value: 0, initial: 20, accumulated: 0, type: "FLOW_SENSOR", lastUpdated: 0, density: 1071},
+        FLO_IPA: {value: 0, initial: 20, accumulated: 0, lastUpdated: 0, density: 786},
+        FLO_N2O: {value: 0, initial: 20, accumulated: 0, lastUpdated: 0, density: 1071},
 
-        LOAD: {value: 0, type: "LOAD_CELL", lastUpdated: 0},
+        LOAD: {value: 0, lastUpdated: 0},
 
-        ACT_IPA: {value: 0, type: "ACTUATOR", lastUpdated: 0},
-        ACT_N2O: {value: 0, type: "ACTUATOR", lastUpdated: 0}
+        ACT_IPA: {value: 0, lastUpdated: 0},
+        ACT_N2O: {value: 0, lastUpdated: 0}
     },
     IS_LOGGING: false,
 };
