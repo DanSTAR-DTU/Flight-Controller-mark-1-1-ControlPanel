@@ -224,3 +224,12 @@
     width: 80px;
 }
 
+.last_updated_time_panel p {
+    
+}
+.updates_alive {
+    color: #00FF00;
+}
+.updates_dead {
+    color: #FF0000;
+}

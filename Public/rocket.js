@@ -439,8 +439,8 @@ function updateInitialFuelVolume() {
 }
 
 function updateLastUpdatedTime() {
-    var labelElement = document.getElementsByClassName("last_updated_time_panel")[0].getElementsByTagName("p")[0];
-    var labelString = "";
+    var labelElement = document.getElementsByClassName("last_updated_time_panel")[0];
+    var panelString = "";
 
     var pressureTime = (Date.now() - DATA.SENSORS.PT_N2.lastUpdated)/1000.0;
     var temperatureTime = (Date.now() - DATA.SENSORS.TC_IPA.lastUpdated)/1000.0;
@@ -450,31 +450,31 @@ function updateLastUpdatedTime() {
     var limitTime = 4;
 
     if (pressureTime < limitTime) {
-        labelString += "Pressure updated " + pressureTime + " seconds ago. <br/>";
+        panelString += "<p class=\"updates_alive\">Pressure: " + pressureTime.toFixed(1) + " seconds ago. </p>";
     } else {
-        labelString += "Pressure is not receiving updates. <br/>";
+        panelString += "<p class=\"updates_dead\">Pressure is not receiving updates.</p>";
     }
 
     if (temperatureTime < limitTime) {
-        labelString += "Temperature updated " + temperatureTime + " seconds ago. <br/>";
+        panelString += "<p class=\"updates_alive\">Temperature: " + temperatureTime.toFixed(1) + " seconds ago.</p>";
     } else {
-        labelString += "Temperature is not receiving updates. <br/>";
+        panelString += "<p class=\"updates_dead\">Temperature is not receiving updates.</p>";
     }
 
     if (flowTime < limitTime) {
-        labelString += "Flow updated " + flowTime + " seconds ago. <br/>";
+        panelString += "<p class=\"updates_alive\">Flow: " + flowTime.toFixed(1) + " seconds ago.</p>";
     } else {
-        labelString += "Flow is not receiving updates. <br/>";
+        panelString += "<p class=\"updates_dead\">Flow is not receiving updates.</p>";
     }
 
     if (loadTime < limitTime) {
-        labelString += "Load updated " + loadTime + " seconds ago.";
+        panelString += "<p class=\"updates_alive\">Load: " + loadTime.toFixed(1) + " seconds ago.</p>";
     } else {
-        labelString += "Load is not receiving updates.";
+        panelString += "<p class=\"updates_dead\">Load is not receiving updates.</p>";
     }
     
 
-    labelElement.innerHTML = labelString;
+    labelElement.innerHTML = panelString;
 }
 
 socket.on('info', function (data) {
