@@ -32,7 +32,8 @@ var MODEL = {
         LOAD: {value: 10, type: "LOAD_CELL", lastUpdated: 0},
 
         ACT_IPA: {value: 10, type: "ACTUATOR", lastUpdated: 0},
-        ACT_N2O: {value: 10, type: "ACTUATOR", lastUpdated: 0}
+        ACT_N2O: {value: 10, type: "ACTUATOR", lastUpdated: 0},
+        TEST: {valu:0}
     },
     IS_LOGGING: false,
 };
@@ -77,6 +78,9 @@ function mergeModels(localModel, serverModel) {
 
     for (var sensorName in serverModel.SENSORS) {
         if (serverModel.SENSORS.hasOwnProperty(sensorName)) {
+            
+            // Create sensor if it does not exists
+            localModel.SENSORS[sensorName] = localModel.SENSORS[sensorName] || {}
 
             for (var propertyName in serverModel.SENSORS[sensorName]) {
                 if(serverModel.SENSORS[sensorName].hasOwnProperty(propertyName)) {
@@ -91,5 +95,5 @@ function mergeModels(localModel, serverModel) {
     return localModel;
 }
 
-DATA = mergeModelIntoData(DATA, MODEL);
+DATA = mergeModels(DATA, MODEL);
 console.log(DATA);
