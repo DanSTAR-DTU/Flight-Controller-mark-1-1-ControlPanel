@@ -269,18 +269,24 @@ function addActuatorPanelListeners() {
     var actuatorLockCheckbox = document.getElementById("actuator_lock_checkbox");
     
     fuelButton.addEventListener("click", function () {
-        var fuelValue = getActuatorFieldValue(fuelField);
-        if (fuelValue != null) {
-            socket.emit("actuator_set", {type: "SINGLE", name: "ACT_IPA_VALUE", value: fuelValue});
-            //actuatorPanelLock(true);
+        actuatorFuelOK(fuelField);
+    });
+
+    fuelField.addEventListener("keyup", function (e) {
+        e.preventDefault();
+        if (e.keyCode === 13) {
+            actuatorFuelOK(fuelField);
         }
     });
 
     oxidizerButton.addEventListener("click", function () {
-        var oxidizerValue = getActuatorFieldValue(oxidizerField);
-        if(oxidizerValue != null) {
-            socket.emit("actuator_set", {type: "SINGLE", name: "ACT_N2O_VALUE", value: oxidizerValue});
-            //actuatorPanelLock(true);
+        actuatorOxidizerOK(oxidizerField);
+    });
+
+    oxidizerField.addEventListener("keyup", function (e) {
+        e.preventDefault();
+        if (e.keyCode === 13) {
+            actuatorFuelOK(oxidizerField);
         }
     });
 
@@ -302,6 +308,22 @@ function addActuatorPanelListeners() {
     }); 
 
     //actuatorPanelLock(true);
+}
+
+function actuatorFuelOK(fuelField) {
+    var fuelValue = getActuatorFieldValue(fuelField);
+    if (fuelValue != null) {
+        socket.emit("actuator_set", {type: "SINGLE", name: "ACT_IPA_VALUE", value: fuelValue});
+        //actuatorPanelLock(true);
+    }
+}
+
+function actuatorOxidizerOK(oxidizerField) {
+    var oxidizerValue = getActuatorFieldValue(oxidizerField);
+    if(oxidizerValue != null) {
+        socket.emit("actuator_set", {type: "SINGLE", name: "ACT_N2O_VALUE", value: oxidizerValue});
+        //actuatorPanelLock(true);
+    }
 }
 
 function actuatorPanelLock(lock) {
