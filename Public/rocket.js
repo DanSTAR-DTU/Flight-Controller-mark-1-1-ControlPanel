@@ -335,13 +335,9 @@ function getActuatorFieldValue(field) {
 function addLoggingPanelListeners() {
     var startButton = document.getElementById("log_button_start");
     var stopButton = document.getElementById("log_button_stop");
-    var resetButton = document.getElementById("log_button_reset");
-    var saveButton = document.getElementById("log_button_save");
 
     setButton(startButton, true);
     setButton(stopButton, false);
-    setButton(resetButton, true);
-    setButton(saveButton, true);
 
     startButton.addEventListener("click", function() {
         socket.emit("log_cmd", "START");
@@ -349,14 +345,6 @@ function addLoggingPanelListeners() {
 
     stopButton.addEventListener("click", function() {
         socket.emit("log_cmd", "STOP");
-    });
-
-    resetButton.addEventListener("click", function() {
-        socket.emit("log_cmd", "RESET");
-    });
-
-    saveButton.addEventListener("click", function() {
-        socket.emit("log_cmd", "SAVE");
     });
 }
 
@@ -425,19 +413,13 @@ function getInitialVolumeFieldValue(field) {
 function updateLogButtons() {
     var startButton = document.getElementById("log_button_start");
     var stopButton = document.getElementById("log_button_stop");
-    var resetButton = document.getElementById("log_button_reset");
-    var saveButton = document.getElementById("log_button_save");
 
     if (DATA.IS_LOGGING) {
         setButton(startButton, false);
         setButton(stopButton, true);
-        setButton(resetButton, true);
-        setButton(saveButton, true);
     } else {
         setButton(startButton, true);
         setButton(stopButton, false);
-        setButton(resetButton, true);
-        setButton(saveButton, true);
     }
 }
 

@@ -117,23 +117,28 @@ io.sockets.on('connection', function (socket) {
     socket.on('log_cmd', (data) => {
         switch(data) {
             case "START":
+                // Reset - clear history
+                historyData = {TC: [], VALVE: [], ACTUATOR: [], FLOW: [], PRESSURE: [], LOAD: []};
+                io.sockets.emit("clear_graphs", 0);
+
+                // Init logging
                 MODEL.IS_LOGGING = true;
                 startTime = Date.now();
                 syncTime(timeStamp);
+
+                // Inform clients on both sides
                 emitModel();
                 sendToBeagle("LOG_START", timeStamp);
                 break;
             case "STOP":
+                // Terminate logging
                 MODEL.IS_LOGGING = false;
-                 sendToBeagle("LOG_STOP", '');
-                 emitModel();
-                break;
-            case "RESET":
-                // Clear history data
-                historyData = {TC: [], VALVE: [], ACTUATOR: [], FLOW: [], PRESSURE: [], LOAD: []};
-                io.sockets.emit("clear_graphs", 0);
-                break;
-            case "SAVE":
+
+                // Inform clients on both sides
+                sendToBeagle("LOG_STOP", '');
+                emitModel();
+
+                // Save history
                 saveLogToCSV();
                 break;
             default:
