@@ -11,28 +11,28 @@ var DATA = {
         SV_N2O_FILL: {svg_name: "SV_N2O_FILL", value: CLOSED, type: "VALVE", dom_element: null},
         SV_IPA: {svg_name: "SV_IPA", value: CLOSED, type: "VALVE", dom_element: null},
 
-        PT_N2: {svg_name: "PT_N2", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
-        PT_IPA: {svg_name: "PT_IPA", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
-        PT_N2O: {svg_name: "PT_N2O", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
+        PT_N2: {svg_name: "PT_N2", value: 0, type: "PRESSURE_SENSOR", dom_element: null, lastUpdated: 0},
+        PT_IPA: {svg_name: "PT_IPA", value: 0, type: "PRESSURE_SENSOR", dom_element: null, lastUpdated: 0},
+        PT_N2O: {svg_name: "PT_N2O", value: 0, type: "PRESSURE_SENSOR", dom_element: null, lastUpdated: 0},
 
-        PT_FUEL: {svg_name: "PT_FUEL", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
-        PT_OX: {svg_name: "PT_OX", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
-        PT_CHAM: {svg_name: "PT_CHAM", value: 0, type: "PRESSURE_SENSOR", dom_element: null},
+        PT_FUEL: {svg_name: "PT_FUEL", value: 0, type: "PRESSURE_SENSOR", dom_element: null, lastUpdated: 0},
+        PT_OX: {svg_name: "PT_OX", value: 0, type: "PRESSURE_SENSOR", dom_element: null, lastUpdated: 0},
+        PT_CHAM: {svg_name: "PT_CHAM", value: 0, type: "PRESSURE_SENSOR", dom_element: null, lastUpdated: 0},
 
-        TC_IPA: {svg_name: "TC_IPA", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
-        TC_N2O: {svg_name: "TC_N2O", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
+        TC_IPA: {svg_name: "TC_IPA", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null, lastUpdated: 0},
+        TC_N2O: {svg_name: "TC_N2O", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null, lastUpdated: 0},
 
-        TC_1: {svg_name: "TC_1", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
-        TC_2: {svg_name: "TC_2", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
-        TC_3: {svg_name: "TC_3", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
-        TC_4: {svg_name: "TC_4", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
-        TC_5: {svg_name: "TC_5", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
-        TC_6: {svg_name: "TC_6", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null},
+        TC_1: {svg_name: "TC_1", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null, lastUpdated: 0},
+        TC_2: {svg_name: "TC_2", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null, lastUpdated: 0},
+        TC_3: {svg_name: "TC_3", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null, lastUpdated: 0},
+        TC_4: {svg_name: "TC_4", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null, lastUpdated: 0},
+        TC_5: {svg_name: "TC_5", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null, lastUpdated: 0},
+        TC_6: {svg_name: "TC_6", value: 0, type: "TEMPERATURE_SENSOR", dom_element: null, lastUpdated: 0},
 
-        FLO_IPA: {svg_name: "FLO_IPA", value: 0, type: "FLOW_SENSOR", dom_element_l: null, dom_element_m: null, dom_element_gradient: null, dom_element_percentage: null, dom_element_time: null, density: 0, accumulated: 18},
-        FLO_N2O: {svg_name: "FLO_N2O", value: 0, type: "FLOW_SENSOR", dom_element_l: null,  dom_element_m: null, dom_element_gradient: null, dom_element_percentage: null, dom_element_time: null, density: 0, accumulated: 32},
+        FLO_IPA: {svg_name: "FLO_IPA", value: 0, type: "FLOW_SENSOR", dom_element_l: null, dom_element_m: null, dom_element_gradient: null, dom_element_percentage: null, dom_element_time: null, density: 0, accumulated: 18, lastUpdated: 0},
+        FLO_N2O: {svg_name: "FLO_N2O", value: 0, type: "FLOW_SENSOR", dom_element_l: null,  dom_element_m: null, dom_element_gradient: null, dom_element_percentage: null, dom_element_time: null, density: 0, accumulated: 32, lastUpdated: 0},
 
-        LOAD: {html_name: "load_cell_text", value: 0, type: "LOAD_CELL", dom_element: null},
+        LOAD: {html_name: "load_cell_text", value: 0, type: "LOAD_CELL", dom_element: null, lastUpdated: 0},
 
         ACT_IPA: {svg_name: "ACT_IPA", value: 0, type: "ACTUATOR", dom_element: null},
         ACT_N2O: {svg_name: "ACT_N2O", value: 0, type: "ACTUATOR", dom_element: null}
@@ -70,6 +70,7 @@ function initializeSVGElements() {
     addValveButtonListener(svgDoc, DATA.SENSORS.SV_N2O_FILL);
     addValveButtonListener(svgDoc, DATA.SENSORS.SV_IPA);
 
+    // Initialize DOM elements
     DATA.SENSORS.PT_N2.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_N2.svg_name);
     DATA.SENSORS.PT_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_IPA.svg_name);
     DATA.SENSORS.PT_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.PT_N2O.svg_name);
@@ -112,29 +113,29 @@ function syncVisuals() {
     updateValveVisual(DATA.SENSORS.SV_N2O_FILL);
     updateValveVisual(DATA.SENSORS.SV_IPA);
 
-    updatePressureSensor(DATA.SENSORS.PT_IPA);
-    updatePressureSensor(DATA.SENSORS.PT_N2O);
-    updatePressureSensor(DATA.SENSORS.PT_N2);
-    updatePressureSensor(DATA.SENSORS.PT_FUEL);
-    updatePressureSensor(DATA.SENSORS.PT_OX);
-    updatePressureSensor(DATA.SENSORS.PT_CHAM);
+    updatePressureSensor(DATA.SENSORS.PT_IPA, 1);
+    updatePressureSensor(DATA.SENSORS.PT_N2O, 1);
+    updatePressureSensor(DATA.SENSORS.PT_N2, 0);
+    updatePressureSensor(DATA.SENSORS.PT_FUEL, 1);
+    updatePressureSensor(DATA.SENSORS.PT_OX, 1);
+    updatePressureSensor(DATA.SENSORS.PT_CHAM, 1);
 
-    updateTemperatureSensor(DATA.SENSORS.TC_IPA);
-    updateTemperatureSensor(DATA.SENSORS.TC_N2O);
+    updateTemperatureSensor(DATA.SENSORS.TC_IPA, 0);
+    updateTemperatureSensor(DATA.SENSORS.TC_N2O, 0);
 
-    updateTemperatureSensor(DATA.SENSORS.TC_1);
-    updateTemperatureSensor(DATA.SENSORS.TC_2);
-    updateTemperatureSensor(DATA.SENSORS.TC_3);
-    updateTemperatureSensor(DATA.SENSORS.TC_4);
-    updateTemperatureSensor(DATA.SENSORS.TC_5);
-    updateTemperatureSensor(DATA.SENSORS.TC_6);
+    updateTemperatureSensor(DATA.SENSORS.TC_1, 0);
+    updateTemperatureSensor(DATA.SENSORS.TC_2, 0);
+    updateTemperatureSensor(DATA.SENSORS.TC_3, 0);
+    updateTemperatureSensor(DATA.SENSORS.TC_4, 0);
+    updateTemperatureSensor(DATA.SENSORS.TC_5, 0);
+    updateTemperatureSensor(DATA.SENSORS.TC_6, 0);
 
-    updateFlowSensor(DATA.SENSORS.FLO_IPA);
-    updateFlowSensor(DATA.SENSORS.FLO_N2O);
+    updateFlowSensor(DATA.SENSORS.FLO_IPA, 2);
+    updateFlowSensor(DATA.SENSORS.FLO_N2O, 1);
     
     updateVolumeIndicators();
 
-    updateLoadCell(DATA.SENSORS.LOAD);
+    updateLoadCell(DATA.SENSORS.LOAD, 1);
 
     updateActuator(DATA.SENSORS.ACT_IPA);
     updateActuator(DATA.SENSORS.ACT_N2O);
@@ -142,8 +143,6 @@ function syncVisuals() {
     updateFlowratePanel();
     updateLogButtons();
     updateInitialFuelVolume();
-
-    
 }
 
 function updateValveVisual(valveElement) {
@@ -163,21 +162,21 @@ function updateValveVisual(valveElement) {
     }
 }
 
-function updateLoadCell(loadSensor) {
-    loadSensor.dom_element.innerHTML = loadSensor.value;
+function updateLoadCell(loadSensor, decimals) {
+    loadSensor.dom_element.innerHTML = loadSensor.value.toFixed(decimals);
 }
 
-function updatePressureSensor(pressureSensor) {
-    pressureSensor.dom_element.innerHTML = pressureSensor.value.toFixed(4) + " bar";
+function updatePressureSensor(pressureSensor, decimals) {
+    pressureSensor.dom_element.innerHTML = pressureSensor.value.toFixed(decimals) + " bar";
 }
 
-function updateTemperatureSensor(temperatureSensor) {
-    temperatureSensor.dom_element.innerHTML = temperatureSensor.value + " °C";
+function updateTemperatureSensor(temperatureSensor, decimals) {
+    temperatureSensor.dom_element.innerHTML = temperatureSensor.value.toFixed(decimals) + " °C";
 }
 
-function updateFlowSensor(flowSensor) {
-    flowSensor.dom_element_l.textContent = flowSensor.value.toFixed(4) + " L/s";
-    flowSensor.dom_element_m.textContent = (flowSensor.value * (flowSensor.density/1000)).toFixed(4) + " kg/s";
+function updateFlowSensor(flowSensor, decimals) {
+    flowSensor.dom_element_l.textContent = flowSensor.value.toFixed(decimals) + " L/s";
+    flowSensor.dom_element_m.textContent = (flowSensor.value * (flowSensor.density/1000)).toFixed(decimals) + " kg/s";
 }
 
 function updateActuator(actuator) {
@@ -457,6 +456,45 @@ function updateInitialFuelVolume() {
     oxHeader.innerHTML = "Oxidizer: " + DATA.SENSORS.FLO_N2O.initial + " L";
 }
 
+function updateLastUpdatedTime() {
+    var labelElement = document.getElementsByClassName("last_updated_time_panel")[0].getElementsByTagName("p")[0];
+    var labelString = "";
+
+    var pressureTime = (Date.now() - DATA.SENSORS.PT_N2.lastUpdated)/1000.0;
+    var temperatureTime = (Date.now() - DATA.SENSORS.TC_IPA.lastUpdated)/1000.0;
+    var flowTime = (Date.now() - DATA.SENSORS.FLO_IPA.lastUpdated)/1000.0;
+    var loadTime = (Date.now() - DATA.SENSORS.LOAD.lastUpdated)/1000.0;
+
+    var limitTime = 4;
+
+    if (pressureTime < limitTime) {
+        labelString += "Pressure updated " + pressureTime + " seconds ago. <br/>";
+    } else {
+        labelString += "Pressure is not receiving updates. <br/>";
+    }
+
+    if (temperatureTime < limitTime) {
+        labelString += "Temperature updated " + temperatureTime + " seconds ago. <br/>";
+    } else {
+        labelString += "Temperature is not receiving updates. <br/>";
+    }
+
+    if (flowTime < limitTime) {
+        labelString += "Flow updated " + flowTime + " seconds ago. <br/>";
+    } else {
+        labelString += "Flow is not receiving updates. <br/>";
+    }
+
+    if (loadTime < limitTime) {
+        labelString += "Load updated " + loadTime + " seconds ago.";
+    } else {
+        labelString += "Load is not receiving updates.";
+    }
+    
+
+    labelElement.innerHTML = labelString;
+}
+
 socket.on('info', function (data) {
     console.log(data)
 })
@@ -480,10 +518,31 @@ socket.on('model_update', function (data){
 
     DATA.SENSORS.FLO_IPA.accumulated = data.SENSORS.FLO_IPA.accumulated;
     DATA.SENSORS.FLO_N2O.accumulated = data.SENSORS.FLO_N2O.accumulated;
+    
+    // Set last updated time
+    DATA.SENSORS.PT_N2.lastUpdated = data.SENSORS.PT_N2.lastUpdated;    
+    DATA.SENSORS.PT_IPA.lastUpdated = data.SENSORS.PT_IPA.lastUpdated;    
+    DATA.SENSORS.PT_N2O.lastUpdated = data.SENSORS.PT_N2O.lastUpdated;
+    DATA.SENSORS.PT_FUEL.lastUpdated = data.SENSORS.PT_FUEL.lastUpdated;
+    DATA.SENSORS.PT_OX.lastUpdated = data.SENSORS.PT_OX.lastUpdated;
+    DATA.SENSORS.PT_CHAM.lastUpdated = data.SENSORS.PT_CHAM.lastUpdated;
+
+    DATA.SENSORS.TC_IPA.lastUpdated = data.SENSORS.TC_IPA.lastUpdated;
+    DATA.SENSORS.TC_N2O.lastUpdated = data.SENSORS.TC_N2O.lastUpdated;
+    DATA.SENSORS.TC_1.lastUpdated = data.SENSORS.TC_1.lastUpdated;
+    DATA.SENSORS.TC_2.lastUpdated = data.SENSORS.TC_2.lastUpdated;
+    DATA.SENSORS.TC_3.lastUpdated = data.SENSORS.TC_3.lastUpdated;
+    DATA.SENSORS.TC_4.lastUpdated = data.SENSORS.TC_4.lastUpdated;
+    DATA.SENSORS.TC_5.lastUpdated = data.SENSORS.TC_5.lastUpdated;
+    DATA.SENSORS.TC_6.lastUpdated = data.SENSORS.TC_6.lastUpdated;
+
+    DATA.SENSORS.FLO_IPA.lastUpdated = data.SENSORS.FLO_IPA.lastUpdated;
+    DATA.SENSORS.FLO_N2O.lastUpdated = data.SENSORS.FLO_N2O.lastUpdated;
+
+    DATA.SENSORS.LOAD.lastUpdated = data.SENSORS.LOAD.lastUpdated;    
 
     DATA.IS_LOGGING = data.IS_LOGGING;
     syncVisuals();
-    console.log(DATA);
 });
 
 function lockFuelDensity(enabled) {
@@ -534,3 +593,5 @@ function updateVolumeIndicators() {
     DATA.SENSORS.FLO_N2O.dom_element_time.textContent = oxidizerTimeLeft.toFixed(1) + "s"
 
 } 
+
+setInterval(updateLastUpdatedTime, 1000);
