@@ -531,7 +531,7 @@ function addTodayPressureListener() {
             var pressureValue = getFieldValue(pressureField, 0, Infinity);
             if (pressureValue) {
                 lockField(true, "today_pressure");
-                socket.emit("today_pressure", {name: "TODAY_PRESSURE", value: pressureValue});
+                socket.emit("today_pressure", {name: "TODAY_PRESSURE", value: (pressureValue / 1000.0)});
             } else {
                 console.log("Today's pressure input has non-number characters: " + pressureValue);
             }
@@ -603,7 +603,7 @@ function updateTodayPressure() {
     
     if (lockableFields.today_pressure.locked) {
         var todayPressureField = document.getElementById(lockableFields.today_pressure.field_id);
-        todayPressureField.value = DATA.TODAY_PRESSURE_BAR;
+        todayPressureField.value = DATA.TODAY_PRESSURE_BAR * 1000;
     }
 }
 
