@@ -1,7 +1,7 @@
 #DataSVG {
     padding: 10px 0px 10px 10px;
     height: 100vh;
-    max-width: 600px;
+    /*max-width: 600px;*/
     float: left;
 }
 .sidepanel {
@@ -19,6 +19,7 @@
 }
 .sidepanel_column:last-child {
     margin-right: 0px;
+    margin-top: 17px;
 }
 
 #loadCellContainer {

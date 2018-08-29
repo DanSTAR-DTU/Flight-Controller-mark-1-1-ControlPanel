@@ -314,19 +314,19 @@ function addActuatorPanelListeners() {
     // Listeners for Fuel Actuator panel buttons
 
     fuelAdd1.addEventListener("click", e => {
-        actuatorSingleSet("ACT_IPA_VALUE", DATA.SENSORS.ACT_IPA.value + 1);
+        actuatorSingleSet("ACT_IPA_VALUE", Math.min(DATA.SENSORS.ACT_IPA.value + 1, 100));
     });
 
     fuelAdd10.addEventListener("click", e => {
-        actuatorSingleSet("ACT_IPA_VALUE", DATA.SENSORS.ACT_IPA.value + 10);
+        actuatorSingleSet("ACT_IPA_VALUE", Math.min(DATA.SENSORS.ACT_IPA.value + 10, 100));
     });
 
     fuelSub1.addEventListener("click", e => {
-        actuatorSingleSet("ACT_IPA_VALUE", DATA.SENSORS.ACT_IPA.value - 1);
+        actuatorSingleSet("ACT_IPA_VALUE", Math.max(DATA.SENSORS.ACT_IPA.value - 1, 0));
     });
 
     fuelSub10.addEventListener("click", e => {
-        actuatorSingleSet("ACT_IPA_VALUE", DATA.SENSORS.ACT_IPA.value - 10);
+        actuatorSingleSet("ACT_IPA_VALUE", Math.max(DATA.SENSORS.ACT_IPA.value - 10, 0));
     });
     
     fuelSet0.addEventListener("click", function () {
@@ -351,19 +351,19 @@ function addActuatorPanelListeners() {
     // Listeners for Oxidizer Actuator panel buttons
 
     oxidizerAdd1.addEventListener("click", e => {
-        actuatorSingleSet("ACT_N2O_VALUE", DATA.SENSORS.ACT_N2O.value + 1);
+        actuatorSingleSet("ACT_N2O_VALUE", Math.min(DATA.SENSORS.ACT_N2O.value + 1, 100));
     });
 
     oxidizerAdd10.addEventListener("click", e => {
-        actuatorSingleSet("ACT_N2O_VALUE", DATA.SENSORS.ACT_N2O.value + 10);
+        actuatorSingleSet("ACT_N2O_VALUE", Math.min(DATA.SENSORS.ACT_N2O.value + 10, 100));
     });
 
     oxidizerSub1.addEventListener("click", e => {
-        actuatorSingleSet("ACT_N2O_VALUE", DATA.SENSORS.ACT_N2O.value - 1);
+        actuatorSingleSet("ACT_N2O_VALUE", Math.max(DATA.SENSORS.ACT_N2O.value - 1, 0));
     });
 
     oxidizerSub10.addEventListener("click", e => {
-        actuatorSingleSet("ACT_N2O_VALUE", DATA.SENSORS.ACT_N2O.value - 10);
+        actuatorSingleSet("ACT_N2O_VALUE", Math.max(DATA.SENSORS.ACT_N2O.value - 10, 0));
     });
     
     oxidizerSet0.addEventListener("click", function () {
@@ -396,6 +396,9 @@ function addActuatorPanelListeners() {
     });
 
     bothSet.addEventListener("click", function () {
+        var fuelField = document.getElementById("actuator_fuel_field");
+        var oxidizerField = document.getElementById("actuator_oxidizer_field");
+        
         var fuelValue = (getFieldValue(fuelField, 0, 100)) ? getFieldValue(fuelField, 0, 100) : DATA.SENSORS.ACT_IPA.value;
         var oxidizerValue = (getFieldValue(oxidizerField, 0, 100)) ? getFieldValue(oxidizerField, 0, 100) : DATA.SENSORS.ACT_N2O.value;
         actuatorBothSet(fuelValue, oxidizerValue);
@@ -409,7 +412,7 @@ function addActuatorPanelListeners() {
 function actuatorFuelFieldSet() {
     var fuelField = document.getElementById("actuator_fuel_field");
     var fuelValue = getFieldValue(fuelField, 0, 100);
-    if (fuelValue != null) {
+    if (fuelValue) {
         actuatorSingleSet("ACT_IPA_VALUE", fuelValue);
     }
 }
@@ -417,7 +420,7 @@ function actuatorFuelFieldSet() {
 function actuatorOxidizerFieldSet() {
     var oxidizerField = document.getElementById("actuator_oxidizer_field");
     var oxidizerValue = getFieldValue(oxidizerField, 0, 100);
-    if(oxidizerValue != null) {
+    if(oxidizerValue) {
         actuatorSingleSet("ACT_N2O_VALUE", oxidizerValue);
     }
 }
