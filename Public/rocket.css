@@ -171,6 +171,48 @@
 }
 
 
+.actuator_panel_row {
+    width: 100%;
+    margin-bottom: 10px;
+    float: left;
+}
+.actuator_panel_row > h2 {
+    font-weight: normal;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.actuator_panel_column {
+    width: 50%;
+    float: left;
+}
+.actuator_panel_input {
+    width: 50%;
+    height: 30px;
+    float: left;
+    font-size: 16px;
+    text-align: center;
+}
+.actuator_panel_button {
+    height: 30px;
+    border: 1px solid #FFFFFF;
+    float: left;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.actuator_panel_button:hover {
+    color: #000000;
+    background-color: #FFFFFF;
+}
+.actuator_panel_small_button {
+    width: 50%;
+}
+.actuator_panel_large_button {
+    width: 100%;
+}
+
+
 .initial_volume_control_button {
     width: 130px;
     margin-right: 18px;
