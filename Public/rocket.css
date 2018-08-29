@@ -156,31 +156,6 @@
     width: 80px;
 }
 
-
-.actuator_control_button {
-    width: 86px;
-    margin-right: 10px;
-}
-.actuator_control_button:last-child {
-    margin-right: 0px;
-}
-.actuator_input {
-    width: 130px;
-    margin-right: 18px;
-}
-.actuator_input:last-of-type {
-    margin-right: 0;
-}
-.actuator_input_label {
-    width: 130px;
-    margin-right: 18px;
-    float: left;
-}
-.actuator_input_label:last-of-type {
-    margin-right: 0;
-}
-
-
 .actuator_panel_row {
     width: 100%;
     margin-bottom: 10px;
@@ -192,8 +167,12 @@
     margin-bottom: 5px;
 }
 .actuator_panel_column {
-    width: 50%;
+    width: calc(50% - 5px);
     float: left;
+    margin-right: 10px;
+}
+.actuator_panel_column:last-child {
+    margin-right: 0px;
 }
 .actuator_panel_input {
     width: 50%;
@@ -220,6 +199,17 @@
 }
 .actuator_panel_large_button {
     width: 100%;
+}
+.panel_disabled .actuator_panel_button {
+    color: #333333;
+    background-color: #666666;
+    pointer-events: none;
+    border: none;
+}
+.panel_disabled .actuator_panel_input {
+    color: #333333;
+    background-color: #666666;
+    pointer-events: none;
 }
 
 

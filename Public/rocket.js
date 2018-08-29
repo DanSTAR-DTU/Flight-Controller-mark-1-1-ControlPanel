@@ -41,10 +41,6 @@ var DATA = {
     TODAY_PRESSURE_BAR: 0
 }
 
-// Flowrate panel 
-var fuelDensityButtonLocked = false;
-var oxidizerDensityButtonLocked = false;
-
 var lockableFields = {
     fuel_density: {
         locked: false,
@@ -260,7 +256,7 @@ function addFlowratePanelListeners() {
             var fuelDensity = getFieldValue(fuelDensityInput, 0, Infinity);
 
             if (fuelDensity) {
-                lockFuelDensity(true, "fuel_density");
+                lockField(true, "fuel_density");
                 console.log("Fuel density: " + fuelDensity);
                 socket.emit("flowrate_density_change", {name: "FLO_IPA", density: fuelDensity});
             } else {
@@ -288,6 +284,8 @@ function addFlowratePanelListeners() {
 }
 
 function addActuatorPanelListeners() {
+
+    actuatorPanelLock(true);
 
     var fuelAdd1 = document.getElementById("actuator_button_fuel_add_1");
     var fuelAdd10 = document.getElementById("actuator_button_fuel_add_10");
