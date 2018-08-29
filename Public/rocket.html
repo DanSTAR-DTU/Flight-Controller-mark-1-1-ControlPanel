@@ -13,101 +13,117 @@
 
         <div class="sidepanel">
 
-            <div id="loadCellContainer">
-                <h4>Load cell:</h4>
-                <hgroup>
-                    <h1 id="load_cell_text">0</h1>
-                    <h3>N</h3>
-                </hgroup>
-            </div>
-
-            <div id="actuator_control_panel" class="panel actuator_control_panel">
+            <div class="sidepanel_column">
                 
-                <div class="panel_header_with_lock">
-                    <h1 class="panel_header">Actuators</h1>
-                    <input type="checkbox" name="actuator_lock_checkbox" value="Lock" id="actuator_lock_checkbox">
-                    <p>Lock</p>
-                </div>
-                
+                    <div id="loadCellContainer">
+                        <h4>Load cell:</h4>
+                        <hgroup>
+                            <h1 id="load_cell_text">0</h1>
+                            <h3>N</h3>
+                        </hgroup>
+                    </div>
 
-                <div class="actuator_control_panel_row">
-                        <div>
-                            <p class="actuator_input_label">Fuel value</p>
-                            <p class="actuator_input_label">Oxidizer value</p>
-                        </div>
-                        <div>
-                            <input id="actuator_fuel_input" class="panel_input actuator_input" type="text" placeholder="Fuel valve">
-                            <input id="actuator_oxidizer_input" class="panel_input actuator_input" type="text" placeholder="Oxidizer valve">        
-                        </div>
-                        <p class="panel_button actuator_control_button" id="actuator_fuel_set_button">Set fuel</p>
-                        <p class="panel_button actuator_control_button" id="actuator_oxidizer_set_button">Set oxidizer</p>
-                        <p class="panel_button actuator_control_button" id="actuator_both_set_button">Set both</p>
-                </div>
+                <div id="actuator_control_panel" class="panel actuator_control_panel">
                     
-            </div>
-
-            <div class="panel">
-
-                <h1 class="panel_header">Flowrates</h1>
-
-                <div class="flowratePanelRow">
-                    <p class="field_label">Fuel density</p>
-                    <input id="flowrate_fuel_density_input" class="panel_input input_field" id="input_fuel_density">
-                    <p class="field_unit">kg/m3</p>
-                    <p id="flowrate_fuel_density_update" class="panel_button field_button">Update!</p>
-                </div>
-                
-                <div class="flowratePanelRow">
-                    <p class="field_label">Oxidizer density</p>
-                    <input id="flowrate_oxidizer_density_input" class="panel_input input_field" id="input_fuel_density">
-                    <p class="field_unit">kg/m3</p>
-                    <p id="flowrate_oxidizer_density_update" class="panel_button field_button">Update!</p>
-                </div>
-
-            </div>
-
-            <div class="panel">
-
-                <h1 class="panel_header">Logging</h1>
-
-                <div class="log_buttons_row">
-                    <p id="log_button_start" class="panel_button log_button">Start</p>
-                    <p id="log_button_stop" class="panel_button log_button">Stop</p>
-                </div>
-
-            </div>
-
-            <div id="initial_volume_panel" class="panel initial_volume_panel">
-                
-                <div class="panel_header_with_lock">
-                    <h1 class="panel_header">Initial volumes</h1>
-                    <input type="checkbox" name="initial_volume_lock_checkbox" value="Lock" id="initial_volume_lock_checkbox">
-                    <p>Lock</p>
-                </div>
-                
-
-                <div>
-                        <div>
-                            <p id="initial_fuel_label" class="initial_input_label">Initial fuel:</p>
-                            <p id="initial_oxidizer_label" class="initial_input_label">Initial oxid:</p>
-                        </div>
-                        <div>
-                            <input id="initial_fuel_input" class="panel_input initial_volume_input" type="text" placeholder="Fuel valve">
-                            <input id="initial_oxidizer_input" class="panel_input initial_volume_input" type="text" placeholder="Oxidizer valve">        
-                        </div>
-                        <p class="panel_button initial_volume_control_button" id="initial_fuel_set_button">Set fuel</p>
-                        <p class="panel_button initial_volume_control_button" id="initial_oxidizer_set_button">Set oxidizer</p>
-                </div>
+                    <div class="panel_header_with_lock">
+                        <h1 class="panel_header">Actuators</h1>
+                        <input type="checkbox" name="actuator_lock_checkbox" value="Lock" id="actuator_lock_checkbox">
+                        <p>Lock</p>
+                    </div>
                     
-            </div>
+                    <div class="actuator_control_panel_row">
+                            <div>
+                                <p class="actuator_input_label">Fuel value</p>
+                                <p class="actuator_input_label">Oxidizer value</p>
+                            </div>
+                            <div>
+                                <input id="actuator_fuel_input" class="panel_input actuator_input" type="text" placeholder="Fuel valve">
+                                <input id="actuator_oxidizer_input" class="panel_input actuator_input" type="text" placeholder="Oxidizer valve">        
+                            </div>
+                            <p class="panel_button actuator_control_button" id="actuator_fuel_set_button">Set fuel</p>
+                            <p class="panel_button actuator_control_button" id="actuator_oxidizer_set_button">Set oxidizer</p>
+                            <p class="panel_button actuator_control_button" id="actuator_both_set_button">Set both</p>
+                    </div>
+                        
+                </div>
 
-            <div class="last_updated_time_panel panel">
-                <p class="updates_dead">Pressure is not receiving updates.</p>
-                <p class="updates_dead">Temperature is not receiving updates.</p>
-                <p class="updates_dead">Flow is not receiving updates.</p>
-                <p class="updates_dead">Load is not receiving updates.</p>
-            </div>
+                <div class="panel">
 
+                    <h1 class="panel_header">Logging</h1>
+
+                    <div class="log_buttons_row">
+                        <p id="log_button_start" class="panel_button log_button">Start</p>
+                        <p id="log_button_stop" class="panel_button log_button">Stop</p>
+                    </div>
+
+                </div>
+
+                <div class="last_updated_time_panel panel">
+                    <p class="updates_dead">Pressure is not receiving updates.</p>
+                    <p class="updates_dead">Temperature is not receiving updates.</p>
+                    <p class="updates_dead">Flow is not receiving updates.</p>
+                    <p class="updates_dead">Load is not receiving updates.</p>
+                </div>
+            </div>    
+            
+            <div class="sidepanel_column">
+
+                <div class="panel">
+
+                    <h1 class="panel_header">Densities</h1>
+
+                    <div class="flowratePanelRow">
+                        <p class="field_label">Fuel density</p>
+                        <input id="flowrate_fuel_density_input" class="panel_input input_field" id="input_fuel_density">
+                        <p class="field_unit">kg/m3</p>
+                        <p id="flowrate_fuel_density_update" class="panel_button field_button">Update!</p>
+                    </div>
+                    
+                    <div class="flowratePanelRow">
+                        <p class="field_label">Oxidizer density</p>
+                        <input id="flowrate_oxidizer_density_input" class="panel_input input_field" id="input_fuel_density">
+                        <p class="field_unit">kg/m3</p>
+                        <p id="flowrate_oxidizer_density_update" class="panel_button field_button">Update!</p>
+                    </div>
+
+                </div>
+
+                <div id="initial_volume_panel" class="panel initial_volume_panel">
+                    
+                    <div class="panel_header_with_lock">
+                        <h1 class="panel_header">Initial volumes</h1>
+                        <input type="checkbox" name="initial_volume_lock_checkbox" value="Lock" id="initial_volume_lock_checkbox">
+                        <p>Lock</p>
+                    </div>
+                    
+                    <div>
+                            <div>
+                                <p id="initial_fuel_label" class="initial_input_label">Initial fuel:</p>
+                                <p id="initial_oxidizer_label" class="initial_input_label">Initial oxid:</p>
+                            </div>
+                            <div>
+                                <input id="initial_fuel_input" class="panel_input initial_volume_input" type="text" placeholder="Fuel valve">
+                                <input id="initial_oxidizer_input" class="panel_input initial_volume_input" type="text" placeholder="Oxidizer valve">        
+                            </div>
+                            <p class="panel_button initial_volume_control_button" id="initial_fuel_set_button">Set fuel</p>
+                            <p class="panel_button initial_volume_control_button" id="initial_oxidizer_set_button">Set oxidizer</p>
+                    </div>
+                        
+                </div>
+
+                <div class="panel">
+
+                        <h1 class="panel_header">Pressure</h1>
+    
+                        <div class="panel_row">
+                            <p id="daily_pressure_label" class="field_label">Today's pressure</p>
+                            <input id="daily_pressure_field" class="panel_input input_field">
+                            <p class="field_unit">bar</p>
+                            <p id="daily_pressure_set" class="panel_button field_button">Set</p>
+                        </div>
+    
+                    </div>
+            </div>
         </div>
         
     </body>

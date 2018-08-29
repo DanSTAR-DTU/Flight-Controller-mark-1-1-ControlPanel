@@ -57,6 +57,7 @@ var MODEL = {
         ACT_N2O: {value: 0, lastUpdated: 0}
     },
     IS_LOGGING: false,
+    TODAY_PRESSURE_BAR: 1.01800
 };
 
 //const UDP_IP = "192.168.2.2";
@@ -155,6 +156,13 @@ io.sockets.on('connection', function (socket) {
         }
         emitModel();
     });
+
+    socket.on("today_pressure", data => {
+        if (data.name == "TODAY_PRESSURE") {
+            MODEL.TODAY_PRESSURE_BAR = data.value;
+        }
+        emitModel();
+    });
 });
 
 // Make Beagle device send messages to this device
@@ -224,6 +232,15 @@ function update(block) {
 
             break;
         case "PRESSURE_DATA":
+
+            // Convert to absolute
+            block.data.PT_IPA += MODEL.TODAY_PRESSURE_BAR;
+            block.data.PT_N2O += MODEL.TODAY_PRESSURE_BAR;
+            block.data.PT_N2 += MODEL.TODAY_PRESSURE_BAR;
+            block.data.PT_OX += MODEL.TODAY_PRESSURE_BAR;
+            block.data.PT_FUEL += MODEL.TODAY_PRESSURE_BAR;
+            block.data.PT_CHAM += MODEL.TODAY_PRESSURE_BAR;    
+
             MODEL.SENSORS.PT_IPA.value = block.data.PT_IPA; MODEL.SENSORS.PT_IPA.lastUpdated = updateTime;
             MODEL.SENSORS.PT_N2O.value = block.data.PT_N2O; MODEL.SENSORS.PT_N2O.lastUpdated = updateTime;
             MODEL.SENSORS.PT_N2.value = block.data.PT_N2; MODEL.SENSORS.PT_N2.lastUpdated = updateTime;

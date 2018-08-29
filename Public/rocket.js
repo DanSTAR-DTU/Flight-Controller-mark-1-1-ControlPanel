@@ -37,12 +37,31 @@ var DATA = {
         ACT_IPA: {svg_name: "ACT_IPA", value: 0, dom_element: null},
         ACT_N2O: {svg_name: "ACT_N2O", value: 0, dom_element: null}
     },
-    IS_LOGGING: false
+    IS_LOGGING: false,
+    TODAY_PRESSURE_BAR: 0
 }
 
 // Flowrate panel 
 var fuelDensityButtonLocked = false;
 var oxidizerDensityButtonLocked = false;
+
+var lockableFields = {
+    fuel_density: {
+        locked: false,
+        field_id: "flowrate_fuel_density_input",
+        button_id: "flowrate_fuel_density_update" 
+    },
+    oxidizer_density: {
+        locked: false,
+        field_id: "flowrate_oxidizer_density_input",
+        button_id: "flowrate_oxidizer_density_update" 
+    },
+    today_pressure: {
+        locked: false,
+        field_id: "daily_pressure_field",
+        button_id: "daily_pressure_set" 
+    }
+}
 
 // INIT (wait on SVG)
 window.onload = function () {
@@ -51,6 +70,7 @@ window.onload = function () {
     addLoggingPanelListeners();
     addInitialVolumesListener();
     addActuatorPanelListeners();
+    addTodayPressureListener();
     socket.emit("refresh_model", {});
 };
 
@@ -143,6 +163,7 @@ function syncVisuals() {
     updateFlowratePanel();
     updateLogButtons();
     updateInitialFuelVolume();
+    updateTodayPressure();
 }
 
 function updateValveVisual(valveElement) {
@@ -184,15 +205,16 @@ function updateActuator(actuator) {
 }
 
 function updateFlowratePanel() {
-    var fuelDensityInput = document.getElementById("flowrate_fuel_density_input");
-    if (fuelDensityButtonLocked) {
+    
+    if (lockableFields.fuel_density.locked) {
+        var fuelDensityInput = document.getElementById(lockableFields.fuel_density.field_id);
         fuelDensityInput.value = DATA.SENSORS.FLO_IPA.density;
     }
-    var oxidizerDensityInput = document.getElementById("flowrate_oxidizer_density_input");
-    if (oxidizerDensityButtonLocked) {
+    
+    if (lockableFields.oxidizer_density.locked) {
+        var oxidizerDensityInput = document.getElementById(lockableFields.oxidizer_density.field_id);
         oxidizerDensityInput.value = DATA.SENSORS.FLO_N2O.density;
     }
-    
 }
 
 function addValveButtonListener(svgDoc, dataElement) {
@@ -216,24 +238,25 @@ function addValveButtonListener(svgDoc, dataElement) {
 }
 
 function addFlowratePanelListeners() {
-    var fuelDensityInput = document.getElementById("flowrate_fuel_density_input");
-    var fuelDensityButton = document.getElementById("flowrate_fuel_density_update");
-    var oxidizerDensityButton = document.getElementById("flowrate_oxidizer_density_update");
-    var oxidizerDensityInput = document.getElementById("flowrate_oxidizer_density_input");
+    var fuelDensityInput = document.getElementById(lockableFields.fuel_density.field_id);
+    var fuelDensityButton = document.getElementById(lockableFields.fuel_density.button_id);
+
+    var oxidizerDensityInput = document.getElementById(lockableFields.oxidizer_density.field_id);
+    var oxidizerDensityButton = document.getElementById(lockableFields.oxidizer_density.button_id);
 
     // Initial disabled input
-    lockFuelDensity(true);
-    lockOxidizerDensity(true);
+    lockField(true, "fuel_density");
+    lockField(true, "oxidizer_density");
     
     // Add click listeners
     fuelDensityButton.addEventListener("click", function() {
-        if (fuelDensityButtonLocked) {
-            lockFuelDensity(false);
+        if (lockableFields.fuel_density.locked) {
+            lockField(false, "fuel_density");
         } else {
-            var fuelDensity = parseFloat(fuelDensityInput.value);
+            var fuelDensity = getFieldValue(fuelDensityInput, 0, Infinity);
 
-            if (!isNaN(fuelDensity)) {
-                lockFuelDensity(true);
+            if (fuelDensity) {
+                lockFuelDensity(true, "fuel_density");
                 console.log("Fuel density: " + fuelDensity);
                 socket.emit("flowrate_density_change", {name: "FLO_IPA", density: fuelDensity});
             } else {
@@ -244,13 +267,13 @@ function addFlowratePanelListeners() {
     });
 
     oxidizerDensityButton.addEventListener("click", function() {
-        if (oxidizerDensityButtonLocked) {
-            lockOxidizerDensity(false);
+        if (lockableFields.oxidizer_density.locked) {
+            lockField(false, "oxidizer_density");
         } else {
-            var oxidizerDensity = parseFloat(oxidizerDensityInput.value);
+            var oxidizerDensity = getFieldValue(oxidizerDensityInput, 0, Infinity);
             
-            if (!isNaN(oxidizerDensity)) {
-                lockOxidizerDensity(true);
+            if (oxidizerDensity) {
+                lockField(true, "oxidizer_density");
                 console.log("Oxidizer density: " + oxidizerDensity);
                 socket.emit("flowrate_density_change", {name: "FLO_N2O", density: oxidizerDensity});
             } else {
@@ -291,8 +314,8 @@ function addActuatorPanelListeners() {
     });
 
     bothButton.addEventListener("click", function () {
-        var fuelValue = (getActuatorFieldValue(fuelField)) ? getActuatorFieldValue(fuelField) : DATA.SENSORS.ACT_IPA.value;
-        var oxidizerValue = (getActuatorFieldValue(oxidizerField)) ? getActuatorFieldValue(oxidizerField) : DATA.SENSORS.ACT_N2O.value;
+        var fuelValue = (getFieldValue(fuelField, 0, 100)) ? getFieldValue(fuelField, 0, 100) : DATA.SENSORS.ACT_IPA.value;
+        var oxidizerValue = (getFieldValue(oxidizerField, 0, 100)) ? getFieldValue(oxidizerField, 0, 100) : DATA.SENSORS.ACT_N2O.value;
 
         /*socket.emit("actuator_set", {
             type: "BOTH",
@@ -311,7 +334,7 @@ function addActuatorPanelListeners() {
 }
 
 function actuatorFuelOK(fuelField) {
-    var fuelValue = getActuatorFieldValue(fuelField);
+    var fuelValue = getFieldValue(fuelField, 0, 100);
     if (fuelValue != null) {
         socket.emit("actuator_set", {type: "SINGLE", name: "ACT_IPA_VALUE", value: fuelValue});
         //actuatorPanelLock(true);
@@ -319,7 +342,7 @@ function actuatorFuelOK(fuelField) {
 }
 
 function actuatorOxidizerOK(oxidizerField) {
-    var oxidizerValue = getActuatorFieldValue(oxidizerField);
+    var oxidizerValue = getFieldValue(oxidizerField, 0, 100);
     if(oxidizerValue != null) {
         socket.emit("actuator_set", {type: "SINGLE", name: "ACT_N2O_VALUE", value: oxidizerValue});
         //actuatorPanelLock(true);
@@ -337,21 +360,6 @@ function actuatorPanelLock(lock) {
     }
 
     actuatorLockCheckbox.checked = lock;
-}
-
-function getActuatorFieldValue(field) {
-    var value = parseFloat(field.value);
-    if (!isNaN(value)) {
-        if (value >= 0 && value <= 100) {
-            return value;
-        } else {
-            field.value = "";
-            return null;
-        }
-    } else {
-        field.value = "";
-        return null;
-    }
 }
 
 function addLoggingPanelListeners() {
@@ -378,7 +386,7 @@ function addInitialVolumesListener() {
     var initialVolumeLockCheckbox = document.getElementById("initial_volume_lock_checkbox");
 
     setInitialFuelButton.addEventListener("click", function() {
-        var fuelValue = getInitialVolumeFieldValue(initialFuelField);
+        var fuelValue = getFieldValue(initialFuelField, 0, Infinity);
         if (fuelValue) {
             socket.emit("initial_volume", {name: "INITIAL_FUEL", value: fuelValue});
             initialVolumePanelLock(true);
@@ -388,7 +396,7 @@ function addInitialVolumesListener() {
     });
 
     setInitialOxidizerButton.addEventListener("click", function() {
-        var oxidizerValue = getInitialVolumeFieldValue(initialOxidizerField);
+        var oxidizerValue = getFieldValue(initialOxidizerField, 0, Infinity);
         if (oxidizerValue) {
             socket.emit("initial_volume", {name: "INITIAL_OXIDIZER", value: oxidizerValue});
             initialVolumePanelLock(true);
@@ -417,10 +425,32 @@ function initialVolumePanelLock(lock) {
     initialVolumeLockCheckbox.checked = lock;
 }
 
-function getInitialVolumeFieldValue(field) {
+
+function addTodayPressureListener() {
+    var setPressureButton = document.getElementById("daily_pressure_set");
+    var pressureField = document.getElementById("daily_pressure_field");
+
+    lockField(true, "today_pressure");
+
+    setPressureButton.addEventListener("click", (event) => {
+        if (lockableFields.today_pressure.locked) {
+            lockField(false, "today_pressure");
+        } else {
+            var pressureValue = getFieldValue(pressureField, 0, Infinity);
+            if (pressureValue) {
+                lockField(true, "today_pressure");
+                socket.emit("today_pressure", {name: "TODAY_PRESSURE", value: pressureValue});
+            } else {
+                console.log("Today's pressure input has non-number characters: " + pressureValue);
+            }
+        } 
+    });
+}
+
+function getFieldValue(field, lower, upper) {
     var value = parseFloat(field.value);
     if (!isNaN(value)) {
-        if (value >= 0) {
+        if (value >= lower && value <= upper) {
             return value;
         } else {
             field.value = "";
@@ -429,6 +459,21 @@ function getInitialVolumeFieldValue(field) {
     } else {
         field.value = "";
         return false;
+    }
+}
+
+function lockField(enabled, lockableName) {
+    var field = document.getElementById(lockableFields[lockableName].field_id);
+    var button = document.getElementById(lockableFields[lockableName].button_id);
+
+    if (enabled) {
+        field.classList.add("panel_input_disabled");
+        lockableFields[lockableName].locked = true;
+        button.innerHTML = "Unlock";
+    } else {
+        field.classList.remove("panel_input_disabled");
+        lockableFields[lockableName].locked  = false;
+        button.innerHTML = "Lock";
     }
 }
 
@@ -458,6 +503,16 @@ function updateInitialFuelVolume() {
     var oxHeader = document.getElementById("initial_oxidizer_label");
     header.innerHTML = "Fuel: " + DATA.SENSORS.FLO_IPA.initial + " L";
     oxHeader.innerHTML = "Oxidizer: " + DATA.SENSORS.FLO_N2O.initial + " L";
+}
+
+function updateTodayPressure() {
+    //var label = document.getElementById("daily_pressure_label");
+    //label.innerHTML = "Today's pressure: " + DATA.TODAY_PRESSURE_BAR + " bar";
+    
+    if (lockableFields.today_pressure.locked) {
+        var todayPressureField = document.getElementById(lockableFields.today_pressure.field_id);
+        todayPressureField.value = DATA.TODAY_PRESSURE_BAR;
+    }
 }
 
 function updateLastUpdatedTime() {
@@ -532,57 +587,33 @@ function mergeModels(localModel, serverModel) {
     }
 
     localModel.IS_LOGGING = serverModel.IS_LOGGING;
+    localModel.TODAY_PRESSURE_BAR = serverModel.TODAY_PRESSURE_BAR;
 
     return localModel;
 }
 
-function lockFuelDensity(enabled) {
-    var fuelDensityInput = document.getElementById("flowrate_fuel_density_input");
-    var fuelDensityButton = document.getElementById("flowrate_fuel_density_update");
-    if (enabled) {
-        fuelDensityInput.classList.add("panel_input_disabled");
-        fuelDensityButtonLocked = true;
-        fuelDensityButton.innerHTML = "Unlock";
-    } else {
-        fuelDensityInput.classList.remove("panel_input_disabled");
-        fuelDensityButtonLocked = false;
-        fuelDensityButton.innerHTML = "Lock";
-    }
-}
-
-function lockOxidizerDensity(enabled) {
-    var oxidizerDensityInput = document.getElementById("flowrate_oxidizer_density_input");
-    var oxidizerDensityButton = document.getElementById("flowrate_oxidizer_density_update");
-
-    if (enabled) {
-        oxidizerDensityInput.classList.add("panel_input_disabled");
-        oxidizerDensityButtonLocked = true;
-        oxidizerDensityButton.innerHTML = "Unlock";
-    } else {
-        oxidizerDensityInput.classList.remove("panel_input_disabled");
-        oxidizerDensityButtonLocked = false;
-        oxidizerDensityButton.innerHTML = "Lock";
-    }
-}
-
 function updateVolumeIndicators() {
 
-    var fuelFraction = (DATA.SENSORS.FLO_IPA.initial - DATA.SENSORS.FLO_IPA.accumulated) / DATA.SENSORS.FLO_IPA.initial;
-    var fuelTimeLeft = (DATA.SENSORS.FLO_IPA.initial - DATA.SENSORS.FLO_IPA.accumulated) / DATA.SENSORS.FLO_IPA.value;
-    //console.log(DATA.SENSORS.FLO_IPA.value);
-    DATA.SENSORS.FLO_IPA.dom_element_gradient.children[1].setAttribute("offset", 1-fuelFraction);
-    DATA.SENSORS.FLO_IPA.dom_element_gradient.children[2].setAttribute("offset", 1-fuelFraction);
-    DATA.SENSORS.FLO_IPA.dom_element_percentage.textContent = (fuelFraction * 100).toFixed(1) + "%";
-    DATA.SENSORS.FLO_IPA.dom_element_time.textContent = fuelTimeLeft.toFixed(1) + "s"
+    // Temporarily shorten variable names
+    var FLO_IPA = DATA.SENSORS.FLO_IPA;
+    var FLO_N2O = DATA.SENSORS.FLO_N2O;
 
-    var oxidizerFraction = (DATA.SENSORS.FLO_N2O.initial - DATA.SENSORS.FLO_N2O.accumulated) / DATA.SENSORS.FLO_N2O.initial;
-    var oxidizerTimeLeft = (DATA.SENSORS.FLO_N2O.initial - DATA.SENSORS.FLO_N2O.accumulated) / DATA.SENSORS.FLO_N2O.value;
+    var fuelFraction = (FLO_IPA.initial - FLO_IPA.accumulated) / FLO_IPA.initial;
+    var fuelTimeLeft = (FLO_IPA.initial - FLO_IPA.accumulated) / FLO_IPA.value;
+    
+    FLO_IPA.dom_element_gradient.children[1].setAttribute("offset", 1-fuelFraction);
+    FLO_IPA.dom_element_gradient.children[2].setAttribute("offset", 1-fuelFraction);
+    FLO_IPA.dom_element_percentage.textContent = (fuelFraction * 100).toFixed(1) + "%";
+    FLO_IPA.dom_element_time.textContent = fuelTimeLeft.toFixed(1) + "s"
+
+    var oxidizerFraction = (FLO_N2O.initial - FLO_N2O.accumulated) / FLO_N2O.initial;
+    var oxidizerTimeLeft = (FLO_N2O.initial - FLO_N2O.accumulated) / FLO_N2O.value;
     //console.log(oxidizerFraction);
-    DATA.SENSORS.FLO_N2O.dom_element_gradient.children[1].setAttribute("offset", 1-oxidizerFraction);
-    DATA.SENSORS.FLO_N2O.dom_element_gradient.children[2].setAttribute("offset", 1-oxidizerFraction);
-    DATA.SENSORS.FLO_N2O.dom_element_percentage.textContent = (oxidizerFraction * 100).toFixed(1) + "%";
-    DATA.SENSORS.FLO_N2O.dom_element_time.textContent = oxidizerTimeLeft.toFixed(1) + "s"
+    FLO_N2O.dom_element_gradient.children[1].setAttribute("offset", 1-oxidizerFraction);
+    FLO_N2O.dom_element_gradient.children[2].setAttribute("offset", 1-oxidizerFraction);
+    FLO_N2O.dom_element_percentage.textContent = (oxidizerFraction * 100).toFixed(1) + "%";
+    FLO_N2O.dom_element_time.textContent = oxidizerTimeLeft.toFixed(1) + "s";
 
 } 
-console.log(DATA);
+
 setInterval(updateLastUpdatedTime, 1000);
