@@ -17,14 +17,14 @@
     
 }
 @keyframes beat{
-    to { transform: scale(1.3); }
+    to { transform: scale(1.1); }
 }
 
 .buttons {
     height: 60vh;
 }
 .button_container {
-    width: 50vw;
+    width: 33vw;
     height: 100%;
     float:left;
     position: relative;

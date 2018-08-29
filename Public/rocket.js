@@ -65,6 +65,10 @@ var lockableFields = {
 
 // INIT (wait on SVG)
 window.onload = function () {
+    // Animate in
+    document.body.classList.remove("notloaded");
+
+    // Initialization
     initializeSVGElements();
     addFlowratePanelListeners();
     addLoggingPanelListeners();
@@ -398,7 +402,7 @@ function addActuatorPanelListeners() {
     bothSet.addEventListener("click", function () {
         var fuelField = document.getElementById("actuator_fuel_field");
         var oxidizerField = document.getElementById("actuator_oxidizer_field");
-        
+
         var fuelValue = (getFieldValue(fuelField, 0, 100)) ? getFieldValue(fuelField, 0, 100) : DATA.SENSORS.ACT_IPA.value;
         var oxidizerValue = (getFieldValue(oxidizerField, 0, 100)) ? getFieldValue(oxidizerField, 0, 100) : DATA.SENSORS.ACT_N2O.value;
         actuatorBothSet(fuelValue, oxidizerValue);

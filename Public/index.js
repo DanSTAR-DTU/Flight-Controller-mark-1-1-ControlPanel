@@ -1,4 +1,4 @@
-var socket = io();
+/*var socket = io();
 
 var socketIOLabel = document.getElementById("con_label_socketio");
 var beagleLabel = document.getElementById("con_label_beagle");
@@ -25,8 +25,4 @@ function setLabelStatus(label, connected) {
         label.classList.add("notconnected");
     }
 }
-
-function logging(data) {
-    var log = data
-    socket.emit('logging' , log);
-}
+*/

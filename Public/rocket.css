@@ -3,6 +3,7 @@
     height: 100vh;
     /*max-width: 600px;*/
     float: left;
+    transition: opacity 200ms, transform 300ms; /* Animate in effect */
 }
 .sidepanel {
     float: left;
@@ -16,10 +17,18 @@
     width: 300px;
     margin-right: 20px;
     float: left;
+    transition: opacity 200ms 100ms, transform 300ms 100ms; /* Animate in effect */
 }
 .sidepanel_column:last-child {
     margin-right: 0px;
     margin-top: 17px;
+    transition: opacity 200ms 200ms, transform 300ms 200ms; /* Animate in effect */
+}
+
+/* Animate in effect */
+.notloaded #DataSVG, .notloaded .sidepanel_column{
+    opacity: 0;
+    transform: translateY(100px);
 }
 
 #loadCellContainer {
