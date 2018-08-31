@@ -1,4 +1,5 @@
 const SerialPort = require("/usr/local/lib/node_modules/bonescript/node_modules/serialport");
+const Delimiter = require("/usr/local/lib/node_modules/bonescript/node_modules/serialport/lib/parsers/delimiter")
 const struct = require("struct")
 const bone  = require('bonescript')
 const dgram = require('dgram');
@@ -31,16 +32,17 @@ var USBport0 = new SerialPort('/dev/ttyACM0', { baudRate: 115200}, function(err)
 
 });*/
 
-var pressureUART = new SerialPort('/dev/ttyO1', { baudRate: 115200}, function(err) {
+var pressureUART = new SerialPort('/dev/ttyO4', {baudRate: 115200}, function(err) {
     if(err){
         return console.log('Error: ', err.message);
     }
     console.log("UART1 ready");
 
 });
+var pressureParser = pressureUART.pipe(new Delimiter({delimiter: '\n'}));
 
 
-var flowUART = new SerialPort('/dev/ttyO4', { baudRate: 115200}, function(err) {
+var flowUART = new SerialPort('/dev/ttyO1', { baudRate: 115200}, function(err) {
     if(err){
         return console.log('Error: ', err.message);
     }
@@ -88,65 +90,64 @@ let jsonLoadCell = {type:'LOAD_CELL_DATA', data:{LOAD_CELL:''}}
          sendBlock(jsonData);
 });*/
 
-pressureUART.on('data',function(data){
+pressureParser.on('data',function(data){
 
-
-    data = new Buffer(data)
-    console.log(data)
-
-    let PT = struct().array('sensor',2,'chars',1).array('PT', 7, 'word16Ule').word32Ule('timer')
-//  let TC = struct().array('sensorTC',2,'chars',2).array('TC', 8, 'word32Ule').word32Ule('timerTC')
-
-    PT._setBuff(data)
-
-    var VD = 10.0/3.0
-    var voltsPerBit = 0.001
-    var mvGram = ((3.0008*10)/500000)*200
-//  console.log(PT.get('sensor').fields[0]+PT.get('sensor').fields[1]);
-    let arduInput= PT.get('PT')
-
-    /*jsonPressure.data.PT_IPA = arduInput.fields[0]*0.002*35.052*VDC-0.4656
-    jsonPressure.data.PT_N2O = arduInput.fields[1]*voltsPerBit*6.9982*VDC+0.0045
-    jsonPressure.data.PT_FUEL= arduInput.fields[2]*voltsPerBit*7.0009*VDC-0.0037
-    jsonPressure.data.PT_CHAM = arduInput.fields[3]*voltsPerBit*6.9941*VDC-0.1277
-    jsonPressure.data.PT_OX= arduInput.fields[4]*voltsPerBit*6.9999*VDC+0.0285
-    jsonPressure.data.PT_N2 = arduInput.fields[5]*voltsPerBit*7.014*VDC-0.0699
-    jsonLoadCell.data.LOAD_CELL = arduInput.fields[6]*voltsPerBit*1000/mvGram*/
-
-    jsonPressure.data.PT_IPA = arduInput.fields[0]*voltsPerBit*VD//*7.014-0.0699
-    jsonPressure.data.PT_N2O = arduInput.fields[1]*voltsPerBit*VD//*6.9941-0.1277
-    jsonPressure.data.PT_FUEL= arduInput.fields[2]*voltsPerBit*VD*7.0009-0.0037
-    jsonPressure.data.PT_CHAM = arduInput.fields[3]*voltsPerBit*VD*6.9982+0.0045
-    jsonPressure.data.PT_OX= arduInput.fields[4]*voltsPerBit*VD*6.999+0.0285
-    jsonPressure.data.PT_N2 = arduInput.fields[5]*0.002*VD*35.052-0.4656
-    jsonLoadCell.data.LOAD_CELL = arduInput.fields[6]*voltsPerBit*1000/mvGram
-//  jsonData.TC_6 = arduInput.fields[7]/100
-    // gitfix
-    console.log(jsonPressure)
-    //console.log(jsonLoadCell)
-    //console.log(PT.get('timer')+' timer!')
-    sendBlock(jsonPressure)
-    sendBlock(jsonLoadCell)
-
-    //let dataTC = new Buffer(data)
-
-    //  let testTC = struct().array('sensorTC',2,'chars',2).array('TC', 8, 'word32Ule').word32Ule('timerTC')
-    //TC._setBuff(data)
-    //   console.log(test.get('sensor').fields[0]+test.get('sensor').fields[1])
-    /*let arduInputTC=TC.get('TC')
-   jsonData.data.TC_IPA = arduInputTC.fields[0]/100
-   jsonData.data.TC_N2O = arduInputTC.fields[1]/100
-   jsonData.data.TC_1 = arduInputTC.fields[2]/100
-   jsonData.data.TC_2 = arduInputTC.fields[3]/100
-   jsonData.data.TC_3 = arduInputTC.fields[4]/100
-   jsonData.data.TC_4 = arduInputTC.fields[5]/100
-   jsonData.data.TC_5 = arduInputTC.fields[6]/100
-   jsonData.data.TC_6 = arduInputTC.fields[7]/100
-   console.log(TC.get('sensorTC').fields[0]+TC.get('sensorTC').fields[1])
-   console.log(jsonData)
-   console.log(TC.get('timerTC')/1000000)
-   */
-
+    //if (data.length == 60) {
+        
+    
+        data = new Buffer(data)
+        console.log(data.length)
+    
+        let PT = struct().array('sensor',2,'chars',1).array('PT', 7, 'word16Ule').word32Ule('timer')
+        let TC = struct().array('sensorTC',2,'chars',1).array('TC', 8, 'word32Ule').word32Ule('timerTC')
+    
+        //PT._setBuff(data)
+        
+        let UNION = struct().struct("PT", PT).struct("TC", TC);
+        UNION._setBuff(data)
+        
+        var VD = 10.0/3.0
+        var voltsPerBit = 0.001
+        var mvGram = ((3.0008*10)/500000)*200
+    //  console.log(PT.get('sensor').fields[0]+PT.get('sensor').fields[1]);
+        //let arduInput= PT.get('PT')
+        let pressures = UNION.get('PT').get('PT');
+    
+        jsonPressure.data.PT_IPA = pressures.fields[0]*voltsPerBit*VD*7.014-0.0699
+        jsonPressure.data.PT_N2O = pressures.fields[1]*voltsPerBit*VD*6.9941-0.1277
+        jsonPressure.data.PT_FUEL= pressures.fields[2]*voltsPerBit*VD*7.0009-0.0037
+        jsonPressure.data.PT_CHAM = pressures.fields[3]*voltsPerBit*VD*6.9982+0.0045
+        jsonPressure.data.PT_OX= pressures.fields[4]*voltsPerBit*VD*6.999+0.0285
+        jsonPressure.data.PT_N2 = pressures.fields[5]*0.002*VD*35.052-0.4656
+        jsonLoadCell.data.LOAD_CELL = pressures.fields[6]*voltsPerBit*1000/mvGram
+    //  jsonData.TC_6 = arduInput.fields[7]/100
+        // gitfix
+        console.log(jsonPressure)
+        //console.log(jsonLoadCell)
+        //console.log(PT.get('timer')+' timer!')
+        sendBlock(jsonPressure)
+        sendBlock(jsonLoadCell)
+    
+        //let dataTC = new Buffer(data)
+    
+        //  let testTC = struct().array('sensorTC',2,'chars',2).array('TC', 8, 'word32Ule').word32Ule('timerTC')
+        //TC._setBuff(data)
+        //   console.log(test.get('sensor').fields[0]+test.get('sensor').fields[1])
+        let temperatures = UNION.get("TC").get("TC");
+        
+       jsonData.data.TC_IPA = temperatures.fields[0]/100
+       jsonData.data.TC_N2O = temperatures.fields[1]/100
+       jsonData.data.TC_1 = temperatures.fields[2]/100
+       jsonData.data.TC_2 = temperatures.fields[3]/100
+       jsonData.data.TC_3 = temperatures.fields[4]/100
+       jsonData.data.TC_4 = temperatures.fields[5]/100
+       jsonData.data.TC_5 = temperatures.fields[6]/100
+       jsonData.data.TC_6 = temperatures.fields[7]/100
+       //console.log(TC.get('sensorTC').fields[0]+TC.get('sensorTC').fields[1])
+       console.log(jsonData)
+       //console.log(TC.get('timerTC')/1000000)
+       
+    //}
 })
 /*
 USBport0.on('data', function(data) {
