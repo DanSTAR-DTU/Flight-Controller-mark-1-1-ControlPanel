@@ -1,7 +1,12 @@
+@media only screen and (max-width: 1280px) {
+    #DataSVG {
+        max-width: 10vw !important;
+    }
+}
 #DataSVG {
     padding: 10px 0px 10px 10px;
     height: 100vh;
-    /*max-width: 600px;*/
+    max-width: 960px;
     float: left;
     transition: opacity 200ms, transform 300ms; /* Animate in effect */
 }
@@ -9,7 +14,7 @@
     float: left;
     position: relative;
     height: 100vh;
-    width: 620px;
+    width: 940px;
     margin-left: 20px;
 }
 
@@ -19,8 +24,7 @@
     float: left;
     transition: opacity 200ms 100ms, transform 300ms 100ms; /* Animate in effect */
 }
-.sidepanel_column:last-child {
-    margin-right: 0px;
+.sidepanel_column:nth-child(n+2) {
     margin-top: 17px;
     transition: opacity 200ms 200ms, transform 300ms 200ms; /* Animate in effect */
 }
@@ -304,3 +308,36 @@
 .updates_dead {
     color: #FF0000;
 }
+
+.narrow_sidepanel_column {
+    width: 200px;
+}
+.state_list_container {
+    color: #FFFFFF;
+}
+.state_button_header {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+.state_button {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #FFFFFF;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.state_button:hover {
+    color: #000000;
+    background-color: #FFFFFF;
+}
+.state_button_done {
+    opacity: 0.6;
+
+}
+.state_button_active {
+    background-color: #00AA00;
+}  

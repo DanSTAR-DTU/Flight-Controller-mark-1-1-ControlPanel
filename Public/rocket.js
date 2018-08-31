@@ -37,6 +37,17 @@ var DATA = {
         ACT_IPA: {svg_name: "ACT_IPA", value: 0, dom_element: null},
         ACT_N2O: {svg_name: "ACT_N2O", value: 0, dom_element: null}
     },
+    STATES: {
+        NEUTRAL: {id: 0, activeClassName: "state_button_active", domID: "state_bt_neutral", domElement: null},
+        OX_LOADING: {id: 1, activeClassName: "state_button_active", domID: "state_bt_ox_loading", domElement: null},
+        PRESSURIZED_STANDBY: {id: 2, activeClassName: "state_button_active", domID: "state_bt_pressurized_standby", domElement: null},
+        PRE_CHILL_N2O_LINE: {id: 3, activeClassName: "state_button_active", domID: "state_bt_pre_chill_n2o_line", domElement: null},
+        IGNITION: {id: 4, activeClassName: "state_button_active", domID: "state_bt_ignition", domElement: null},
+        BURN: {id: 5, activeClassName: "state_button_active", domID: "state_bt_burn", domElement: null},
+        SHUTDOWN: {id: 6, activeClassName: "state_button_active", domID: "state_bt_shutdown", domElement: null},
+        EMERGENCY: {id: 7, activeClassName: "state_button_active", domID: "state_bt_emergency", domElement: null}
+    },
+    ACTIVE_STATE_ID: 0,
     IS_LOGGING: false,
     TODAY_PRESSURE_BAR: 0
 }
@@ -71,6 +82,7 @@ window.onload = function () {
     addInitialVolumesListener();
     addActuatorPanelListeners();
     addTodayPressureListener();
+    addStateButtonsListener();
     socket.emit("refresh_model", {});
 };
 
@@ -164,6 +176,7 @@ function syncVisuals() {
     updateLogButtons();
     updateInitialFuelVolume();
     updateTodayPressure();
+    updateStateButtonVisuals();
 }
 
 function updateValveVisual(valveElement) {
@@ -537,6 +550,87 @@ function addTodayPressureListener() {
     });
 }
 
+function addStateButtonsListener () {
+    DATA.STATES.NEUTRAL.domElement = document.getElementById(DATA.STATES.NEUTRAL.domID);
+    DATA.STATES.NEUTRAL.domElement.addEventListener("click", function(){
+        stateButtonPressed(DATA.STATES.NEUTRAL);
+    });
+
+    DATA.STATES.OX_LOADING.domElement = document.getElementById(DATA.STATES.OX_LOADING.domID);
+    DATA.STATES.OX_LOADING.domElement.addEventListener("click", function(){
+        stateButtonPressed(DATA.STATES.OX_LOADING);
+    });
+    
+    DATA.STATES.PRESSURIZED_STANDBY.domElement = document.getElementById(DATA.STATES.PRESSURIZED_STANDBY.domID);
+    DATA.STATES.PRESSURIZED_STANDBY.domElement.addEventListener("click", function(){
+        stateButtonPressed(DATA.STATES.PRESSURIZED_STANDBY);
+    });
+
+    DATA.STATES.PRE_CHILL_N2O_LINE.domElement = document.getElementById(DATA.STATES.PRE_CHILL_N2O_LINE.domID);
+    DATA.STATES.PRE_CHILL_N2O_LINE.domElement.addEventListener("click", function(){
+        stateButtonPressed(DATA.STATES.PRE_CHILL_N2O_LINE);
+    });
+
+    DATA.STATES.IGNITION.domElement = document.getElementById(DATA.STATES.IGNITION.domID);
+    DATA.STATES.IGNITION.domElement.addEventListener("click", function(){
+        stateButtonPressed(DATA.STATES.IGNITION);
+    });
+
+    DATA.STATES.BURN.domElement = document.getElementById(DATA.STATES.BURN.domID);
+    DATA.STATES.BURN.domElement.addEventListener("click", function(){
+        stateButtonPressed(DATA.STATES.BURN);
+    });
+
+    DATA.STATES.SHUTDOWN.domElement = document.getElementById(DATA.STATES.SHUTDOWN.domID);
+    DATA.STATES.SHUTDOWN.domElement.addEventListener("click", function(){
+        stateButtonPressed(DATA.STATES.SHUTDOWN);
+    });
+
+    DATA.STATES.EMERGENCY.domElement = document.getElementById(DATA.STATES.EMERGENCY.domID);
+    DATA.STATES.EMERGENCY.domElement.addEventListener("click", function(){
+        stateButtonPressed(DATA.STATES.EMERGENCY);
+    });
+
+    // Initial state
+    updateStateButtonVisuals();
+}
+
+function stateButtonPressed(state) {
+    socket.emit("state_set", {name: "STATE_ID", id: state.id})
+}
+
+function updateStateButtonVisuals() {
+
+    var activeState = findStateByID(DATA.ACTIVE_STATE_ID);
+    console.log(activeState);
+    for (var stateName in DATA.STATES) {
+        if (DATA.STATES.hasOwnProperty(stateName)) {
+
+            var curState = DATA.STATES[stateName];
+            var curButton = document.getElementById(curState.domID);
+
+            // Reset button (remove styling)
+            curButton.classList.remove(DATA.STATES[stateName].activeClassName);
+            curButton.classList.remove("state_button_done");
+
+            if (curState.id == activeState.id) {
+                // Set active on clicked button
+                curButton.classList.add(activeState.activeClassName);
+            } else if (curState.id < activeState.id) {
+                curButton.classList.add("state_button_done");
+            }
+        }
+    }
+}
+
+function findStateByID(id) {
+    for(var stateName in DATA.STATES) {
+       if (DATA.STATES[stateName].id == id) {
+           return DATA.STATES[stateName];
+       }
+    }
+}
+
 function getFieldValue(field, lower, upper) {
     var value = parseFloat(field.value);
     if (!isNaN(value)) {
@@ -661,7 +755,7 @@ socket.on('model_update', function (model){
 });
 
 function mergeModels(localModel, serverModel) {
-
+    // Merge sensor data
     for (var sensorName in serverModel.SENSORS) {
         if (serverModel.SENSORS.hasOwnProperty(sensorName)) {
 
@@ -676,6 +770,23 @@ function mergeModels(localModel, serverModel) {
         }
     }
 
+    // Merge state data
+    for (var stateName in serverModel.STATES) {
+        if (serverModel.STATES.hasOwnProperty(stateName)) {
+
+            // Create sensor if it does not exists
+            localModel.STATES[stateName] = localModel.STATES[stateName] || {}
+
+            for (var propertyName in serverModel.STATES[stateName]) {
+                if(serverModel.STATES[stateName].hasOwnProperty(propertyName)) {
+                    localModel.STATES[stateName][propertyName] = serverModel.STATES[stateName][propertyName];
+                }
+            }
+        }
+    }
+
+    // Merge meta data
+    localModel.ACTIVE_STATE_ID = serverModel.ACTIVE_STATE_ID;
     localModel.IS_LOGGING = serverModel.IS_LOGGING;
     localModel.TODAY_PRESSURE_BAR = serverModel.TODAY_PRESSURE_BAR;
 
@@ -688,17 +799,17 @@ function updateVolumeIndicators() {
     var FLO_IPA = DATA.SENSORS.FLO_IPA;
     var FLO_N2O = DATA.SENSORS.FLO_N2O;
 
-    var fuelFraction = (FLO_IPA.initial - FLO_IPA.accumulated) / FLO_IPA.initial;
-    var fuelTimeLeft = (FLO_IPA.initial - FLO_IPA.accumulated) / FLO_IPA.value;
+    var fuelFraction = Math.max((FLO_IPA.initial - FLO_IPA.accumulated) / FLO_IPA.initial, 0);
+    var fuelTimeLeft = Math.max((FLO_IPA.initial - FLO_IPA.accumulated) / FLO_IPA.value, 0);
     
     FLO_IPA.dom_element_gradient.children[1].setAttribute("offset", 1-fuelFraction);
     FLO_IPA.dom_element_gradient.children[2].setAttribute("offset", 1-fuelFraction);
     FLO_IPA.dom_element_percentage.textContent = (fuelFraction * 100).toFixed(1) + "%";
     FLO_IPA.dom_element_time.textContent = fuelTimeLeft.toFixed(1) + "s"
 
-    var oxidizerFraction = (FLO_N2O.initial - FLO_N2O.accumulated) / FLO_N2O.initial;
-    var oxidizerTimeLeft = (FLO_N2O.initial - FLO_N2O.accumulated) / FLO_N2O.value;
-    //console.log(oxidizerFraction);
+    var oxidizerFraction = Math.max((FLO_N2O.initial - FLO_N2O.accumulated) / FLO_N2O.initial, 0);
+    var oxidizerTimeLeft = Math.max((FLO_N2O.initial - FLO_N2O.accumulated) / FLO_N2O.value, 0);
+
     FLO_N2O.dom_element_gradient.children[1].setAttribute("offset", 1-oxidizerFraction);
     FLO_N2O.dom_element_gradient.children[2].setAttribute("offset", 1-oxidizerFraction);
     FLO_N2O.dom_element_percentage.textContent = (oxidizerFraction * 100).toFixed(1) + "%";
