@@ -266,12 +266,35 @@ function update(block) {
             }
 
             break;
+        case "VALVE_DATA":
+            MODEL.SENSORS.SV_FLUSH = binaryToPosition(block.data.SV_FLUSH);
+            MODEL.SENSORS.SV_N2O = binaryToPosition(block.data.SV_N2O);
+            MODEL.SENSORS.SV_N2O_FILL = binaryToPosition(block.data.SV_N2O_FILL);
+            MODEL.SENSORS.SV_IPA = binaryToPosition(block.data.SV_IPA);
+            MODEL.SENSORS.ACT_IPA = block.data.ACT_IPA;
+            MODEL.SENSORS.ACT_N2O = block.data.ACT_N2O;            
+            
+            if (MODEL.IS_LOGGING) {
+                var dataPoint = {data: block.data, timestamp: getSessionTime()};
+                historyData.VALVE.push(dataPoint);
+            }
+            
         default:
             console.log("Unknown block type: " + block.type);
     }
 
     emitModel();
     
+}
+
+function binaryToPosition(int) {
+    if (int == 0) {
+        return "CLOSED";
+    } else if (int == 1) {
+        return "OPEN";
+    } else {
+        return "ERROR";
+    }
 }
 
 function emitModel() {
