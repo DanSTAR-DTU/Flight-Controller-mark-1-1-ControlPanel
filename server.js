@@ -56,6 +56,17 @@ var MODEL = {
         ACT_IPA: {value: 0, lastUpdated: 0},
         ACT_N2O: {value: 0, lastUpdated: 0}
     },
+    STATES: {
+        NEUTRAL: {id: 0},
+        OX_LOADING: {id: 1},
+        PRESSURIZED_STANDBY: {id: 2},
+        PRE_CHILL_N2O_LINE: {id: 3},
+        IGNITION: {id: 4},
+        BURN: {id: 5},
+        SHUTDOWN: {id: 6},
+        EMERGENCY: {id: 7}
+    },
+    ACTIVE_STATE_ID: 0,
     IS_LOGGING: false,
     TODAY_PRESSURE_BAR: 1.01800
 };
@@ -160,6 +171,14 @@ io.sockets.on('connection', function (socket) {
     socket.on("today_pressure", data => {
         if (data.name == "TODAY_PRESSURE") {
             MODEL.TODAY_PRESSURE_BAR = data.value;
+        }
+        emitModel();
+    });
+
+    socket.on("state_set", data => {
+        if (data.name == "STATE_ID") {
+            MODEL.ACTIVE_STATE_ID = data.id;
+            sendToBeagle("STATE", {id: MODEL.ACTIVE_STATE_ID});
         }
         emitModel();
     });
@@ -304,8 +323,9 @@ function emitModel() {
 }
 
 function sendToBeagle(type, data) {
-    console.log("Sent to Beagle:" + JSON.stringify(data));
-    UDPSocket.send(JSON.stringify({type: type, data: data}), UDP_PORT, UDP_IP);
+    var packetStr = JSON.stringify({type: type, data: data})
+    console.log("Sent to Beagle:" + packetStr);
+    UDPSocket.send(packetStr, UDP_PORT, UDP_IP);
 }
 
 function getSessionTime() {
