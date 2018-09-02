@@ -15,22 +15,6 @@ bone.digitalWrite('P8_8', bone.HIGH)
 
 var initialAccumulatedFlows = {FLO_IPA: 0, FLO_N2O:0}
 
-/*var USBport1 = new SerialPort('/dev/ttyACM1', { baudRate: 115200}, function(err) {
-    if(err){
-        return console.log('Error: ', err.message);
-    }
-    console.log("USB1 ready")
-
-});
-
-var USBport0 = new SerialPort('/dev/ttyACM0', { baudRate: 115200}, function(err) {
-    if(err){
-        return console.log('Error: ', err.message);
-    }
-    console.log("USB0 ready")
-
-});*/
-
 var pressureUART = new SerialPort('/dev/ttyO4', {baudRate: 115200}, function(err) {
     if(err){
         return console.log('Error: ', err.message);
@@ -56,7 +40,7 @@ var valveUART = new SerialPort('/dev/ttyO2', { baudRate: 115200}, function(err) 
     console.log("UART5 ready - valve UART");
 
 });
-var valveParser = pressureUART.pipe(new Delimiter({delimiter: '\n'}));
+var valveParser = valveUART.pipe(new Delimiter({delimiter: '\n'}));
 
 var receiverDeviceAddress;
 var receiverDevicePort;
@@ -78,16 +62,10 @@ pressureParser.on('data',function(data){
         data = new Buffer(data)
         console.log(data.length);
         console.log(data)
-    
-       // let dataPT = Struct().array('sensorPT',2,'chars',1).array('PT', 7, 'word16Ule')/*.word32Ule('timerPT')*/
-    //    let dataTC = Struct().array('sensorTC',2,'chars',1).array('TC', 8, 'word16Ule')/*.word32Ule('timerTC')*/
-        
-        //let union = Struct().struct("dataPT", dataPT).struct("dataTC", dataTC);
-        //union._setBuff(data)
         
         let fullStruct = Struct()
-            .array('PT', 6, 'word16Ule')
-            .word16Ule('LOAD')
+            .array('PT', 6, 'word16Sle')
+            .word16Sle('LOAD')
             .array('TC', 8, 'word16Ule');
        
         fullStruct._setBuff(data)
@@ -99,32 +77,21 @@ pressureParser.on('data',function(data){
 
         //let pressures = union.get('dataPT').get('PT');
         let pressures = fullStruct.get('PT');
-        let load = fullStruct.get('LOAD');
-    
         jsonPressure.data.PT_IPA = pressures.fields[0]*voltsPerBit*VD*7.014-0.0699
         jsonPressure.data.PT_N2O = pressures.fields[1]*voltsPerBit*VD*6.9941-0.1277
         jsonPressure.data.PT_FUEL= pressures.fields[2]*voltsPerBit*VD*7.0009-0.0037
         jsonPressure.data.PT_CHAM = pressures.fields[3]*voltsPerBit*VD*6.9982+0.0045
         jsonPressure.data.PT_OX= pressures.fields[4]*voltsPerBit*VD*6.999+0.0285
         jsonPressure.data.PT_N2 = pressures.fields[5]*0.002*VD*35.052-0.4656
-        
-        jsonLoadCell.data.LOAD_CELL = load*voltsPerBit*1000/mvGram
-        
         console.log(jsonPressure)
-        console.log(jsonLoadCell)
-        //console.log(PT.get('timer')+' timer!')
         sendBlock(jsonPressure)
+        
+        let load = fullStruct.get('LOAD');
+        jsonLoadCell.data.LOAD_CELL = load*voltsPerBit*1000/mvGram
+        console.log(jsonLoadCell)
         sendBlock(jsonLoadCell)
-    
-        //let dataTC = new Buffer(data)
-    
-        //  let testTC = struct().array('sensorTC',2,'chars',2).array('TC', 8, 'word32Ule').word32Ule('timerTC')
-        //TC._setBuff(data)
-        //   console.log(test.get('sensor').fields[0]+test.get('sensor').fields[1])
-        //let temperatures = union.get("dataTC").get("TC");
         
         let temperatures = fullStruct.get('TC');
-        
         jsonTemps.data.TC_IPA = temperatures.fields[0]
         jsonTemps.data.TC_N2O = temperatures.fields[1]
         jsonTemps.data.TC_1 = temperatures.fields[2]
@@ -133,10 +100,7 @@ pressureParser.on('data',function(data){
         jsonTemps.data.TC_4 = temperatures.fields[5]
         jsonTemps.data.TC_5 = temperatures.fields[6]
         jsonTemps.data.TC_6 = temperatures.fields[7]
-        
-        
         console.log(jsonTemps)
-        //console.log(TC.get('timerTC')/1000000)
         sendBlock(jsonTemps);
 
 })
@@ -193,16 +157,16 @@ flowUART.on('data', function(data){
 
 valveParser.on('data', function(data){
     var str = data.toString();
-    console.log(str);
-    
     var positions = str.split(" ");
-    jsonValves.data.SV_FLUSH = positions[0];
-    jsonValves.data.SV_N2O = positions[1];
-    jsonValves.data.SV_N2O_FILL = positions[2];
-    jsonValves.data.SV_IPA = positions[3];
-    jsonValves.data.ACT_N2O = positions[4];
-    jsonValves.data.ACT_IPA = positions[5];
     
+    jsonValves.data.SV_FLUSH = positions[0];
+    jsonValves.data.SV_IPA = positions[1];
+    jsonValves.data.SV_N2O = positions[2];
+    jsonValves.data.SV_N2O_FILL = positions[3];
+    jsonValves.data.ACT_N2O = Math.ceil((positions[4] / 945.0) * 100);
+    jsonValves.data.ACT_IPA = Math.ceil((positions[5] / 1023.0) * 100);
+    
+    console.log(str);
     sendBlock(jsonValves);
     
 });
@@ -237,6 +201,9 @@ server.on("message", (message, remote) => {
             bone.digitalWrite('P8_8', bone.HIGH)
 
             break;
+        case 'RESET_LOAD_CELL':
+            // Sebastian wants a 't'...
+            pressureUART.write(new Buffer.from("t"));
         default:
             break;
     }
@@ -269,7 +236,6 @@ function stopLog() {
 
 function valveState(valveName, valveValue){
     if(valveValue == 'CLOSED'){
-        jsonValves[valveName] = valveValue
         console.log(valveName+' '+0)
         valveUART.write(new Buffer.from(valveName+' 0'))
         // sendBlock(jsonDataValve)
@@ -277,7 +243,6 @@ function valveState(valveName, valveValue){
 
     }else if(valveValue == "OPEN"){
         console.log(valveName+' '+1)
-        jsonValves[valveName] = valveValue
 
         valveUART.write(new Buffer.from(valveName+' 1'))
         //sendBlock(jsonDataValve)
@@ -292,19 +257,19 @@ function actuator(data) {
 
     if (data.type == "SINGLE") {
         if (data.name == "ACT_IPA_VALUE") {
-            var cmdStr = 'fuelvalve ' + data.value;
+            var cmdStr = 'fuelvalve ' + Math.round(data.value);
             console.log(cmdStr);
             valveUART.write(new Buffer.from(cmdStr));
 
         } else if (data.name == "ACT_N2O_VALUE") {
-            var cmdStr = 'oxvalve ' + data.value;
+            var cmdStr = 'oxvalve ' + Math.round(data.value);
             console.log(cmdStr);
             valveUART.write(new Buffer.from(cmdStr));
         }
 
     } else if (data.type == "BOTH") {
         // TODO
-        var cmdStr = 'propellant ' + data.fuelValve + ' ' + data.oxidizerValve;
+        var cmdStr = 'propellant ' + Math.round(data.fuelValue) + ' ' + Math.round(data.oxidizerValue);
         console.log(cmdStr);
         valveUART.write(new Buffer.from(cmdStr));
     }

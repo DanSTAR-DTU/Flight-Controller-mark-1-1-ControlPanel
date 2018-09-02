@@ -1,6 +1,6 @@
-@media only screen and (max-width: 1280px) {
+@media only screen and (max-width: 1588px) {
     #DataSVG {
-        max-width: 10vw !important;
+        max-width: 600px !important;
     }
 }
 #DataSVG {
@@ -12,9 +12,8 @@
 }
 .sidepanel {
     float: left;
-    position: relative;
     height: 100vh;
-    width: 940px;
+    width: 920px;
     margin-left: 20px;
 }
 
@@ -24,9 +23,13 @@
     float: left;
     transition: opacity 200ms 100ms, transform 300ms 100ms; /* Animate in effect */
 }
-.sidepanel_column:nth-child(n+2) {
+.sidepanel_column:nth-child(2) {
     margin-top: 17px;
     transition: opacity 200ms 200ms, transform 300ms 200ms; /* Animate in effect */
+}
+.sidepanel_column:nth-child(3) {
+    margin-top: 17px;
+    transition: opacity 200ms 300ms, transform 300ms 300ms; /* Animate in effect */
 }
 
 /* Animate in effect */
@@ -198,6 +201,12 @@
     color: #000000;
     background-color: #FFFFFF;
 }
+.actuator_panel_button_disabled {
+    color: #333333;
+    background-color: #666666;
+    pointer-events: none;
+    border: none;
+}
 .actuator_panel_small_button {
     width: 50%;
 }
@@ -270,6 +279,10 @@
 }
 .log_button:last-child {
     margin-right: 0;
+}
+
+#load_reset_button {
+    width: 278px;
 }
 
 

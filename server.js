@@ -22,7 +22,7 @@ var io = socket(server)
 // Beaglebone
 var UDPSocket = udp.createSocket('udp4');
 var startTime = Date.now();
-var historyData = {TC: [], VALVE: [], ACTUATOR: [], FLOW: [], PRESSURE: [], LOAD: []};
+var historyData = {TC: [], VALVE: [], FLOW: [], PRESSURE: [], LOAD: []};
 var timeStamp = {year:'', month:'', day:'', hours:'', minutes: '', seconds:''};
 var MODEL = {
     SENSORS: {
@@ -95,10 +95,8 @@ io.sockets.on('connection', function (socket) {
 
     socket.on("valve", function (data) {
         if (data.value == "OPEN") {
-            MODEL.SENSORS[data.name].value = "OPEN";
             sendToBeagle("VALVE", {name: data.name, value: "OPEN"});
         } else if (data.value == "CLOSED") {
-            MODEL.SENSORS[data.name].value = "CLOSED";
             sendToBeagle("VALVE", {name: data.name, value: "CLOSED"});
         } else {
             console.log("Valve: " + data.name + " tried to set to value: " + data.value);
@@ -111,15 +109,11 @@ io.sockets.on('connection', function (socket) {
         // Update model
         if (data.type == "SINGLE") {
             if(data.name == "ACT_IPA_VALUE") {
-                MODEL.SENSORS.ACT_IPA.value = data.value;
                 sendToBeagle("ACTUATOR", {type: "SINGLE", name: "ACT_IPA_VALUE", value: data.value});
             } else if (data.name == "ACT_N2O_VALUE") {
-                MODEL.SENSORS.ACT_N2O.value = data.value;
                 sendToBeagle("ACTUATOR", {type: "SINGLE", name: "ACT_N2O_VALUE", value: data.value});
             }
         } else if (data.type == "BOTH") {
-            MODEL.SENSORS.ACT_IPA.value = data.fuelValue;
-            MODEL.SENSORS.ACT_N2O.value = data.oxidizerValue;
             sendToBeagle("ACTUATOR", {type: "BOTH", fuelValue: data.fuelValue, oxidizerValue: data.oxidizerValue});
         }
         
@@ -157,6 +151,10 @@ io.sockets.on('connection', function (socket) {
                 console.log("Unkown log command");
                 break;
         }   
+    });
+
+    socket.on("reset_load_cell", (data) => {
+        sendToBeagle("RESET_LOAD_CELL", "");
     });
 
     socket.on("initial_volume", (data) => {
@@ -275,6 +273,7 @@ function update(block) {
             
             break;
         case "LOAD_CELL_DATA":
+            block.data.LOAD_CELL *= (0.001 * 9.82);
             MODEL.SENSORS.LOAD.value = block.data.LOAD_CELL;
             MODEL.SENSORS.LOAD.lastUpdated = updateTime;
 
@@ -286,18 +285,19 @@ function update(block) {
 
             break;
         case "VALVE_DATA":
-            MODEL.SENSORS.SV_FLUSH = binaryToPosition(block.data.SV_FLUSH);
-            MODEL.SENSORS.SV_N2O = binaryToPosition(block.data.SV_N2O);
-            MODEL.SENSORS.SV_N2O_FILL = binaryToPosition(block.data.SV_N2O_FILL);
-            MODEL.SENSORS.SV_IPA = binaryToPosition(block.data.SV_IPA);
-            MODEL.SENSORS.ACT_IPA = block.data.ACT_IPA;
-            MODEL.SENSORS.ACT_N2O = block.data.ACT_N2O;            
+            MODEL.SENSORS.SV_FLUSH.value = binaryToPosition(block.data.SV_FLUSH);
+            MODEL.SENSORS.SV_N2O.value = binaryToPosition(block.data.SV_N2O);
+            MODEL.SENSORS.SV_N2O_FILL.value = binaryToPosition(block.data.SV_N2O_FILL);
+            MODEL.SENSORS.SV_IPA.value = binaryToPosition(block.data.SV_IPA);
+            MODEL.SENSORS.ACT_IPA.value = block.data.ACT_IPA;
+            MODEL.SENSORS.ACT_N2O.value = block.data.ACT_N2O;            
             
             if (MODEL.IS_LOGGING) {
                 var dataPoint = {data: block.data, timestamp: getSessionTime()};
                 historyData.VALVE.push(dataPoint);
             }
-            
+
+            break;
         default:
             console.log("Unknown block type: " + block.type);
     }
@@ -366,6 +366,10 @@ function saveLogToCSV() {
     // Write temperatures to CSV
     filename = folder + sTime + "-" + nowTime + "_temperatures.csv";
     writeSensorBranch(filename, ["TC_IPA", "TC_N2O", "TC_1", "TC_2", "TC_3", "TC_4", "TC_5", "TC_6"], historyData.TC);
+
+    // Write valves to CSV
+    filename = folder + sTime + "-" + nowTime + "_valves.csv";
+    writeSensorBranch(filename, ["SV_FLUSH", "SV_N2O", "SV_N2O_FILL", "SV_IPA", "ACT_IPA", "ACT_N2O"], historyData.TC);
     
 }
 
@@ -397,8 +401,8 @@ function writeSensorBranch(filename, columns, branch) {
         var row = block.timestamp + ",";
 
         // Concatenate measures as columns
-        columns.forEach((measure) => {
-            row += block.data[measure] + ",";
+        columns.forEach((sensorName) => {
+            row += block.data[sensorName] + ",";
         });
 
         // Remove last "," from concatenation and write to file

@@ -83,6 +83,7 @@ window.onload = function () {
     addActuatorPanelListeners();
     addTodayPressureListener();
     addStateButtonsListener();
+    addLoadResetButtonListener();
     socket.emit("refresh_model", {});
 };
 
@@ -201,7 +202,7 @@ function updateLoadCell(loadSensor, decimals) {
 }
 
 function updatePressureSensor(pressureSensor, decimals) {
-    pressureSensor.dom_element.innerHTML = pressureSensor.value.toFixed(decimals) + " barA";
+    pressureSensor.dom_element.innerHTML = pressureSensor.value.toFixed(decimals) + " bara";
 }
 
 function updateTemperatureSensor(temperatureSensor, decimals) {
@@ -214,7 +215,7 @@ function updateFlowSensor(flowSensor, decimals) {
 }
 
 function updateActuator(actuator) {
-    actuator.dom_element.textContent = actuator.value + "%";
+    actuator.dom_element.textContent = Math.ceil(actuator.value) + "%";
 }
 
 function updateFlowratePanel() {
@@ -239,13 +240,10 @@ function addValveButtonListener(svgDoc, dataElement) {
     svgDoc.getElementById(dataElement.svg_name + "_BUTTON").addEventListener("click", function() {
         console.log("Valve " + dataElement.svg_name + " pressed!");
         if (dataElement.value == CLOSED) {
-            dataElement.value = OPEN;
-            socket.emit("valve", {name: dataElement.svg_name, value: dataElement.value});
+            socket.emit("valve", {name: dataElement.svg_name, value: OPEN});
         } else if (dataElement.value == OPEN) {
-            dataElement.value = CLOSED;
-            socket.emit("valve", {name: dataElement.svg_name, value: dataElement.value});
+            socket.emit("valve", {name: dataElement.svg_name, value: CLOSED});
         }
-        updateValveVisual(dataElement);
 
     });
 }
@@ -547,6 +545,13 @@ function addTodayPressureListener() {
                 console.log("Today's pressure input has non-number characters: " + pressureValue);
             }
         } 
+    });
+}
+
+function addLoadResetButtonListener(){
+    var resetButton = document.getElementById("load_reset_button");
+    resetButton.addEventListener("click", function() {
+        socket.emit("reset_load_cell", "");
     });
 }
 

@@ -1141,7 +1141,7 @@
          y="443.01941"
          x="371.45181"
          id="tspan4313"
-         sodipodi:role="line">Min: ?? Max: ??</tspan></text>
+         sodipodi:role="line">Min: 0.047 Max: 0.47</tspan></text>
     <text
        sodipodi:linespacing="0%"
        xml:space="preserve"
@@ -1153,6 +1153,6 @@
          sodipodi:role="line"
          id="tspan4317"
          x="606.95184"
-         y="439.51941">Min: ?? Max: ??</tspan></text>
+         y="439.51941">Min: 0.188 Max: 1.88</tspan></text>
   </g>
 </svg>
