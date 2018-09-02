@@ -38,16 +38,16 @@ var DATA = {
         ACT_N2O: {svg_name: "ACT_N2O", value: 0, dom_element: null}
     },
     STATES: {
-        NEUTRAL: {id: 0, activeClassName: "state_button_active", domID: "state_bt_neutral", domElement: null},
-        OX_LOADING: {id: 1, activeClassName: "state_button_active", domID: "state_bt_ox_loading", domElement: null},
-        PRESSURIZED_STANDBY: {id: 2, activeClassName: "state_button_active", domID: "state_bt_pressurized_standby", domElement: null},
-        PRE_CHILL_N2O_LINE: {id: 3, activeClassName: "state_button_active", domID: "state_bt_pre_chill_n2o_line", domElement: null},
-        IGNITION: {id: 4, activeClassName: "state_button_active", domID: "state_bt_ignition", domElement: null},
-        BURN: {id: 5, activeClassName: "state_button_active", domID: "state_bt_burn", domElement: null},
-        SHUTDOWN: {id: 6, activeClassName: "state_button_active", domID: "state_bt_shutdown", domElement: null},
-        EMERGENCY: {id: 7, activeClassName: "state_button_active", domID: "state_bt_emergency", domElement: null}
+        NEUTRAL: {id: 1, activeClassName: "state_button_active", domID: "state_bt_neutral", domElement: null},
+        OX_LOADING: {id: 2, activeClassName: "state_button_active", domID: "state_bt_ox_loading", domElement: null},
+        PRESSURIZED_STANDBY: {id: 3, activeClassName: "state_button_active", domID: "state_bt_pressurized_standby", domElement: null},
+        PRE_CHILL_N2O_LINE: {id: 4, activeClassName: "state_button_active", domID: "state_bt_pre_chill_n2o_line", domElement: null},
+        IGNITION: {id: 5, activeClassName: "state_button_active", domID: "state_bt_ignition", domElement: null},
+        BURN: {id: 6, activeClassName: "state_button_active", domID: "state_bt_burn", domElement: null},
+        SHUTDOWN: {id: 7, activeClassName: "state_button_active", domID: "state_bt_shutdown", domElement: null},
+        EMERGENCY: {id: 8, activeClassName: "state_button_active", domID: "state_bt_emergency", domElement: null}
     },
-    ACTIVE_STATE_ID: 0,
+    ACTIVE_STATE_ID: 1,
     IS_LOGGING: false,
     TODAY_PRESSURE_BAR: 0
 }
@@ -616,13 +616,10 @@ function updateStateButtonVisuals() {
 
             // Reset button (remove styling)
             curButton.classList.remove(DATA.STATES[stateName].activeClassName);
-            curButton.classList.remove("state_button_done");
 
             if (curState.id == activeState.id) {
                 // Set active on clicked button
                 curButton.classList.add(activeState.activeClassName);
-            } else if (curState.id < activeState.id) {
-                curButton.classList.add("state_button_done");
             }
         }
     }

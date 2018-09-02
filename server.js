@@ -57,16 +57,16 @@ var MODEL = {
         ACT_N2O: {value: 0, lastUpdated: 0}
     },
     STATES: {
-        NEUTRAL: {id: 0},
-        OX_LOADING: {id: 1},
-        PRESSURIZED_STANDBY: {id: 2},
-        PRE_CHILL_N2O_LINE: {id: 3},
-        IGNITION: {id: 4},
-        BURN: {id: 5},
-        SHUTDOWN: {id: 6},
-        EMERGENCY: {id: 7}
+        NEUTRAL: {id: 1},
+        OX_LOADING: {id: 2},
+        PRESSURIZED_STANDBY: {id: 3},
+        PRE_CHILL_N2O_LINE: {id: 4},
+        IGNITION: {id: 5},
+        BURN: {id: 6},
+        SHUTDOWN: {id: 7},
+        EMERGENCY: {id: 8}
     },
-    ACTIVE_STATE_ID: 0,
+    ACTIVE_STATE_ID: 1,
     IS_LOGGING: false,
     TODAY_PRESSURE_BAR: 1.01800
 };
@@ -175,8 +175,7 @@ io.sockets.on('connection', function (socket) {
 
     socket.on("state_set", data => {
         if (data.name == "STATE_ID") {
-            MODEL.ACTIVE_STATE_ID = data.id;
-            sendToBeagle("STATE", {id: MODEL.ACTIVE_STATE_ID});
+            sendToBeagle("STATE", {id: data.id});
         }
         emitModel();
     });
@@ -292,6 +291,10 @@ function update(block) {
             MODEL.SENSORS.ACT_IPA.value = block.data.ACT_IPA;
             MODEL.SENSORS.ACT_N2O.value = block.data.ACT_N2O;            
             
+            if(block.data.STATE > 0) {
+                MODEL.ACTIVE_STATE_ID = block.data.STATE;
+            }
+
             if (MODEL.IS_LOGGING) {
                 var dataPoint = {data: block.data, timestamp: getSessionTime()};
                 historyData.VALVE.push(dataPoint);

@@ -347,10 +347,6 @@
     color: #000000;
     background-color: #FFFFFF;
 }
-.state_button_done {
-    opacity: 0.6;
-
-}
 .state_button_active {
     background-color: #00AA00;
 }  

@@ -52,7 +52,7 @@ server.on('listening', function () {
 server.bind(PORT, HOST);
 //var data = "s1, 21; s2, 20; s3, 21"
 let jsonTemps ={type: "TC_DATA", data: {TC_IPA:'',TC_N2O:'', TC_1:'', TC_2:'',TC_3:'',TC_4:'',TC_5:'',TC_6:''}}
-let jsonValves ={type: "VALVE_DATA", data: {SV_FLUSH:0, SV_N2O: 0, SV_N2O_FILL:0, SV_IPA:0, ACT_IPA: 0, ACT_N2O: 0}}
+let jsonValves ={type: "VALVE_DATA", data: {SV_FLUSH:0, SV_N2O: 0, SV_N2O_FILL:0, SV_IPA:0, ACT_IPA: 0, ACT_N2O: 0, STATE: 0}}
 let jsonFlow = {type:'FLOW_DATA', data: {FLO_IPA:{value:0, accumulated:0}, FLO_N2O:{value:0, accumulated:0}}}
 let jsonPressure = {type: "PRESSURE_DATA", data:{PT_IPA:'', PT_N2O:'',PT_CHAM:'',PT_N2:'', PT_FUEL:'', PT_OX:''}}
 let jsonLoadCell = {type:'LOAD_CELL_DATA', data:{LOAD_CELL:''}}
@@ -115,12 +115,6 @@ flowUART.on('data', function(data){
 
         data = new Buffer(data)
 
-        //console.log(data)
-
-        //let test = struct().array('FLOX',)
-        //test._setBuff(data)
-        // data = new Buffer(data)
-        //console.log(data)
         let test = Struct().array('SENSOR',2,'chars', 1)
         test.array('TYPE',2,'chars', 1)
         test.word16Ule('flowRateMillis')
@@ -129,10 +123,7 @@ flowUART.on('data', function(data){
 
         test._setBuff(data)
 
-
         let  type = test.get('TYPE').fields[0]+test.get('TYPE').fields[1]
-
-        //console.log(type)
 
         if(type == 'OX'){
             jsonFlow.data.FLO_N2O.value = test.get('flowRateMillis')
@@ -165,6 +156,7 @@ valveParser.on('data', function(data){
     jsonValves.data.SV_N2O_FILL = positions[3];
     jsonValves.data.ACT_N2O = Math.ceil((positions[4] / 945.0) * 100);
     jsonValves.data.ACT_IPA = Math.ceil((positions[5] / 1023.0) * 100);
+    jsonValves.data.STATE = positions[6];
     
     console.log(str);
     sendBlock(jsonValves);
@@ -200,6 +192,11 @@ server.on("message", (message, remote) => {
             stopLog()
             bone.digitalWrite('P8_8', bone.HIGH)
 
+            break;
+        case 'STATE':
+            var stateStr = "state " + json.data.id;
+            valveUART.write(new Buffer.from(stateStr));
+            console.log(stateStr);
             break;
         case 'RESET_LOAD_CELL':
             // Sebastian wants a 't'...
