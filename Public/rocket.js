@@ -70,6 +70,8 @@ var lockableFields = {
     }
 }
 
+massFlowRatioSVGDomElement = null;
+
 // INIT (wait on SVG)
 window.onload = function () {
     // Animate in
@@ -139,6 +141,7 @@ function initializeSVGElements() {
     DATA.SENSORS.ACT_IPA.dom_element = svgDoc.getElementById(DATA.SENSORS.ACT_IPA.svg_name);
     DATA.SENSORS.ACT_N2O.dom_element = svgDoc.getElementById(DATA.SENSORS.ACT_N2O.svg_name);
 
+    massFlowRatioSVGDomElement = svgDoc.getElementById("MASS_FLOW_RATIO");
 }
 
 function syncVisuals() {
@@ -173,6 +176,8 @@ function syncVisuals() {
 
     updateActuator(DATA.SENSORS.ACT_IPA);
     updateActuator(DATA.SENSORS.ACT_N2O);
+
+    updateMassFlowRatio(DATA.SENSORS.FLO_IPA, DATA.SENSORS.FLO_N2O);
 
     updateFlowratePanel();
     updateLogButtons();
@@ -230,6 +235,16 @@ function updateFlowratePanel() {
         var oxidizerDensityInput = document.getElementById(lockableFields.oxidizer_density.field_id);
         oxidizerDensityInput.value = DATA.SENSORS.FLO_N2O.density;
     }
+}
+
+function updateMassFlowRatio(FLO_IPA, FLO_N2O) {
+    var ratio = (FLO_N2O.value * (FLO_N2O.density / 1000.0)) / (FLO_IPA.value * (FLO_IPA.density / 1000.0))
+    if (!isNaN(ratio)) {
+        massFlowRatioSVGDomElement.children[0].innerHTML = ratio.toFixed(2);
+    } else {
+        massFlowRatioSVGDomElement.children[0].innerHTML = "0.0";
+    }
+    
 }
 
 function addValveButtonListener(svgDoc, dataElement) {
@@ -615,7 +630,7 @@ function stateButtonPressed(state) {
 function updateStateButtonVisuals() {
 
     var activeState = findStateByID(DATA.ACTIVE_STATE_ID);
-    console.log(activeState);
+
     for (var stateName in DATA.STATES) {
         if (DATA.STATES.hasOwnProperty(stateName)) {
 
@@ -765,7 +780,7 @@ socket.on('connect', function() {
 socket.on('model_update', function (model){
     var beforeData = DATA;
     DATA = mergeModels(DATA, model);
-    console.log({model: model, beforeData: beforeData, afterData: DATA});
+    //console.log({model: model, beforeData: beforeData, afterData: DATA});
 
     syncVisuals();
 });
