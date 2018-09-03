@@ -84,6 +84,7 @@ window.onload = function () {
     addTodayPressureListener();
     addStateButtonsListener();
     addLoadResetButtonListener();
+    addAccumulatedFlowResetButtonListener();
     socket.emit("refresh_model", {});
 };
 
@@ -552,6 +553,13 @@ function addLoadResetButtonListener(){
     var resetButton = document.getElementById("load_reset_button");
     resetButton.addEventListener("click", function() {
         socket.emit("reset_load_cell", "");
+    });
+}
+
+function addAccumulatedFlowResetButtonListener(){
+    var resetButton = document.getElementById("accumulated_flow_reset");
+    resetButton.addEventListener("click", function() {
+        socket.emit("reset_accumulated_flow", "");
     });
 }
 
