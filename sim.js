@@ -17,6 +17,12 @@ socket.on("message", (message, remote) => {
     console.log("Message: \"" + message + "\" from device: " + remote.address + ":" + remote.port);
     receiverDeviceAddress = remote.address;
     receiverDevicePort = remote.port;
+    switch(JSON.parse(message).type) {
+        case "RESET_ACCUMULATED_FLOW":
+            flows[0].accumulatedLast = 0;
+            flows[1].accumulatedLast = 0;             
+        break;    
+    }
 });
 
 //socket.bind(PORT, HOST);
