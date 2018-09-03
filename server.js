@@ -157,6 +157,10 @@ io.sockets.on('connection', function (socket) {
         sendToBeagle("RESET_LOAD_CELL", "");
     });
 
+    socket.on("reset_accumulated_flow", (data) => {
+        sendToBeagle("RESET_ACCUMULATED_FLOW", "");
+    });
+
     socket.on("initial_volume", (data) => {
         if(data.name == "INITIAL_FUEL") {
             MODEL.SENSORS.FLO_IPA.initial = data.value;
