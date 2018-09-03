@@ -56,10 +56,15 @@ var numericSensors = [
 ];
 
 var valves = [
-    {name: "SV_FLUSH", states : ["OPEN", "CLOSED"]},
-    {name: "SV_N2O", states : ["OPEN", "CLOSED"]},
-    {name: "SV_N2O_FILL", states : ["OPEN", "CLOSED"]},
-    {name: "SV_IPA", states : ["OPEN", "CLOSED"]}
+    {name: "SV_FLUSH", states : [0,1]},
+    {name: "SV_N2O", states : [0,1]},
+    {name: "SV_N2O_FILL", states : [0,1]},
+    {name: "SV_IPA", states : [0,1]}
+];
+
+var actuators = [
+    {name: "ACT_IPA", min: 30, max: 60, last: 45},
+    {name: "ACT_N2O", min: 30, max: 60, last: 45}
 ];
 
 var pressures = [
@@ -104,8 +109,12 @@ setInterval(() => {
 
     setTimeout(function() {
         sendBlock(generateDataBlock("PRESSURE_DATA", pressures, 2));
-        console.log("");
     }, 300);
+
+    setTimeout(function() {
+        sendBlock(generateValveBlock("VALVE_DATA", valves, actuators));
+        console.log("");
+    }, 400);
     
 }, 2000);
 
@@ -150,6 +159,20 @@ function generateDataBlock(typename, listOfSensors, step) {
 
     for (sensor of listOfSensors) {
         blockObject.data[sensor.name] = rand(sensor, step);
+    }
+
+    return blockObject;
+}
+
+function generateValveBlock(typename, listOfValves, listOfActuator) {
+    var blockObject = {type: typename, data: {}};
+
+    for (sensor of listOfValves) {
+        blockObject.data[sensor.name] = sensor.states[Math.floor(Math.random() * 2)];
+    }
+    
+    for (sensor of listOfActuator) {
+        blockObject.data[sensor.name] = Math.floor(rand(sensor, 2));
     }
 
     return blockObject;

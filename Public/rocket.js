@@ -717,6 +717,7 @@ function updateLastUpdatedTime() {
     var temperatureTime = (Date.now() - DATA.SENSORS.TC_IPA.lastUpdated)/1000.0;
     var flowTime = (Date.now() - DATA.SENSORS.FLO_IPA.lastUpdated)/1000.0;
     var loadTime = (Date.now() - DATA.SENSORS.LOAD.lastUpdated)/1000.0;
+    var valveTime = (Date.now() - DATA.SENSORS.SV_FLUSH.lastUpdated)/1000.0;
 
     var limitTime = 4;
 
@@ -743,8 +744,13 @@ function updateLastUpdatedTime() {
     } else {
         panelString += "<p class=\"updates_dead\">Load is not receiving updates.</p>";
     }
-    
 
+    if (valveTime < limitTime) {
+        panelString += "<p class=\"updates_alive\">Valve: " + valveTime.toFixed(1) + " seconds ago.</p>";
+    } else {
+        panelString += "<p class=\"updates_dead\">Valve is not receiving updates.</p>";
+    }
+    
     labelElement.innerHTML = panelString;
 }
 

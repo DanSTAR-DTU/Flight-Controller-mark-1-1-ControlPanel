@@ -293,7 +293,15 @@ function update(block) {
             MODEL.SENSORS.SV_N2O_FILL.value = binaryToPosition(block.data.SV_N2O_FILL);
             MODEL.SENSORS.SV_IPA.value = binaryToPosition(block.data.SV_IPA);
             MODEL.SENSORS.ACT_IPA.value = block.data.ACT_IPA;
-            MODEL.SENSORS.ACT_N2O.value = block.data.ACT_N2O;            
+            MODEL.SENSORS.ACT_N2O.value = block.data.ACT_N2O;   
+            
+            // Last updated
+            MODEL.SENSORS.SV_FLUSH.lastUpdated = updateTime;
+            MODEL.SENSORS.SV_N2O.lastUpdated = updateTime;
+            MODEL.SENSORS.SV_N2O_FILL.lastUpdated = updateTime;
+            MODEL.SENSORS.SV_IPA.lastUpdated = updateTime;
+            MODEL.SENSORS.ACT_IPA.lastUpdated = updateTime;
+            MODEL.SENSORS.ACT_N2O.lastUpdated = updateTime;
             
             if(block.data.STATE > 0) {
                 MODEL.ACTIVE_STATE_ID = block.data.STATE;
