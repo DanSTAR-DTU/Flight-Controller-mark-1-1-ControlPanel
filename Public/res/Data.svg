@@ -87,9 +87,9 @@
      borderopacity="1"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="538.30486"
-     inkscape:cy="562.8222"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="291.19707"
+     inkscape:cy="416.05445"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -336,13 +336,13 @@
          style="font-size:40px;line-height:1.25">faf</tspan></text>
     <text
        id="FLO_IPA_L"
-       y="410.9422"
+       y="406.9422"
        x="372.03751"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"
        inkscape:label="#text4489"
        sodipodi:linespacing="0%"><tspan
-         y="410.9422"
+         y="406.9422"
          x="372.03751"
          id="tspan4491"
          sodipodi:role="line"
@@ -579,14 +579,14 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="607.33044"
-       y="408.73508"
+       y="404.73508"
        id="FLO_N2O_L"
        inkscape:label="#text4514"
        sodipodi:linespacing="0%"><tspan
          sodipodi:role="line"
          id="tspan4516"
          x="607.33044"
-         y="408.73508"
+         y="404.73508"
          style="font-size:13.08804035px;line-height:1.25">FlowL</tspan></text>
     <path
        sodipodi:nodetypes="cc"
@@ -850,22 +850,22 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="371.45181"
-       y="427.01941"
+       y="423.01941"
        id="text4361"
        sodipodi:linespacing="0%"><tspan
          sodipodi:role="line"
          id="tspan4363"
          x="371.45181"
-         y="427.01941"
+         y="423.01941"
          style="font-size:11.25047112px;line-height:1.25">FLO-IPA</tspan></text>
     <text
        id="text4365"
-       y="423.51941"
+       y="419.51941"
        x="606.95184"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"
        sodipodi:linespacing="0%"><tspan
-         y="423.51941"
+         y="419.51941"
          x="606.95184"
          id="tspan4367"
          sodipodi:role="line"
@@ -1012,13 +1012,13 @@
     <text
        inkscape:label="#text4514"
        id="FLO_N2O_M"
-       y="392.11807"
+       y="388.11807"
        x="607.33044"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"
        sodipodi:linespacing="0%"><tspan
          style="font-size:13.08804035px;line-height:1.25"
-         y="392.11807"
+         y="388.11807"
          x="607.33044"
          id="tspan4305"
          sodipodi:role="line">FlowM</tspan></text>
@@ -1027,14 +1027,14 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="372.03751"
-       y="392.91098"
+       y="388.91098"
        id="FLO_IPA_M"
        sodipodi:linespacing="0%"><tspan
          style="font-size:13.08804035px;line-height:1.25"
          sodipodi:role="line"
          id="tspan4309"
          x="372.03751"
-         y="392.91098">FlowM</tspan></text>
+         y="388.91098">FlowM</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.00000024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 454.66966,459.27605 0,-7.24785 26.76955,0 0,-7.6014"
@@ -1133,26 +1133,62 @@
     <text
        sodipodi:linespacing="0%"
        id="text4311"
-       y="443.01941"
+       y="439.01941"
        x="371.45181"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
          style="font-size:11.25047112px;line-height:1.25"
-         y="443.01941"
+         y="439.01941"
          x="371.45181"
          id="tspan4313"
-         sodipodi:role="line">Min: 0.047 Max: 0.47</tspan></text>
+         sodipodi:role="line">Min: 0.047 L/s </tspan><tspan
+         style="font-size:11.25047112px;line-height:1.25"
+         y="453.08249"
+         x="371.45181"
+         sodipodi:role="line"
+         id="tspan4315">Max: 0.47 L/s</tspan></text>
     <text
        sodipodi:linespacing="0%"
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="606.95184"
-       y="439.51941"
+       y="435.51941"
        id="text4315"><tspan
          style="font-size:11.25047112px;line-height:1.25"
          sodipodi:role="line"
          id="tspan4317"
          x="606.95184"
-         y="439.51941">Min: 0.188 Max: 1.88</tspan></text>
+         y="435.51941">Min: 0.188 L/s </tspan><tspan
+         style="font-size:11.25047112px;line-height:1.25"
+         sodipodi:role="line"
+         x="606.95184"
+         y="449.58249"
+         id="tspan4319">Max: 1.88 L/s</tspan></text>
+    <text
+       inkscape:label="#text4344"
+       id="text4321"
+       y="628.73944"
+       x="411.26794"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"
+       sodipodi:linespacing="0%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.08804035px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         y="628.73944"
+         x="411.26794"
+         id="tspan4324"
+         sodipodi:role="line">Mass flow ratio</tspan></text>
+    <text
+       sodipodi:linespacing="0%"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="411.26794"
+       y="663.12421"
+       id="MASS_FLOW_RATIO"
+       inkscape:label="#text4344"><tspan
+         sodipodi:role="line"
+         id="tspan4328"
+         x="411.26794"
+         y="663.12421"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:35.00000381px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'">0.0</tspan></text>
   </g>
 </svg>
