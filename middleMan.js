@@ -66,7 +66,7 @@ pressureParser.on('data',function(data){
         let fullStruct = Struct()
             .array('PT', 6, 'word16Sle')
             .word16Sle('LOAD')
-            .array('TC', 8, 'word16Ule');
+            .array('TC', 8, 'word16Sle');
        
         fullStruct._setBuff(data)
         
@@ -201,6 +201,10 @@ server.on("message", (message, remote) => {
         case 'RESET_LOAD_CELL':
             // Sebastian wants a 't'...
             pressureUART.write(new Buffer.from("t"));
+            break;
+        case 'RESET_ACCUMULATED_FLOW':
+            resetAccumulatedFlows();
+            break;
         default:
             break;
     }
@@ -219,8 +223,7 @@ function writeDataPoint(dataString){
 
 function startLog(message){
     isLogging  = true
-    initialAccumulatedFlows.FLO_IPA = jsonFlow.data.FLO_IPA.accumulated;
-    initialAccumulatedFlows.FLO_N2O = jsonFlow.data.FLO_N2O.accumulated;
+    resetAccumulatedFlows();
     writeStream = fs.createWriteStream("/danstar/logs/"+message.data.year+':'+message.data.month+':'+message.data.day+':'+message.data.hours+':'+message.data.minutes+':'+message.data.seconds+".txt")
     writeStream.write('start'+'\n', 'ascii');
 
@@ -229,6 +232,11 @@ function startLog(message){
 function stopLog() {
     isLogging = false;
     writeStream.end()
+}
+
+function resetAccumulatedFlows() {
+    initialAccumulatedFlows.FLO_IPA = jsonFlow.data.FLO_IPA.accumulated;
+    initialAccumulatedFlows.FLO_N2O = jsonFlow.data.FLO_N2O.accumulated;
 }
 
 function valveState(valveName, valveValue){
