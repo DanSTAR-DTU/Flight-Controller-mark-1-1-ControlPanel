@@ -384,7 +384,11 @@ function saveLogToCSV() {
 
     // Write valves to CSV
     filename = folder + sTime + "-" + nowTime + "_valves.csv";
-    writeSensorBranch(filename, ["SV_FLUSH", "SV_N2O", "SV_N2O_FILL", "SV_IPA", "ACT_IPA", "ACT_N2O"], historyData.TC);
+    writeSensorBranch(filename, ["SV_FLUSH", "SV_N2O", "SV_N2O_FILL", "SV_IPA", "ACT_IPA", "ACT_N2O"], historyData.VALVE);
+
+    // Write valves to CSV
+    filename = folder + sTime + "-" + nowTime + "_load.csv";
+    writeSensorBranch(filename, ["LOAD_CELL"], historyData.LOAD);
     
 }
 
