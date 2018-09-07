@@ -71,8 +71,8 @@ var MODEL = {
     TODAY_PRESSURE_BAR: 1.01800
 };
 
-//const UDP_IP = "192.168.2.2";
-const UDP_IP = "localhost";
+const UDP_IP = "192.168.2.2";
+//const UDP_IP = "localhost";
 const UDP_PORT = 5000;
 
 io.sockets.on('connection', function (socket) {
@@ -310,6 +310,50 @@ function update(block) {
             if (MODEL.IS_LOGGING) {
                 var dataPoint = {data: block.data, timestamp: getSessionTime()};
                 historyData.VALVE.push(dataPoint);
+            }
+
+            break;
+        case "SENSOR_DATA":
+
+            block.data.LOAD_CELL *= (0.001 * 9.82);
+            MODEL.SENSORS.LOAD.value = block.data.load.LOAD_CELL;
+            MODEL.SENSORS.LOAD.lastUpdated = updateTime;
+
+            // Convert to absolute
+            block.data.pressure.PT_IPA += MODEL.TODAY_PRESSURE_BAR;
+            block.data.pressure.PT_N2O += MODEL.TODAY_PRESSURE_BAR;
+            block.data.pressure.PT_N2 += MODEL.TODAY_PRESSURE_BAR;
+            block.data.pressure.PT_OX += MODEL.TODAY_PRESSURE_BAR;
+            block.data.pressure.PT_FUEL += MODEL.TODAY_PRESSURE_BAR;
+            block.data.pressure.PT_CHAM += MODEL.TODAY_PRESSURE_BAR;    
+
+            MODEL.SENSORS.PT_IPA.value = block.data.pressure.PT_IPA; MODEL.SENSORS.PT_IPA.lastUpdated = updateTime;
+            MODEL.SENSORS.PT_N2O.value = block.data.pressure.PT_N2O; MODEL.SENSORS.PT_N2O.lastUpdated = updateTime;
+            MODEL.SENSORS.PT_N2.value = block.data.pressure.PT_N2; MODEL.SENSORS.PT_N2.lastUpdated = updateTime;
+            MODEL.SENSORS.PT_OX.value = block.data.pressure.PT_OX; MODEL.SENSORS.PT_OX.lastUpdated = updateTime;
+            MODEL.SENSORS.PT_FUEL.value = block.data.pressure.PT_FUEL; MODEL.SENSORS.PT_FUEL.lastUpdated = updateTime;
+            MODEL.SENSORS.PT_CHAM.value = block.data.pressure.PT_CHAM; MODEL.SENSORS.PT_CHAM.lastUpdated = updateTime;
+
+            MODEL.SENSORS.TC_IPA.value = block.data.tc.TC_IPA; MODEL.SENSORS.TC_IPA.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_N2O.value = block.data.tc.TC_N2O; MODEL.SENSORS.TC_N2O.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_1.value = block.data.tc.TC_1; MODEL.SENSORS.TC_1.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_2.value = block.data.tc.TC_2; MODEL.SENSORS.TC_2.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_3.value = block.data.tc.TC_3; MODEL.SENSORS.TC_3.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_4.value = block.data.tc.TC_4; MODEL.SENSORS.TC_4.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_5.value = block.data.tc.TC_5; MODEL.SENSORS.TC_5.lastUpdated = updateTime;
+            MODEL.SENSORS.TC_6.value = block.data.tc.TC_6; MODEL.SENSORS.TC_6.lastUpdated = updateTime;
+
+            if (MODEL.IS_LOGGING) {
+                var logtime = getSessionTime();
+                
+                var loadPoint = {data: block.data.load, timestamp: logtime};
+                historyData.LOAD.push(loadPoint);
+
+                var pressurePoint = {data: block.data.pressure, timestamp: logtime};
+                historyData.PRESSURE.push(pressurePoint);
+
+                var tcPoint = {data: block.data.tc, timestamp: logtime};
+                historyData.TC.push(tcPoint);
             }
 
             break;

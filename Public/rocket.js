@@ -848,4 +848,4 @@ function updateVolumeIndicators() {
 
 } 
 
-setInterval(updateLastUpdatedTime, 1000);
+setInterval(updateLastUpdatedTime, 500);
