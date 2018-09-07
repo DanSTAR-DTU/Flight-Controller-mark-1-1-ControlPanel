@@ -117,7 +117,7 @@ io.sockets.on('connection', function (socket) {
             sendToBeagle("ACTUATOR", {type: "BOTH", fuelValue: data.fuelValue, oxidizerValue: data.oxidizerValue});
         }
         
-        emitModel();
+        //emitModel();
     });
 
     socket.on('log_cmd', (data) => {
@@ -125,7 +125,7 @@ io.sockets.on('connection', function (socket) {
             case "START":
                 // Reset - clear history
                 historyData = {TC: [], VALVE: [], ACTUATOR: [], FLOW: [], PRESSURE: [], LOAD: []};
-                io.sockets.emit("clear_graphs", 0);
+                //io.sockets.emit("clear_graphs", 0);
 
                 // Init logging
                 MODEL.IS_LOGGING = true;
@@ -181,7 +181,7 @@ io.sockets.on('connection', function (socket) {
         if (data.name == "STATE_ID") {
             sendToBeagle("STATE", {id: data.id});
         }
-        emitModel();
+        //emitModel();
     });
 });
 
@@ -212,7 +212,7 @@ function update(block) {
     var updateTime = Date.now();
 
     switch (block.type) {
-        case "TC_DATA":
+        /*case "TC_DATA":
             MODEL.SENSORS.TC_IPA.value = block.data.TC_IPA; MODEL.SENSORS.TC_IPA.lastUpdated = updateTime;
             MODEL.SENSORS.TC_N2O.value = block.data.TC_N2O; MODEL.SENSORS.TC_N2O.lastUpdated = updateTime;
             MODEL.SENSORS.TC_1.value = block.data.TC_1; MODEL.SENSORS.TC_1.lastUpdated = updateTime;
@@ -228,7 +228,7 @@ function update(block) {
                 io.sockets.emit("graph_data_tc", dataPoint);
             }
             
-            break;
+            break;*/
         case "FLOW_DATA":
             MODEL.SENSORS.FLO_IPA.value = block.data.FLO_IPA.value/1000.0;
             MODEL.SENSORS.FLO_IPA.accumulated = block.data.FLO_IPA.accumulated/1000.0;
@@ -251,7 +251,7 @@ function update(block) {
             }
 
             break;
-        case "PRESSURE_DATA":
+        /*case "PRESSURE_DATA":
 
             // Convert to absolute
             block.data.PT_IPA += MODEL.TODAY_PRESSURE_BAR;
@@ -286,7 +286,7 @@ function update(block) {
                 io.sockets.emit("graph_data_load", dataPoint);
             }
 
-            break;
+            break;*/
         case "VALVE_DATA":
             MODEL.SENSORS.SV_FLUSH.value = binaryToPosition(block.data.SV_FLUSH);
             MODEL.SENSORS.SV_N2O.value = binaryToPosition(block.data.SV_N2O);
@@ -345,7 +345,7 @@ function update(block) {
 
             if (MODEL.IS_LOGGING) {
                 var logtime = getSessionTime();
-                
+
                 var loadPoint = {data: block.data.load, timestamp: logtime};
                 historyData.LOAD.push(loadPoint);
 
@@ -361,7 +361,7 @@ function update(block) {
             console.log("Unknown block type: " + block.type);
     }
 
-    emitModel();
+    //emitModel();
     
 }
 
@@ -380,6 +380,8 @@ function emitModel() {
     io.sockets.emit("model_update", MODEL);
     
 }
+
+setInterval(emitModel, 400);
 
 function sendToBeagle(type, data) {
     var packetStr = JSON.stringify({type: type, data: data})

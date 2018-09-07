@@ -778,11 +778,9 @@ socket.on('connect', function() {
 });
 
 socket.on('model_update', function (model){
-    var beforeData = DATA;
     DATA = mergeModels(DATA, model);
-    //console.log({model: model, beforeData: beforeData, afterData: DATA});
-
     syncVisuals();
+    //console.log("Model update");
 });
 
 function mergeModels(localModel, serverModel) {
