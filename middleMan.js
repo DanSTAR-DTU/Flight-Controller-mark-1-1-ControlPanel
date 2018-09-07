@@ -132,6 +132,7 @@ pressureParser.on('data',function(data){
         jsonSensorData.data.load.LOAD_CELL = load*voltsPerBit*1000/mvGram
 
         console.log("Sensor data");
+        console.log(jsonSensorData.data.tc);
         sendBlock(jsonSensorData);
 })
 

@@ -87,6 +87,7 @@ window.onload = function () {
     addStateButtonsListener();
     addLoadResetButtonListener();
     addAccumulatedFlowResetButtonListener();
+    addLockOverlayListener();
     socket.emit("refresh_model", {});
 };
 
@@ -625,6 +626,22 @@ function addStateButtonsListener () {
 
 function stateButtonPressed(state) {
     socket.emit("state_set", {name: "STATE_ID", id: state.id})
+}
+
+function addLockOverlayListener() {
+    var lockPanel = document.getElementById("lock_overlay_container")
+    var text = lockPanel.children[0];
+    var checkbox = lockPanel.children[1];
+    
+    checkbox.addEventListener("click", function() {
+        if (checkbox.checked) {
+            lockPanel.classList.add("overlay_lock");
+            text.innerHTML = "LOCKED";
+        } else {
+            lockPanel.classList.remove("overlay_lock");
+            text.innerHTML = "Lock";
+        }
+    });
 }
 
 function updateStateButtonVisuals() {

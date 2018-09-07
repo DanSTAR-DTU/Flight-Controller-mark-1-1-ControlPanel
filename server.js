@@ -315,7 +315,7 @@ function update(block) {
             break;
         case "SENSOR_DATA":
 
-            block.data.LOAD_CELL *= (0.001 * 9.82);
+            block.data.load.LOAD_CELL *= (0.001 * 9.82);
             MODEL.SENSORS.LOAD.value = block.data.load.LOAD_CELL;
             MODEL.SENSORS.LOAD.lastUpdated = updateTime;
 
