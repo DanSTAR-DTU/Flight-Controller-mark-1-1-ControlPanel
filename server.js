@@ -20,6 +20,7 @@ app.use(favicon(path.join(__dirname, 'Public/res', 'favicon.png')))
 var io = socket(server)
 
 // Beaglebone
+
 var UDPSocket = udp.createSocket('udp4');
 var startTime = Date.now();
 var historyData = {TC: [], VALVE: [], FLOW: [], PRESSURE: [], LOAD: []};
@@ -295,6 +296,7 @@ function update(block) {
             MODEL.SENSORS.ACT_IPA.value = block.data.ACT_IPA;
             MODEL.SENSORS.ACT_N2O.value = block.data.ACT_N2O;   
             
+            
             // Last updated
             MODEL.SENSORS.SV_FLUSH.lastUpdated = updateTime;
             MODEL.SENSORS.SV_N2O.lastUpdated = updateTime;
@@ -342,6 +344,7 @@ function update(block) {
             MODEL.SENSORS.TC_4.value = block.data.tc.TC_4; MODEL.SENSORS.TC_4.lastUpdated = updateTime;
             MODEL.SENSORS.TC_5.value = block.data.tc.TC_5; MODEL.SENSORS.TC_5.lastUpdated = updateTime;
             MODEL.SENSORS.TC_6.value = block.data.tc.TC_6; MODEL.SENSORS.TC_6.lastUpdated = updateTime;
+
 
             if (MODEL.IS_LOGGING) {
                 var logtime = getSessionTime();

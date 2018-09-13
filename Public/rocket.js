@@ -3,7 +3,7 @@ var socket = io();
 // Valve States
 var OPEN = "OPEN";
 var CLOSED = "CLOSED";
-
+var isBurnActive = false;
 var DATA = {
     SENSORS: {
         SV_FLUSH: {svg_name: "SV_FLUSH", value: CLOSED, dom_element: null},
@@ -625,7 +625,7 @@ function addStateButtonsListener () {
 }
 
 function stateButtonPressed(state) {
-    socket.emit("state_set", {name: "STATE_ID", id: state.id})
+    socket.emit("state_set", {name: "STATE_ID", id: state.id});
 }
 
 function addLockOverlayListener() {
@@ -670,6 +670,7 @@ function findStateByID(id) {
        if (DATA.STATES[stateName].id == id) {
            return DATA.STATES[stateName];
        }
+       
     }
 }
 
@@ -794,8 +795,24 @@ socket.on('connect', function() {
     console.log("Connected");
 });
 
+function updateBurnTimer(){
+    if(isBurnActive){
+        document.getElementById('Timer').innerHTML =  ((Date.now() - startTime) / 1000.0).toFixed(2) + "s";
+    }
+}
+var startTime;
 socket.on('model_update', function (model){
     DATA = mergeModels(DATA, model);
+    
+    if(DATA.SENSORS.PT_CHAM.value >= 5){
+        if(!isBurnActive){
+            isBurnActive = true;
+            startTime = Date.now();
+        }
+    }else{
+        isBurnActive = false;
+    }
+
     syncVisuals();
     //console.log("Model update");
 });
@@ -862,5 +879,5 @@ function updateVolumeIndicators() {
     FLO_N2O.dom_element_time.textContent = oxidizerTimeLeft.toFixed(1) + "s";
 
 } 
-
+setInterval(updateBurnTimer, 87);
 setInterval(updateLastUpdatedTime, 500);

@@ -73,7 +73,7 @@ var pressures = [
     {name: "PT_N2O", min: 30, max: 60, last: 45},
     {name: "PT_FUEL", min: 30, max: 60, last: 45},
     {name: "PT_OX", min: 30, max: 60, last: 45},
-    {name: "PT_CHAM", min: 30, max: 60, last: 45}
+    {name: "PT_CHAM", min: 0, max: 60, last: 0}
 ];
 
 var temperatures = [
@@ -97,19 +97,11 @@ var flows = [
 ];
 
 setInterval(() => {
-    sendBlock(generateDataBlock("TC_DATA", temperatures, 2));
+    sendBlock(generateSensorBoardDataBlock());
 
     setTimeout(function() {
         sendBlock(generateFlow());
     }, 100);
-
-    setTimeout(function() {
-        sendBlock(generateDataBlock("LOAD_CELL_DATA", load, 2));
-    }, 200);
-
-    setTimeout(function() {
-        sendBlock(generateDataBlock("PRESSURE_DATA", pressures, 2));
-    }, 300);
 
     setTimeout(function() {
         sendBlock(generateValveBlock("VALVE_DATA", valves, actuators));
@@ -153,6 +145,27 @@ function generateFlow() {
 
     return block;
 }
+
+function generateSensorBoardDataBlock() {
+    var blockObject = {type: "SENSOR_DATA", data: {
+        tc: {},
+        pressure: {},
+        load: {}
+    }};
+
+    for (sensor of temperatures) {
+        blockObject.data.tc[sensor.name] = rand(sensor, 2);
+    }
+
+    for (sensor of pressures) {
+        blockObject.data.pressure[sensor.name] = rand(sensor, 2);
+    }
+
+    blockObject.data.load["LOAD_CELL"] = rand(load[0], 2);
+
+    return blockObject;
+
+} 
 
 function generateDataBlock(typename, listOfSensors, step) {
     var blockObject = {type: typename, data: {}};
